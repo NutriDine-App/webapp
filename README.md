@@ -1,2 +1,2 @@
 # webapp
-Respnsive || Progressive WebApp of NutriDine
+Progressive WebApp of NutriDine
