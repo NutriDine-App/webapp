@@ -1,18 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useColorMode, Button } from '@chakra-ui/react';
 
 function App() {
+  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <div style={{
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      flexDirection:'column'
     }}>
-      HELLLLOOO NEW NUTRIDINE
+      <Button onClick={toggleColorMode}>
+        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+      </Button>
+      <div>
+        HELLLLOOO NEW NUTRIDINE
+      </div>
     </div>
+    
   );
 }
 
