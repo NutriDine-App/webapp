@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { useColorMode, Button } from "@chakra-ui/react";
+import { useColorMode, Text } from "@chakra-ui/react";
 import TetrisLoader from "./screens/loading/TetrisLoader";
+import NavBar from "./components/navbar/Navbar";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -19,21 +20,72 @@ function App() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        fontWeight: "bold",
-        flexDirection: "column",
-      }}
-    >
-      <Button onClick={toggleColorMode}>
-        Toggle {colorMode === "light" ? "Dark" : "Light"}
-      </Button>
-      <div>HELLLLOOO NEW NUTRIDINE</div>
-    </div>
+    <>
+      <NavBar />
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
+    </>
   );
 }
 
