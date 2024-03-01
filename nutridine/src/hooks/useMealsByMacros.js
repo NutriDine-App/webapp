@@ -19,8 +19,8 @@ const useMealsByMacros = ({
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const apiKey = process.env.NUTRITIONIX_API_KEY;
-    const appId = process.env.NUTRITIONIX_APP_ID;
+    const apiKey = process.env.REACT_APP_NUTRITIONIX_API_KEY;
+    const appId = process.env.REACT_APP_NUTRITIONIX_APP_ID;
 
     const fetchData = async () => {
       try {
