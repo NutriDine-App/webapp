@@ -5,8 +5,6 @@ import TetrisLoader from "./screens/loading/TetrisLoader";
 import NavBar from "./components/navbar/Navbar";
 
 function App() {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -22,69 +20,6 @@ function App() {
   return (
     <>
       <NavBar />
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
-      <Text>adlncajdlbncjladbvnjladnvladjvnkl</Text>
     </>
   );
 }
