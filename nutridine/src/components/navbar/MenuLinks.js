@@ -35,7 +35,10 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   }, [isScrolling]);
 
   const { colorMode, toggleColorMode } = useColorMode();
-  const scrolling_color = useColorModeValue("#BBBBBB", "#252E3E");
+  const scrolling_color = [
+    "transparent",
+    useColorModeValue("#bbbbbb", "#252E3E"),
+  ];
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "flex" }}
@@ -43,7 +46,7 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
       position={{ base: "fixed", md: "relative" }}
       width={{ base: "100vw", md: "auto" }}
       height={{ base: "100vh", md: "auto" }}
-      bg={useColorModeValue("white", "gray.800")}
+      bg={[useColorModeValue("white", "gray.800"), "transparent"]}
       zIndex={20}
       top={0}
       left={0}
@@ -58,7 +61,7 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
         direction={{ base: "column", md: "row" }}
         pt={[4, 4, 0, 0]}
         p={[0, 0, 2, 2]}
-        bg={isScrolling ? scrolling_color : "transparent"}
+        bg={isScrolling ? "transparent" : scrolling_color}
         borderRadius={"full"}
         style={{
           transition: "background-color 1.5s",
@@ -80,7 +83,13 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
           Macro
         </MenuItem>
         <Box>
-          <Button onClick={toggleColorMode} variant="ghost">
+          <Button
+            onClick={toggleColorMode}
+            variant="ghost"
+            _hover={{
+              bg: "transparent", // Keeps background transparent on hover
+            }}
+          >
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           </Button>
         </Box>

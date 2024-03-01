@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { useColorMode, Text } from "@chakra-ui/react";
 import TetrisLoader from "./screens/loading/TetrisLoader";
-import NavBar from "./components/navbar/Navbar";
+import MacroPage from "./screens/macro/MacroPage";
+import Layout from "./Layout";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,9 +18,9 @@ function App() {
   }
 
   return (
-    <>
-      <NavBar />
-    </>
+    <Layout>
+      <MacroPage />
+    </Layout>
   );
 }
 
