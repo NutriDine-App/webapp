@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { useColorMode, Button } from "@chakra-ui/react";
 import TetrisLoader from "./screens/loading/TetrisLoader";
+import FoodCard from "./components/FoodCard";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -32,7 +33,7 @@ function App() {
       <Button onClick={toggleColorMode}>
         Toggle {colorMode === "light" ? "Dark" : "Light"}
       </Button>
-      <div>HELLLLOOO NEW NUTRIDINE</div>
+      <FoodCard />
     </div>
   );
 }
