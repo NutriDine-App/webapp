@@ -1,11 +1,14 @@
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import "./App.css";
+
 import { useColorMode, Button } from "@chakra-ui/react";
 import TetrisLoader from "./screens/loading/TetrisLoader";
 
+import "./App.css";
+
+
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -19,21 +22,20 @@ function App() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        fontWeight: "bold",
-        flexDirection: "column",
-      }}
-    >
-      <Button onClick={toggleColorMode}>
-        Toggle {colorMode === "light" ? "Dark" : "Light"}
-      </Button>
-      <div>HELLLLOOO NEW NUTRIDINE</div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={
+          <div className="temp">
+            <Button onClick={toggleColorMode}>
+              Toggle {colorMode === "light" ? "Dark" : "Light"}
+            </Button>
+            <div>HELLLLOOO NEW NUTRIDINE</div>
+            <Link to="/macro">Go to Macro Route</Link>
+          </div>
+        } />
+        <Route path="/macro" element={<div>This is the macro page</div>} />
+      </Routes>
+    </BrowserRouter >
   );
 }
 
