@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import brandIds from "../constants/brandIds";
 
 // DOCS: https://docx.syndigo.com/developers/docs/instant-endpoint
 /** All parameters of type number (except "query", which is a string). Assumed units for all macros are grams */

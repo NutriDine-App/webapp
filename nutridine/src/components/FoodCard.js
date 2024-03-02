@@ -4,13 +4,14 @@ import nutritionIxIds from "../constants/nutritionIxIds";
 import nutritionIx_credit from "../images/nutritionIx_credit.png";
 
 export default function FoodCard() {
+  // Restricts search to only these brand IDs
   const desiredMacros = {
-    query: "fast food",
-    minCalories: 500,
-    maxCalories: 1800,
-    minProtein: 10,
-    maxProtein: 40,
-    minCarbs: 2,
+    query: "",
+    minCalories: 600,
+    maxCalories: 1000,
+    minProtein: 30,
+    maxProtein: 100,
+    minCarbs: 1,
     maxCarbs: 50,
     minFat: 1,
     maxFat: 40,
@@ -29,6 +30,7 @@ export default function FoodCard() {
           {meals.map((meal) => (
             <Box key={meal.food_name} mb="1rem">
               <Heading fontSize={"xl"}>{meal.food_name}</Heading>
+              <Heading fontSize={"xl"}>{meal.brand_name}</Heading>
               <HStack>
                 {meal.full_nutrients.map((nutrient) => (
                   <Text key={nutrient.attr_id}>
