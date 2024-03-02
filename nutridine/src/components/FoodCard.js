@@ -40,7 +40,6 @@ export default function FoodCard() {
                       `Carbohydrates: ${nutrient.value}g`}
                     {nutrient.attr_id === nutritionIxIds.calories &&
                       `Calories: ${nutrient.value}kcal`}
-                    {/* Add additional nutrient IDs as needed */}
                   </Text>
                 ))}
               </HStack>

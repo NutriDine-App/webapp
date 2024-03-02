@@ -49,6 +49,7 @@ const NavBarContainer = ({ children, ...props }) => {
     <Center
       p={4}
       width="100%"
+      height={"auto"}
       position="fixed"
       top={0}
       zIndex={2}
@@ -62,7 +63,6 @@ const NavBarContainer = ({ children, ...props }) => {
         wrap="wrap"
         width="100%"
         mb={8}
-        p={8}
         borderRadius={25}
         color={color}
         fontFamily={"navbar"}
