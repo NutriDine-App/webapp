@@ -9,8 +9,6 @@ import {
 import useMealsByMacros from "../hooks/useMealsByMacros";
 import { useState } from "react";
 import DetailedFoodModalContent from "./DetailedFoodModalContent";
-// import nutritionIxIds from "../constants/nutritionIxIds";
-// import nutritionIx_credit from "../images/nutritionIx_credit.png";
 
 export default function FoodCard() {
   // Restricts search to only these brand IDs
@@ -27,9 +25,17 @@ export default function FoodCard() {
   };
   const { meals, loading, error } = useMealsByMacros(desiredMacros);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedMeal, setSelectedMeal] = useState(null);
 
-  const closeModal = () => setIsOpen(false);
-  const openModal = () => setIsOpen(true);
+  const openModal = (meal) => {
+    setSelectedMeal(meal);
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedMeal(null);
+    setIsOpen(false);
+  };
 
   return (
     <Box border="2px solid black">
@@ -46,56 +52,24 @@ export default function FoodCard() {
               m="1rem"
               p="1rem"
               border="2px solid black"
-              onClick={openModal}
+              onClick={() => openModal(meal)}
             >
-              <Heading fontSize={"xl"}>{meal.food_name}</Heading>
-              <Modal isOpen={isOpen} onClose={closeModal}>
-                <ModalOverlay />
-                <ModalContent>
-                  <DetailedFoodModalContent meal={meal} onClose={closeModal} />
-                </ModalContent>
-              </Modal>
+              <Heading fontSize="xl">{meal.food_name}</Heading>
             </Box>
           ))}
+          {selectedMeal && (
+            <Modal isOpen={isOpen} onClose={closeModal}>
+              <ModalOverlay />
+              <ModalContent w="90%" h="90%">
+                <DetailedFoodModalContent
+                  meal={selectedMeal}
+                  onClose={closeModal}
+                />
+              </ModalContent>
+            </Modal>
+          )}
         </Box>
       )}
     </Box>
   );
-
-  // return (
-  //   <Box>
-  //     {loading ? (
-  //       <p>Loading...</p>
-  //     ) : error ? (
-  //       <p>Error: {error.message}</p>
-  //     ) : (
-  //       <Box>
-  //         {meals.length === 0 && <Text>No meals found</Text>}
-  //         {meals.map((meal) => (
-  //           <Box key={meal.food_name} mb="1rem">
-  //             <Heading fontSize={"xl"}>{meal.food_name}</Heading>
-  //             <Heading fontSize={"xl"}>{meal.brand_name}</Heading>
-  //             <HStack>
-  //               {meal.full_nutrients.map((nutrient) => (
-  //                 <Text key={nutrient.attr_id}>
-  //                   {nutrient.attr_id === nutritionIxIds.protein &&
-  //                     `Protein: ${nutrient.value}g`}
-  //                   {nutrient.attr_id === nutritionIxIds.fat &&
-  //                     `Fat: ${nutrient.value}g`}
-  //                   {nutrient.attr_id === nutritionIxIds.carbohydrates &&
-  //                     `Carbohydrates: ${nutrient.value}g`}
-  //                   {nutrient.attr_id === nutritionIxIds.calories &&
-  //                     `Calories: ${nutrient.value}kcal`}
-  //                 </Text>
-  //               ))}
-  //             </HStack>
-  //           </Box>
-  //         ))}
-  //       </Box>
-  //     )}
-  //     <Box bg="white">
-  //       <Image maxH="50px" src={nutritionIx_credit} />
-  //     </Box>
-  //   </Box>
-  // );
 }

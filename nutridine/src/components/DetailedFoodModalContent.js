@@ -4,27 +4,72 @@ import {
   ModalBody,
   ModalFooter,
   Button,
+  Text,
+  VStack,
+  Image,
+  Box,
 } from "@chakra-ui/react";
+import useMealById from "../hooks/useMealById";
+import LoadingSpinner from "./LoadingSpinner";
+import NutritionFacts from "./NutritionFacts";
 
 export default function DetailedFoodModalContent({ meal, onClose }) {
+  const { nix_item_id } = meal;
+  const { detailedMeal, loading, error } = useMealById({ nix_item_id });
+
   return (
     <>
-      <ModalHeader>{meal ? meal.food_name : "Meal Name"}</ModalHeader>
+      <ModalHeader>
+        <VStack alignItems={"flex-start"}>
+          <Text fontSize={"xx-large"}>
+            <b>{detailedMeal ? detailedMeal.food_name : ""}</b>
+          </Text>
+          <Text fontSize={"xl"}>
+            {detailedMeal ? detailedMeal.brand_name : ""}
+          </Text>
+        </VStack>
+      </ModalHeader>
       <ModalCloseButton />
-      <ModalBody>
-        {meal ? (
-          // Display meal details
-          <p>description...</p>
+      <ModalBody
+        overflowY={"scroll"}
+        css={{
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+      >
+        {loading ? (
+          <Box
+            w="100%"
+            h="80%"
+            display="flex"
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <LoadingSpinner />
+          </Box>
+        ) : error ? (
+          <p>Error: {error.message}</p>
         ) : (
-          // Display a loading message or placeholder content
-          <p>Loading...</p>
+          <VStack alignItems={"center"} justifyContent={"center"}>
+            <NutritionFacts detailedMeal={detailedMeal} />
+            <Image
+              src={detailedMeal.photo?.thumb}
+              alt={detailedMeal.food_name}
+            />
+          </VStack>
         )}
       </ModalBody>
       <ModalFooter>
-        <Button colorScheme="blue" mr={3} onClick={onClose}>
+        <Button
+          bg={"light.primary.600"}
+          color={"white"}
+          _hover={{ bg: "light.primary.700" }}
+          mr={3}
+          onClick={onClose}
+        >
           Close
         </Button>
-        {/* Add additional buttons or actions here */}
       </ModalFooter>
     </>
   );

@@ -1,5 +1,13 @@
 import React from "react";
-import { Box, Heading, HStack, VStack, Text, Divider } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  HStack,
+  VStack,
+  Text,
+  Divider,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 function NutritionFacts({ detailedMeal }) {
   const {
@@ -32,13 +40,22 @@ function NutritionFacts({ detailedMeal }) {
     sugars: 50, // g
     protein: 50, // g
   };
+  const borderColors = useColorModeValue("black", "white");
+
   return (
-    <Box borderWidth="1px" borderRadius="lg" p="4" maxW="md">
+    <Box
+      borderWidth="5px"
+      borderColor={borderColors}
+      borderRadius="lg"
+      p="5"
+      my="5"
+      maxW="md"
+    >
       {/* NUTRITION FACTS */}
       <Heading as="h2" size="xl">
         Nutrition Facts
       </Heading>
-      <Divider borderBottomWidth="1px" borderColor="black" my="1" />
+      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
 
       {/* TOTAL SERVINGS */}
       <VStack alignItems={"flex-start"}>
@@ -54,7 +71,7 @@ function NutritionFacts({ detailedMeal }) {
       </VStack>
 
       {/* AMOUNT PER SERVING */}
-      <Divider borderBottomWidth="10px" borderColor="black" my="2px" />
+      <Divider borderBottomWidth="10px" borderColor={borderColors} my="2px" />
       <Heading size="sm">Amount Per Serving</Heading>
 
       {/* CALORIES */}
@@ -64,7 +81,7 @@ function NutritionFacts({ detailedMeal }) {
           {nf_calories ?? 0}
         </Heading>
       </HStack>
-      <Divider borderBottomWidth="8px" borderColor="black" my="2px" />
+      <Divider borderBottomWidth="8px" borderColor={borderColors} my="2px" />
 
       {/* DAILY VALUE */}
       <HStack justifyContent={"flex-end"}>
@@ -72,7 +89,7 @@ function NutritionFacts({ detailedMeal }) {
           <b>% Daily Value*</b>
         </Text>
       </HStack>
-      <Divider borderBottomWidth="1px" borderColor="black" my="1" />
+      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
 
       {/* FAT */}
       <HStack justifyContent={"space-between"}>
@@ -86,7 +103,7 @@ function NutritionFacts({ detailedMeal }) {
           <b>{Math.round((nf_total_fat / dailyMax.totalFat) * 100)}%</b>
         </Text>
       </HStack>
-      <Divider borderBottomWidth="1px" borderColor="black" my="1" />
+      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
       <HStack justifyContent={"space-between"}>
         <HStack ml={"2rem"}>
           <Text>Saturated Fat</Text>
@@ -96,12 +113,12 @@ function NutritionFacts({ detailedMeal }) {
           <b>{Math.round((nf_saturated_fat / dailyMax.saturatedFat) * 100)}%</b>
         </Text>
       </HStack>
-      <Divider borderBottomWidth="1px" borderColor="black" my="1" />
+      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
       <HStack ml={"2rem"}>
         <Text>Trans Fat</Text>
         <Text>{trans_fat ?? 0}g</Text>
       </HStack>
-      <Divider borderBottomWidth="1px" borderColor="black" my="1" />
+      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
 
       {/* CHOLESTREROL */}
       <HStack justifyContent={"space-between"}>
@@ -115,7 +132,7 @@ function NutritionFacts({ detailedMeal }) {
           <b>{Math.round((nf_cholesterol / dailyMax.cholesterol) * 100)}%</b>
         </Text>
       </HStack>
-      <Divider borderBottomWidth="1px" borderColor="black" my="1" />
+      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
 
       {/* SODIUM */}
       <HStack justifyContent={"space-between"}>
@@ -129,7 +146,7 @@ function NutritionFacts({ detailedMeal }) {
           <b>{Math.round((nf_sodium / dailyMax.sodium) * 100)}%</b>
         </Text>
       </HStack>
-      <Divider borderBottomWidth="1px" borderColor="black" my="1" />
+      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
 
       {/* TOTAL CARBOHYDRATES */}
       <HStack justifyContent={"space-between"}>
@@ -148,7 +165,7 @@ function NutritionFacts({ detailedMeal }) {
           </b>
         </Text>
       </HStack>
-      <Divider borderBottomWidth="1px" borderColor="black" my="1" />
+      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
       <HStack justifyContent={"space-between"}>
         <HStack ml={"2rem"}>
           <Text>Dietary Fiber</Text>
@@ -158,12 +175,12 @@ function NutritionFacts({ detailedMeal }) {
           <b>{Math.round((nf_dietary_fiber / dailyMax.dietaryFiber) * 100)}%</b>
         </Text>
       </HStack>
-      <Divider borderBottomWidth="1px" borderColor="black" my="1" />
+      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
       <HStack ml={"2rem"}>
         <Text>Total Sugars</Text>
         <Text>{nf_sugars ?? 0}g</Text>
       </HStack>
-      <Divider borderBottomWidth="1px" borderColor="black" my="1" />
+      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
 
       {/* PROTEIN */}
       <HStack justifyContent={"space-between"}>
@@ -177,7 +194,7 @@ function NutritionFacts({ detailedMeal }) {
           <b>{Math.round((nf_protein / dailyMax.protein) * 100)}%</b>
         </Text>
       </HStack>
-      <Divider borderBottomWidth="8px" borderColor="black" my="2px" />
+      <Divider borderBottomWidth="8px" borderColor={borderColors} my="2px" />
 
       <HStack alignItems={"flex-start"}>
         <Text>*</Text>

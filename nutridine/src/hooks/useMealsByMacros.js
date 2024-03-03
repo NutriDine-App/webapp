@@ -24,6 +24,8 @@ const useMealsByMacros = ({
     const appId = process.env.REACT_APP_NUTRITIONIX_APP_ID;
 
     const fetchData = async () => {
+      console.log("useMealsByMacros is fetching...");
+
       try {
         // Requires a POST request to filter by calories.
         // Cannot inject variables in json field (for nutritionIX food ids)
@@ -60,6 +62,7 @@ const useMealsByMacros = ({
               "Content-Type": "application/json",
               "x-app-id": appId,
               "x-app-key": apiKey,
+              "x-remote-user-id": 0,
             },
           }
         );
