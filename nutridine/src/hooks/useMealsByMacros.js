@@ -36,7 +36,8 @@ const useMealsByMacros = (
           let response = await axios.post(
             "https://trackapi.nutritionix.com/v2/search/instant",
             {
-              query: query,
+              query: Object.keys(brandIds).join(" ") + " " + query,
+              brand_ids: Object.values(brandIds),
               detailed: true,
               common: false,
               full_nutrients: {

@@ -28,7 +28,7 @@ function AttributeSliders() {
   const [showSliders, setShowSliders] = useState(true);
   const [shouldFetch, setShouldFetch] = useState(false);
   const [desiredMacros, setDesiredMacros] = useState({
-    query: "fast food",
+    query: "",
     minCalories: 0,
     maxCalories: 0,
     minProtein: 0,
@@ -52,7 +52,7 @@ function AttributeSliders() {
 
   const handleSubmit = () => {
     setDesiredMacros({
-      query: "fast food",
+      query: "",
       minCalories: calories[0],
       maxCalories: calories[1],
       minProtein: protein[0],
@@ -77,8 +77,9 @@ function AttributeSliders() {
 
   const buttonBg = useColorModeValue("light.primary.500", "dark.primary.600");
   const sliderBg = useColorModeValue("gray.300", "dark.primary.500");
+
   return (
-    <Box>
+    <Box maxWidth={["100vw", "100vw", "80vw", "80vw"]}>
       {showSliders && (
         <VStack
           spacing={8}
@@ -87,8 +88,16 @@ function AttributeSliders() {
           justify={["center", "center", "flex-start", "flex-start"]}
           align={["center", "center", "flex-start", "flex-start"]}
         >
-          <Text fontSize={"xl"} fontWeight="bold" mb={"1rem"}>
+          <Text fontSize={"xl"} fontWeight="bold" mb={"1"}>
             Nutrient Range Selectors
+          </Text>
+          <Text
+            fontFamily={"navbar"}
+            fontSize={["md", "md", "lg", "lg"]}
+            mb={"4"}
+          >
+            This page can be used to filter and search food items based on
+            calorie, protein, carbohydrates, and fat.
           </Text>
           {[
             {
@@ -96,32 +105,28 @@ function AttributeSliders() {
               value: calories,
               setValue: setCalories,
               min: 0,
-              max: 3000,
-              colorScheme: "red",
+              max: 10000,
             },
             {
               label: "Protein (g)",
               value: protein,
               setValue: setProtein,
               min: 0,
-              max: 50,
-              colorScheme: "pink",
+              max: 100,
             },
             {
-              label: "Carbs (g)",
+              label: "Carbohydrates (g)",
               value: carbs,
               setValue: setCarbs,
               min: 0,
-              max: 80,
-              colorScheme: "blue",
+              max: 100,
             },
             {
               label: "Fat (g)",
               value: fat,
               setValue: setFat,
               min: 0,
-              max: 50,
-              colorScheme: "yellow",
+              max: 100,
             },
           ].map((item, index) => (
             <Card key={index} w="full" mb="4">
@@ -139,7 +144,7 @@ function AttributeSliders() {
                   value={item.value}
                   min={item.min}
                   max={item.max}
-                  colorScheme={item.colorScheme}
+                  colorScheme={"green"}
                 >
                   <RangeSliderTrack bg={sliderBg}>
                     <RangeSliderFilledTrack />
@@ -148,6 +153,9 @@ function AttributeSliders() {
                   <RangeSliderThumb index={1}></RangeSliderThumb>
                 </RangeSlider>
                 <HStack justify="center" mt={2}>
+                  <Text fontFamily={"navbar"} fontWeight={"500"}>
+                    Min
+                  </Text>
                   <Input
                     value={item.value[0]}
                     onChange={(e) =>
@@ -162,6 +170,9 @@ function AttributeSliders() {
                     width="100px"
                     mr={2}
                   />
+                  <Text fontFamily={"navbar"} fontWeight={"500"}>
+                    Max
+                  </Text>
                   <Input
                     value={item.value[1]}
                     onChange={(e) =>
