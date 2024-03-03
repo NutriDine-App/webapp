@@ -1,14 +1,14 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import NavBar from "./components/navbar/Navbar";
 
 const Layout = ({ children }) => {
   return (
     <>
       <NavBar />
-      <Box as="main" pt={"8rem"}>
+      <Flex as="main" pt={"8rem"} justifyContent={"center"}>
         {children}
-      </Box>
+      </Flex>
     </>
   );
 };
