@@ -137,7 +137,7 @@ function AttributeSliders() {
               max: 100,
             },
           ].map((item, index) => (
-            <Card key={index} w="full" mb="4">
+            <Card key={index} w="full" mb="4" borderRadius={25}>
               <CardBody>
                 <Text
                   fontSize={["md", "md", "lg", "xl"]}
