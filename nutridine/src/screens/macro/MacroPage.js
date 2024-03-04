@@ -48,7 +48,7 @@ function AttributeSliders() {
 
   const handleSubmit = () => {
     setDesiredMacros({
-      query: " d",
+      query: " ",
       minCalories: calories[0],
       maxCalories: calories[1],
       minProtein: protein[0],
@@ -59,8 +59,6 @@ function AttributeSliders() {
       maxFat: fat[1],
     });
     setShowSliders(false);
-    // setShouldFetch(true);
-    // fetchData();
   };
 
   useEffect(() => {

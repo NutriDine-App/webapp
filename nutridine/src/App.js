@@ -20,8 +20,8 @@ function App() {
 
   return (
     <Layout>
-      {/* <MacroPage /> */}
-      <FoodCard />
+      <MacroPage />
+      {/* <FoodCard /> */}
     </Layout>
   );
 }
