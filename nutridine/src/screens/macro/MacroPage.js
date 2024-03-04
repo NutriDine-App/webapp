@@ -8,11 +8,15 @@ import {
   VStack,
   Text,
   HStack,
-  Input,
   useColorModeValue,
   Card,
   CardBody,
   Box,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from "@chakra-ui/react";
 import useMealsByMacros from "../../hooks/useMealsByMacros";
 import { useMeals } from "../../contexts/MealsContext";
@@ -156,36 +160,52 @@ function AttributeSliders() {
                   <Text fontFamily={"navbar"} fontWeight={"500"}>
                     Min
                   </Text>
-                  <Input
+
+                  <NumberInput
                     value={item.value[0]}
-                    onChange={(e) =>
+                    min={item.min}
+                    max={item.value[1]}
+                    onChange={(valueString) =>
                       handleInputChange(
                         0,
                         item.value,
                         item.setValue,
-                        e.target.value
+                        valueString
                       )
                     }
-                    size="sm"
-                    width="100px"
-                    mr={2}
-                  />
+                    keepWithinRange={false}
+                    clampValueOnBlur={false}
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
                   <Text fontFamily={"navbar"} fontWeight={"500"}>
                     Max
                   </Text>
-                  <Input
+                  <NumberInput
                     value={item.value[1]}
-                    onChange={(e) =>
+                    min={item.value[0]}
+                    max={item.max}
+                    onChange={(valueString) =>
                       handleInputChange(
                         1,
                         item.value,
                         item.setValue,
-                        e.target.value
+                        valueString
                       )
                     }
-                    size="sm"
-                    width="100px"
-                  />
+                    keepWithinRange={false}
+                    clampValueOnBlur={false}
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
                 </HStack>
               </CardBody>
             </Card>
