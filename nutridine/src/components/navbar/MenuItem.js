@@ -1,27 +1,30 @@
 import React from "react";
 import { Box, Text, useColorModeValue } from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
 
-export const MenuItem = ({ children, onClick, isActive, ...rest }) => {
+export const MenuItem = ({ children, to, onClick, isActive, ...rest }) => {
   const activeBg = useColorModeValue("light.primary.500", "dark.primary.600");
   const transitionDuration = "0.3s";
 
   return (
-    <Box
-      as="button"
-      onClick={onClick}
-      px={6}
-      py={2}
-      borderRadius="full"
-      bg={isActive ? activeBg : "transparent"}
-      display="inline-flex"
-      alignItems="center"
-      justifyContent="center"
-      transition={`background-color ${transitionDuration} ease-in-out`}
-      height="40px"
-      minWidth="40px"
-      {...rest}
-    >
-      <Text>{children}</Text>
-    </Box>
+    <NavLink to={to} style={{ width: "100%" }}>
+      <Box
+        as="button"
+        onClick={onClick}
+        px={6}
+        py={2}
+        borderRadius="full"
+        bg={isActive ? activeBg : "transparent"}
+        display="inline-flex"
+        alignItems="center"
+        justifyContent="center"
+        transition={`background-color ${transitionDuration} ease-in-out`}
+        height="40px"
+        minWidth="40px"
+        {...rest}
+      >
+        <Text>{children}</Text>
+      </Box>
+    </NavLink>
   );
 };
