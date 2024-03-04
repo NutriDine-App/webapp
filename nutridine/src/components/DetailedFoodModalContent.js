@@ -18,10 +18,18 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
   const { detailedMeal, loading, error } = useMealById({ nix_item_id });
 
   return (
-    <>
+    <Box
+      fontFamily={"navbar"}
+      overflowY={"scroll"}
+      css={{
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
+    >
       <ModalHeader>
         <VStack alignItems={"flex-start"}>
-          <Text fontSize={"xx-large"}>
+          <Text fontSize={"2xl"}>
             <b>{detailedMeal ? detailedMeal.food_name : ""}</b>
           </Text>
           <Text fontSize={"xl"}>
@@ -29,15 +37,16 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
           </Text>
         </VStack>
       </ModalHeader>
-      <ModalCloseButton />
-      <ModalBody
-        overflowY={"scroll"}
-        css={{
-          "&::-webkit-scrollbar": {
-            display: "none",
-          },
-        }}
-      >
+      <ModalCloseButton
+        bg={"light.primary.600"}
+        zIndex={1}
+        color={"white"}
+        _hover={{ bg: "light.primary.700" }}
+        mr={3}
+        onClick={onClose}
+      />
+
+      <ModalBody>
         {loading ? (
           <Box
             w="100%"
@@ -71,6 +80,6 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
           Close
         </Button>
       </ModalFooter>
-    </>
+    </Box>
   );
 }

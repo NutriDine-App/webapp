@@ -6,7 +6,12 @@ const Layout = ({ children }) => {
   return (
     <>
       <NavBar />
-      <Flex as="main" pt={"8rem"} justifyContent={"center"}>
+      <Flex
+        as="main"
+        pt={"8rem"}
+        justifyContent={"center"}
+        fontFamily={"navbar"}
+      >
         {children}
       </Flex>
     </>

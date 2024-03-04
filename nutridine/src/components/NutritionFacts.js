@@ -45,6 +45,7 @@ function NutritionFacts({ detailedMeal }) {
   return (
     <Box
       borderWidth="5px"
+      fontFamily={"navbar"}
       borderColor={borderColors}
       borderRadius="lg"
       p="5"
@@ -52,7 +53,7 @@ function NutritionFacts({ detailedMeal }) {
       maxW="md"
     >
       {/* NUTRITION FACTS */}
-      <Heading as="h2" size="xl">
+      <Heading as="h2" size="2xl" fontFamily={"navbar"}>
         Nutrition Facts
       </Heading>
       <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
@@ -72,12 +73,16 @@ function NutritionFacts({ detailedMeal }) {
 
       {/* AMOUNT PER SERVING */}
       <Divider borderBottomWidth="10px" borderColor={borderColors} my="2px" />
-      <Heading size="sm">Amount Per Serving</Heading>
+      <Heading size="sm" fontFamily={"navbar"}>
+        Amount Per Serving
+      </Heading>
 
       {/* CALORIES */}
       <HStack justify={"space-between"} alignItems={"flex-end"}>
-        <Heading as="h3">Calories</Heading>
-        <Heading as="h3" fontSize={"3xl"}>
+        <Heading as="h3" fontFamily={"navbar"}>
+          Calories
+        </Heading>
+        <Heading as="h3" fontSize={"3xl"} fontFamily={"navbar"}>
           {nf_calories ?? 0}
         </Heading>
       </HStack>
