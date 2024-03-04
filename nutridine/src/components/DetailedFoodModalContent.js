@@ -43,10 +43,11 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
         color={"white"}
         _hover={{ bg: "light.primary.700" }}
         mr={3}
+        mt={2.5}
         onClick={onClose}
       />
 
-      <ModalBody>
+      <ModalBody mb="1.5rem">
         {loading ? (
           <Box
             w="100%"
@@ -69,17 +70,6 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
           </VStack>
         )}
       </ModalBody>
-      <ModalFooter>
-        <Button
-          bg={"light.primary.600"}
-          color={"white"}
-          _hover={{ bg: "light.primary.700" }}
-          mr={3}
-          onClick={onClose}
-        >
-          Close
-        </Button>
-      </ModalFooter>
     </Box>
   );
 }
