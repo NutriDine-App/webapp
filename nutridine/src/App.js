@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import TetrisLoader from "./screens/loading/TetrisLoader";
 import MacroPage from "./screens/macro/MacroPage";
-import FoodCard from "./components/FoodCard";
 import Layout from "./Layout";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);

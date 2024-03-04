@@ -51,7 +51,7 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
       <Stack
         spacing={[12, 20]}
         align="center"
-        justify={{ base: "flex-start", md: "center" }}
+        justify={{ base: "center", md: "center" }}
         direction={{ base: "column", md: "row" }}
         pt={[4, 4, 0, 0]}
         p={[0, 0, 2, 2]}
@@ -69,14 +69,14 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
         <MenuItem
           isActive={activeItem === "/restaurants"}
           onClick={onItemSelect("/restaurants")}
-          to="/restaurants"
+          to={"/restaurants"}
         >
           Restaurants
         </MenuItem>
         <MenuItem
           isActive={activeItem === "/macro"}
           onClick={onItemSelect("/macro")}
-          to="/macro"
+          to={"/macro"}
         >
           Macro
         </MenuItem>
