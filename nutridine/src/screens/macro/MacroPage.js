@@ -80,10 +80,14 @@ function AttributeSliders() {
   const toggleSlidersVisibility = () => setShowSliders(!showSliders);
 
   const buttonBg = useColorModeValue("light.primary.500", "dark.primary.600");
-  const sliderBg = useColorModeValue("gray.300", "dark.primary.500");
+  const sliderBg = useColorModeValue("gray.300", "dark.primary.800");
 
   return (
-    <Box maxWidth={["100vw", "100vw", "80vw", "80vw"]}>
+    <Box
+      maxWidth={["100vw", "100vw", "80vw", "80vw"]}
+      justifyContent={"center"}
+      width="100%"
+    >
       {showSliders && (
         <VStack
           spacing={8}
@@ -109,7 +113,7 @@ function AttributeSliders() {
               value: calories,
               setValue: setCalories,
               min: 0,
-              max: 10000,
+              max: 5000,
             },
             {
               label: "Protein (g)",
@@ -153,8 +157,14 @@ function AttributeSliders() {
                   <RangeSliderTrack bg={sliderBg}>
                     <RangeSliderFilledTrack />
                   </RangeSliderTrack>
-                  <RangeSliderThumb index={0}></RangeSliderThumb>
-                  <RangeSliderThumb index={1}></RangeSliderThumb>
+                  <RangeSliderThumb
+                    index={0}
+                    border={`1px solid #A0AEC0`}
+                  ></RangeSliderThumb>
+                  <RangeSliderThumb
+                    index={1}
+                    border={`1px solid #A0AEC0`}
+                  ></RangeSliderThumb>
                 </RangeSlider>
                 <HStack justify="center" mt={2}>
                   <Text fontFamily={"navbar"} fontWeight={"500"}>
