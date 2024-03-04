@@ -25,6 +25,16 @@ const useMealsByMacros = ({
 
     const fetchData = async () => {
       console.log("useMealsByMacros is fetching...");
+      console.log(
+        minCalories,
+        maxCalories,
+        minProtein,
+        maxProtein,
+        minCarbs,
+        maxCarbs,
+        minFat,
+        maxFat
+      );
 
       try {
         // Requires a POST request to filter by calories.
