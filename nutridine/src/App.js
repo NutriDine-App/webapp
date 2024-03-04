@@ -24,6 +24,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <NavBar />
       <Routes>
         <Route path="/" element={
           <div className="temp">
