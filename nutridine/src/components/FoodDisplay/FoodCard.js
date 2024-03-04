@@ -19,10 +19,10 @@ function FoodCard({ foodItem }) {
         >
             <VStack align="start" justify="space-between" p={4} spacing={4} w="full">
                 <Box>
-                    <Text fontSize='sm' color="gray.500">{foodItem.brand_name}</Text>
+                    <Text fontSize='sm' color={colorMode === 'dark' ? 'grey.200' : 'gray.500'}> {foodItem.brand_name}</Text>
                     <Heading size='md' noOfLines={2} fontFamily="navbar" fontWeight="500">{foodItem.food_name}</Heading>
                 </Box>
-            </VStack>
+            </VStack >
 
             <HStack px={4} pb={4} spacing={4} justify="space-between">
                 <Box flex="1">

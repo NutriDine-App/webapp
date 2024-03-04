@@ -25,8 +25,9 @@ function App() {
   return (
     <>
       <NavBar />
+      <MacroPage />
       {/* <FoodCardList /> */}
-      <FoodCardTest />
+      {/* <FoodCardTest /> */}
       {/* <NavBar />
       <Box bg="white">
         <Image maxH="50px" src={nutritionIx_credit} />
