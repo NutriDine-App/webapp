@@ -17,70 +17,93 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  useToast,
 } from "@chakra-ui/react";
-import useMealsByMacros from "../../hooks/useMealsByMacros";
+import { fetchMealsByMacros } from "../../hooks/useMealsByMacros";
 import { useMeals } from "../../contexts/MealsContext";
 
 function AttributeSliders() {
   const { setMeals } = useMeals();
-
-  const [calories, setCalories] = useState([200, 500]);
-  const [protein, setProtein] = useState([10, 50]);
-  const [carbs, setCarbs] = useState([20, 100]);
-  const [fat, setFat] = useState([5, 35]);
-
-  const [showSliders, setShowSliders] = useState(true);
-  const [shouldFetch, setShouldFetch] = useState(false);
-  const [desiredMacros, setDesiredMacros] = useState({
+  const [macros, setMacros] = useState({
     query: "",
-    minCalories: 0,
-    maxCalories: 0,
-    minProtein: 0,
-    maxProtein: 0,
-    minCarbs: 0,
-    maxCarbs: 0,
-    minFat: 0,
-    maxFat: 0,
+    calories: [200, 500],
+    protein: [10, 50],
+    carbs: [20, 100],
+    fat: [5, 35],
   });
+  const [showSliders, setShowSliders] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const { meals, loading, error } = useMealsByMacros(
-    desiredMacros,
-    shouldFetch
-  );
-
-  const handleInputChange = (index, value, setValue, inputValue) => {
-    const newValue = [...value];
-    newValue[index] = Number(inputValue);
-    setValue(newValue);
+  const handleSliderChange = (name, value) => {
+    setMacros((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    setDesiredMacros({
-      query: "",
-      minCalories: calories[0],
-      maxCalories: calories[1],
-      minProtein: protein[0],
-      maxProtein: protein[1],
-      minCarbs: carbs[0],
-      maxCarbs: carbs[1],
-      minFat: fat[0],
-      maxFat: fat[1],
+  const toast = useToast();
+
+  const handleSubmit = async () => {
+    let invalidSliders = [];
+    Object.entries(macros).forEach(([key, [min, max]]) => {
+      if (min > max) {
+        invalidSliders.push(
+          macroSettings.find((slider) => slider.name === key).label
+        );
+      }
     });
+
+    if (invalidSliders.length > 0) {
+      const invalidSliderNames = invalidSliders.join(", ");
+      toast({
+        title: "Invalid range values detected.",
+        description: `The following have invalid ranges where the minimum value exceeds the maximum value: ${invalidSliderNames}. Please adjust these ranges and try again.`,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+      return;
+    }
+    setIsLoading(true);
+    const params = {
+      query: macros.query,
+      minCalories: macros.calories[0],
+      maxCalories: macros.calories[1],
+      minProtein: macros.protein[0],
+      maxProtein: macros.protein[1],
+      minCarbs: macros.carbs[0],
+      maxCarbs: macros.carbs[1],
+      minFat: macros.fat[0],
+      maxFat: macros.fat[1],
+    };
+
+    try {
+      const response = await fetchMealsByMacros(params);
+      console.log(response.data);
+      if (response.error) {
+        setError(response.error);
+        console.error("Failed to fetch meals:", response.error);
+      } else {
+        setMeals(response.data);
+        setError(null);
+      }
+    } catch (err) {
+      setError(err);
+      console.error("An unexpected error occurred:", err);
+    }
+    setIsLoading(false);
     setShowSliders(false);
-    setShouldFetch(true);
   };
 
-  useEffect(() => {
-    if (!loading && meals) {
-      setMeals(meals);
-      console.log(meals);
-    }
-  }, [meals, loading, error, setMeals]);
+  const macroSettings = [
+    { name: "calories", label: "Calories", min: 0, max: 5000 },
+    { name: "protein", label: "Protein (g)", min: 0, max: 100 },
+    { name: "carbs", label: "Carbohydrates (g)", min: 0, max: 100 },
+    { name: "fat", label: "Fat (g)", min: 0, max: 100 },
+  ];
 
-  const toggleSlidersVisibility = () => setShowSliders(!showSliders);
-
-  const buttonBg = useColorModeValue("light.primary.500", "dark.primary.600");
   const sliderBg = useColorModeValue("gray.300", "dark.primary.800");
+  const buttonBg = useColorModeValue("light.primary.500", "dark.primary.600");
+
+  const cardBg = useColorModeValue("gray.50", "gray.700");
 
   return (
     <Box
@@ -88,14 +111,10 @@ function AttributeSliders() {
       justifyContent={"center"}
       width="100%"
     >
+      {isLoading && <Text>Loading...</Text>}
+      {error && <Text color="red.500">Error: {error.message}</Text>}
       {showSliders && (
-        <VStack
-          spacing={8}
-          p={5}
-          display="flex"
-          justify={["center", "center", "flex-start", "flex-start"]}
-          align={["center", "center", "flex-start", "flex-start"]}
-        >
+        <VStack spacing={8} p={5}>
           <Text fontSize={"xl"} fontWeight="bold" mb={"1"}>
             Nutrient Range Selectors
           </Text>
@@ -107,52 +126,31 @@ function AttributeSliders() {
             This page can be used to filter and search food items based on
             calorie, protein, carbohydrates, and fat.
           </Text>
-          {[
-            {
-              label: "Calories",
-              value: calories,
-              setValue: setCalories,
-              min: 0,
-              max: 5000,
-            },
-            {
-              label: "Protein (g)",
-              value: protein,
-              setValue: setProtein,
-              min: 0,
-              max: 100,
-            },
-            {
-              label: "Carbohydrates (g)",
-              value: carbs,
-              setValue: setCarbs,
-              min: 0,
-              max: 100,
-            },
-            {
-              label: "Fat (g)",
-              value: fat,
-              setValue: setFat,
-              min: 0,
-              max: 100,
-            },
-          ].map((item, index) => (
-            <Card key={index} w="full" mb="4" borderRadius={25}>
+          {macroSettings.map(({ name, label, min, max }) => (
+            <Card
+              key={name}
+              w="full"
+              mb="4"
+              borderRadius={30}
+              variant={"elevated"}
+              bg={cardBg}
+            >
               <CardBody>
                 <Text
                   fontSize={["md", "md", "lg", "xl"]}
                   fontFamily={"navbar"}
                   mb={2}
                 >
-                  {item.label}
+                  {label}
                 </Text>
                 <RangeSlider
-                  aria-label={[`min${item.label}`, `max${item.label}`]}
-                  onChange={(val) => item.setValue(val)}
-                  value={item.value}
-                  min={item.min}
-                  max={item.max}
+                  aria-label={[`min-${name}`, `max-${name}`]}
+                  onChange={(val) => handleSliderChange(name, val)}
+                  value={macros[name]}
+                  min={min}
+                  max={max}
                   colorScheme={"green"}
+                  minStepsBetweenThumbs={20}
                 >
                   <RangeSliderTrack bg={sliderBg}>
                     <RangeSliderFilledTrack />
@@ -160,31 +158,31 @@ function AttributeSliders() {
                   <RangeSliderThumb
                     index={0}
                     border={`1px solid #A0AEC0`}
-                  ></RangeSliderThumb>
+                    boxSize="18px"
+                  />
                   <RangeSliderThumb
                     index={1}
+                    boxSize="18px"
                     border={`1px solid #A0AEC0`}
-                  ></RangeSliderThumb>
+                  />
                 </RangeSlider>
                 <HStack justify="center" mt={2}>
                   <Text fontFamily={"navbar"} fontWeight={"500"}>
                     Min
                   </Text>
-
                   <NumberInput
-                    value={item.value[0]}
-                    min={item.min}
-                    max={item.value[1]}
+                    value={macros[name][0]}
+                    min={min}
+                    max={macros[name][1]}
                     onChange={(valueString) =>
-                      handleInputChange(
-                        0,
-                        item.value,
-                        item.setValue,
-                        valueString
-                      )
+                      handleSliderChange(name, [
+                        Number(valueString),
+                        macros[name][1],
+                      ])
                     }
                     keepWithinRange={false}
                     clampValueOnBlur={false}
+                    width={"100px"}
                   >
                     <NumberInputField />
                     <NumberInputStepper>
@@ -196,19 +194,18 @@ function AttributeSliders() {
                     Max
                   </Text>
                   <NumberInput
-                    value={item.value[1]}
-                    min={item.value[0]}
-                    max={item.max}
+                    value={macros[name][1]}
+                    min={macros[name][0]}
+                    max={max}
                     onChange={(valueString) =>
-                      handleInputChange(
-                        1,
-                        item.value,
-                        item.setValue,
-                        valueString
-                      )
+                      handleSliderChange(name, [
+                        macros[name][0],
+                        Number(valueString),
+                      ])
                     }
                     keepWithinRange={false}
                     clampValueOnBlur={false}
+                    width={"100px"}
                   >
                     <NumberInputField />
                     <NumberInputStepper>
@@ -222,32 +219,18 @@ function AttributeSliders() {
           ))}
         </VStack>
       )}
-      <VStack
-        spacing={8}
-        p={5}
-        display="flex"
-        justify={["center", "center", "flex-start", "flex-start"]}
-        align={["center", "center", "flex-start", "flex-start"]}
-      >
+      <VStack spacing={8} p={5}>
         <Button
           size={["md", "md", "md", "lg"]}
           bg={buttonBg}
-          onClick={showSliders ? handleSubmit : toggleSlidersVisibility}
+          onClick={
+            showSliders ? handleSubmit : () => setShowSliders(!showSliders)
+          }
           p={5}
         >
-          {showSliders ? "Submit" : "Show Sliders"}{" "}
+          {showSliders ? "Submit" : "Show Sliders"}
         </Button>
       </VStack>
-
-      {meals && (
-        <VStack spacing={4}>
-          {meals.map((meal, index) => (
-            <Box key={index} p={5} shadow="md" borderWidth="1px">
-              <Text mt={4}>{meal.food_name}</Text>{" "}
-            </Box>
-          ))}
-        </VStack>
-      )}
     </Box>
   );
 }
