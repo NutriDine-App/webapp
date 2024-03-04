@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import { useColorMode, Button } from "@chakra-ui/react";
 import TetrisLoader from "./screens/loading/TetrisLoader";
+import NavBar from "./components/navbar/Navbar";
 
 import "./App.css";
 
