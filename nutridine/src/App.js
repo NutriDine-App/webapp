@@ -23,8 +23,9 @@ function App() {
 
   return (
     <>
-      <FoodCardList />
-      {/* <FoodCardTest /> */}
+      <NavBar />
+      {/* <FoodCardList /> */}
+      <FoodCardTest />
       {/* <NavBar />
       <Box bg="white">
         <Image maxH="50px" src={nutritionIx_credit} />

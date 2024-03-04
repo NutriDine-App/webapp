@@ -3,6 +3,7 @@ import useMealsByMacros from "../../hooks/useMealsByMacros";
 import nutritionIxIds from "../../constants/nutritionIxIds";
 import nutritionIx_credit from "../../images/nutritionIx_credit.png";
 import FoodCard from "./FoodCard";
+import FoodCardList from "./FoodCardList";
 
 export default function FoodCardTest() {
   // Restricts search to only these brand IDs
@@ -27,10 +28,7 @@ export default function FoodCardTest() {
         <p>Error: {error.message}</p>
       ) : (
         <Box>
-          {meals.length === 0 && <Text>No meals found</Text>}
-          {meals.map((meal) => (
-            <FoodCard foodItem={meal} />
-          ))}
+          <FoodCardList meals={meals} />
         </Box>
       )}
       <Box bg="white">
