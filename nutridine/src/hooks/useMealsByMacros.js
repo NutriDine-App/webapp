@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import brandIds from "../constants/brandIds";
 
-// DOCS: https://docx.syndigo.com/developers/docs/instant-endpoint
-/** All parameters of type number (except "query", which is a string). Assumed units for all macros are grams */
-const useMealsByMacros = ({
+export const fetchMealsByMacros = async ({
   query,
   minCalories,
   maxCalories,
@@ -15,80 +13,73 @@ const useMealsByMacros = ({
   minFat,
   maxFat,
 }) => {
+  const apiKey = process.env.REACT_APP_NUTRITIONIX_API_KEY;
+  const appId = process.env.REACT_APP_NUTRITIONIX_APP_ID;
+
+  try {
+    let response = await axios.post(
+      "https://trackapi.nutritionix.com/v2/search/instant",
+      {
+        query: Object.keys(brandIds).join(" ") + " " + query,
+        brand_ids: Object.values(brandIds),
+        detailed: true,
+        common: false,
+        full_nutrients: {
+          208: {
+            lte: maxCalories,
+            gte: minCalories,
+          },
+          203: {
+            lte: maxProtein,
+            gte: minProtein,
+          },
+          204: {
+            lte: maxFat,
+            gte: minFat,
+          },
+          205: {
+            lte: maxCarbs,
+            gte: minCarbs,
+          },
+        },
+      },
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-app-id": appId,
+          "x-app-key": apiKey,
+        },
+      }
+    );
+
+    return { data: response.data.branded, error: null };
+  } catch (error) {
+    console.log("caught an error:", error);
+    return { data: null, error: error };
+  }
+};
+
+// Hook using the fetch function
+const useMealsByMacros = (params) => {
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const apiKey = process.env.REACT_APP_NUTRITIONIX_API_KEY;
-    const appId = process.env.REACT_APP_NUTRITIONIX_APP_ID;
-
     const fetchData = async () => {
-      console.log("useMealsByMacros is fetching...");
-
-      try {
-        // Requires a POST request to filter by calories.
-        // Cannot inject variables in json field (for nutritionIX food ids)
-        // If you omit the query, nutritionIX rejects the request.
-        let response = await axios.post(
-          "https://trackapi.nutritionix.com/v2/search/instant",
-          {
-            query: Object.keys(brandIds).join(" ") + " " + query,
-            brand_ids: Object.values(brandIds),
-            detailed: true,
-            common: false,
-            full_nutrients: {
-              208: {
-                lte: maxCalories,
-                gte: minCalories,
-              },
-              203: {
-                lte: maxProtein,
-                gte: minProtein,
-              },
-              204: {
-                lte: maxFat,
-                gte: minFat,
-              },
-              205: {
-                lte: maxCarbs,
-                gte: minCarbs,
-              },
-            },
-          },
-
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "x-app-id": appId,
-              "x-app-key": apiKey,
-              "x-remote-user-id": 0,
-            },
-          }
-        );
-
-        setMeals(response.data.branded);
+      const { data, error } = await fetchMealsByMacros(params);
+      if (data) {
+        setMeals(data);
         setError(null);
-        setLoading(false);
-      } catch (error) {
-        console.log("caught an error:", error);
+      } else {
         setError(error);
-        setLoading(false);
       }
+      setLoading(false);
     };
 
     fetchData();
-  }, [
-    query,
-    minCalories,
-    maxCalories,
-    minProtein,
-    maxProtein,
-    minCarbs,
-    maxCarbs,
-    minFat,
-    maxFat,
-  ]);
+  }, [params]);
 
   return { meals, loading, error };
 };
