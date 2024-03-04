@@ -3,14 +3,14 @@ import { Box, Text, useColorModeValue } from "@chakra-ui/react";
 
 export const MenuItem = ({ children, onClick, isActive, ...rest }) => {
   const activeBg = useColorModeValue("light.primary.500", "dark.primary.600");
-  const paddingSize = 2;
   const transitionDuration = "0.3s";
 
   return (
     <Box
       as="button"
       onClick={onClick}
-      p={paddingSize}
+      px={6}
+      py={2}
       borderRadius="full"
       bg={isActive ? activeBg : "transparent"}
       display="inline-flex"

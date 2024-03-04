@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import TetrisLoader from "./screens/loading/TetrisLoader";
 import MacroPage from "./screens/macro/MacroPage";
+import FoodCard from "./components/FoodCard";
 import Layout from "./Layout";
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 4500);
+    }, 0);
   }, []);
 
   if (isLoading) {
@@ -20,6 +21,7 @@ function App() {
   return (
     <Layout>
       <MacroPage />
+      {/* <FoodCard /> */}
     </Layout>
   );
 }
