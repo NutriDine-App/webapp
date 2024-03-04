@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Box, Image } from "@chakra-ui/react";
-import nutritionIx_credit from "./images/nutritionIx_credit.png";
 import TetrisLoader from "./screens/loading/TetrisLoader";
+<<<<<<< HEAD
 import NavBar from "./components/navbar/Navbar";
 import FoodCardTest from "./components/FoodDisplay/FoodCardTest";
 import FoodCardList from "./components/FoodDisplay/FoodCardList";
 // import FoodCard from "./components/FoodCard/FoodCard";
+=======
+import MacroPage from "./screens/macro/MacroPage";
+import FoodCard from "./components/FoodCard";
+import Layout from "./Layout";
+>>>>>>> b35ebd49ea0eb148535c5020717bf09aeee6dd68
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +18,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 4500);
+    }, 0);
   }, []);
 
   if (isLoading) {

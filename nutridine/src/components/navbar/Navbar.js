@@ -1,21 +1,7 @@
 import React, { useEffect } from "react";
-import { Box, Flex, useColorModeValue, Center } from "@chakra-ui/react";
+import { Flex, useColorModeValue, Center } from "@chakra-ui/react";
 import { MenuToggle } from "./MenuToggle";
 import { MenuLinks } from "./MenuLinks";
-
-const PageContainer = ({ children }) => (
-  <Box mt="60px" p={4}>
-    {children}
-  </Box>
-);
-
-const HomePage = () => <PageContainer>Home Page Content</PageContainer>;
-
-const RestaurantsPage = () => (
-  <PageContainer>Restaurants Page Content</PageContainer>
-);
-
-const MacroPage = () => <PageContainer>Macro Page Content</PageContainer>;
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -28,24 +14,9 @@ const NavBar = (props) => {
     setIsOpen(false);
   };
 
-  const renderContent = () => {
-    switch (activeItem) {
-      case "/":
-        return <HomePage />;
-      case "/restaurants":
-        return <RestaurantsPage />;
-      case "/macro":
-        return <MacroPage />;
-      default:
-        return <HomePage />;
-    }
-  };
-
   useEffect(() => {
-    // Disable body scroll when menu is open
     document.body.style.overflow = isOpen ? "hidden" : "auto";
 
-    // Optional: Clean up function to reset overflow when component unmounts
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -68,7 +39,6 @@ const NavBar = (props) => {
           />
         </Flex>
       </NavBarContainer>
-      {renderContent()}
     </>
   );
 };
@@ -79,6 +49,7 @@ const NavBarContainer = ({ children, ...props }) => {
     <Center
       p={4}
       width="100%"
+      height={"auto"}
       position="fixed"
       top={0}
       zIndex={2}
@@ -92,7 +63,6 @@ const NavBarContainer = ({ children, ...props }) => {
         wrap="wrap"
         width="100%"
         mb={8}
-        p={8}
         borderRadius={25}
         color={color}
         fontFamily={"navbar"}
