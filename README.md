@@ -2,7 +2,7 @@
 
 NutriDine is a mobile-first progressive web app that centralizes nutritional information from hundreds of restaurants to your pocket, allowing you make informed dining decisions.
 
-Powered by NutritionIX, NutriDine pulls data from the largest verified nutritional database in North American. With over 1.14 million food item, 866 restaurants and actively growing, informed eating has never been easier.
+Powered by NutritionIX, NutriDine pulls data from the largest verified nutritional database in North America. With over 1.14 million food items, 866 restaurants and actively growing, informed eating has never been easier.
 
 ### License
 
