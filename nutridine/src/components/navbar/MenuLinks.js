@@ -27,8 +27,6 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
 
   const { colorMode, toggleColorMode } = useColorMode();
 
-
-
   const bgColorDefault = useColorModeValue("transparent", "transparent");
   const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
 
@@ -53,7 +51,7 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
       <Stack
         spacing={12}
         align="center"
-        justify={{ base: "flex-start", md: "center" }}
+        justify={{ base: "center", md: "center" }}
         direction={{ base: "column", md: "row" }}
         pt={[4, 4, 0, 0]}
         p={[0, 0, 2, 2]}
@@ -61,18 +59,24 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
           transition: "background-color 1.5s",
         }}
       >
-        <MenuItem isActive={activeItem === "/"} onClick={onItemSelect("/")}>
+        <MenuItem
+          isActive={activeItem === "/"}
+          onClick={onItemSelect("/")}
+          to={"/"}
+        >
           Home
         </MenuItem>
         <MenuItem
           isActive={activeItem === "/restaurants"}
           onClick={onItemSelect("/restaurants")}
+          to={"/restaurants"}
         >
           Restaurants
         </MenuItem>
         <MenuItem
           isActive={activeItem === "/macro"}
           onClick={onItemSelect("/macro")}
+          to={"/macro"}
         >
           Macro
         </MenuItem>
@@ -81,7 +85,7 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
             onClick={toggleColorMode}
             variant="ghost"
             _hover={{
-              bg: "transparent", // Keeps background transparent on hover
+              bg: "transparent",
             }}
           >
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}

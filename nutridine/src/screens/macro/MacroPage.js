@@ -188,9 +188,9 @@ function AttributeSliders() {
                           macros[name][1],
                         ])
                       }
-                      keepWithinRange={false}
+                      keepWithinRange={true}
                       clampValueOnBlur={false}
-                      width={"100px"}
+                      width={"90px"}
                     >
                       <NumberInputField />
                       <NumberInputStepper>
@@ -211,9 +211,9 @@ function AttributeSliders() {
                           Number(valueString),
                         ])
                       }
-                      keepWithinRange={false}
+                      keepWithinRange={true}
                       clampValueOnBlur={false}
-                      width={"100px"}
+                      width={"90px"}
                     >
                       <NumberInputField />
                       <NumberInputStepper>
