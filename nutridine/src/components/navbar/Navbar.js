@@ -47,7 +47,6 @@ const NavBarContainer = ({ children, ...props }) => {
   const color = useColorModeValue("black", "white");
   return (
     <Center
-      p={4}
       width="100%"
       height={"auto"}
       position="fixed"
@@ -63,7 +62,6 @@ const NavBarContainer = ({ children, ...props }) => {
         justify={["space-between", "center"]}
         wrap="wrap"
         width="100%"
-        mb={8}
         color={color}
         fontFamily={"navbar"}
         fontSize={["sm", "md", "lg"]}
