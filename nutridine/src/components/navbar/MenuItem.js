@@ -25,7 +25,7 @@ export const MenuItem = ({ children, onClick, to, isActive, ...rest }) => {
         borderRadius="full"
         bg={isActive ? activeBg : "transparent"}
         _hover={{
-          background: buttonBgHover,
+          background: isActive ? activeBg : buttonBgHover,
         }}
         display="inline-flex"
         alignItems="center"
