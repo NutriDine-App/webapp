@@ -20,6 +20,7 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
     "light.primary.400",
     "dark.primary.400"
   );
+  const buttonTextColor = useColorModeValue("black", "white");
 
   return (
     <Box
@@ -44,7 +45,7 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
       <ModalCloseButton
         bg={buttonBg}
         zIndex={1}
-        color={"white"}
+        color={buttonTextColor}
         _hover={{ bg: buttonHover }}
         mr={3}
         mt={2.5}
