@@ -227,8 +227,17 @@ function AttributeSliders() {
             ))}
           </VStack>
           :
-          <VStack spacing={8} p={0} width="100%" align="stretch" px={[8, 8, 0]}>
-            {!meals ? <Text>No Meals Found</Text> : <FoodCardList meals={meals} />}
+          <VStack spacing={5} p={0} width="100%" align="stretch" px={[8, 8, 0]}>
+            {!meals ? <Text>No Meals Found</Text> :
+              <>
+                <Text fontSize={"xl"}>
+                  Filtered Food Results
+                </Text>
+
+                <FoodCardList meals={meals} />
+              </>
+            }
+
           </VStack>
       }
       <HStack w="full" justify={showSliders ? "flex-end" : "flex-start"} p={0} mt={6} px={[8, 8, 0]}>
