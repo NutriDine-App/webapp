@@ -17,6 +17,7 @@ export const fetchMealsByMacros = async ({
   const appId = process.env.REACT_APP_NUTRITIONIX_APP_ID;
 
   try {
+    console.log("useMealsByMacros is fetching...");
     let response = await axios.post(
       "https://trackapi.nutritionix.com/v2/search/instant",
       {

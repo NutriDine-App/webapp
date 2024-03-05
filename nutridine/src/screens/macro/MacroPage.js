@@ -149,7 +149,7 @@ function AttributeSliders() {
                   {label}
                 </Text>
                 <RangeSlider
-                  aria-label={[`min-${name}`, `max-${name}`]}
+                  aria-label={[`min-${name}`, `max-${name}`].toString()}
                   onChange={(val) => handleSliderChange(name, val)}
                   value={macros[name]}
                   min={min}
