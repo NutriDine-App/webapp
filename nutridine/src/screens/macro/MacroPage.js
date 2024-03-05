@@ -185,7 +185,7 @@ function AttributeSliders() {
                         macros[name][1],
                       ])
                     }
-                    keepWithinRange={false}
+                    keepWithinRange={true}
                     clampValueOnBlur={false}
                     width={"100px"}
                   >
@@ -208,7 +208,7 @@ function AttributeSliders() {
                         Number(valueString),
                       ])
                     }
-                    keepWithinRange={false}
+                    keepWithinRange={true}
                     clampValueOnBlur={false}
                     width={"100px"}
                   >

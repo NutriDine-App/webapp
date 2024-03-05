@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Image, VStack, Box, useColorModeValue } from "@chakra-ui/react";
 import NavBar from "./components/navbar/Navbar";
-import nutritionIx_credit from "./images/nutritionIx_credit.png";
+import nutritionIx_credit from "./assets/images/nutritionIx_credit.png";
 
 const Layout = ({ children }) => {
   const creditBg = useColorModeValue("white", "#1e7166");
@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
       >
         <Flex
           as="main"
-          pt={"8rem"}
+          pt={["4rem", "4rem", "8rem", "8rem"]}
           flexDirection="column"
           justifyContent={"center"}
           alignItems={"center"}
