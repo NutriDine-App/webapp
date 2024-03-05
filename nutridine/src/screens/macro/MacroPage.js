@@ -158,7 +158,7 @@ function AttributeSliders() {
                     min={min}
                     max={max}
                     colorScheme={"green"}
-                    minStepsBetweenThumbs={20}
+                    minStepsBetweenThumbs={10}
                   >
                     <RangeSliderTrack bg={sliderBg}>
                       <RangeSliderFilledTrack />

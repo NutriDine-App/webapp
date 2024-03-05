@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Text, Heading, VStack, HStack, useColorMode } from "@chakra-ui/react";
-import nutritionIxIds from "../../constants/nutritionIxIds";
 
 function FoodCard({ foodItem }) {
     const { colorMode } = useColorMode();
