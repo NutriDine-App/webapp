@@ -2,12 +2,11 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
-  Button,
   Text,
   VStack,
   Image,
   Box,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import useMealById from "../hooks/useMealById";
 import LoadingSpinner from "./LoadingSpinner";
@@ -16,6 +15,11 @@ import NutritionFacts from "./NutritionFacts";
 export default function DetailedFoodModalContent({ meal, onClose }) {
   const { nix_item_id } = meal;
   const { detailedMeal, loading, error } = useMealById({ nix_item_id });
+  const buttonBg = useColorModeValue("light.primary.500", "dark.primary.500");
+  const buttonHover = useColorModeValue(
+    "light.primary.400",
+    "dark.primary.400"
+  );
 
   return (
     <Box
@@ -38,13 +42,14 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
         </VStack>
       </ModalHeader>
       <ModalCloseButton
-        bg={"light.primary.600"}
+        bg={buttonBg}
         zIndex={1}
         color={"white"}
-        _hover={{ bg: "light.primary.700" }}
+        _hover={{ bg: buttonHover }}
         mr={3}
         mt={2.5}
         onClick={onClose}
+        boxShadow={"0px 4px 6px rgba(0, 0, 0, 0.1)"}
       />
 
       <ModalBody mb="1.5rem">

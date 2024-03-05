@@ -9,7 +9,9 @@ const Layout = ({ children }) => {
       <Flex
         as="main"
         pt={"8rem"}
+        flexDirection="column"
         justifyContent={"center"}
+        alignItems={"center"}
         fontFamily={"navbar"}
       >
         {children}

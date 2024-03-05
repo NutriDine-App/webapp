@@ -27,10 +27,10 @@ function AttributeSliders() {
   const { meals, setMeals } = useMeals();
   const [macros, setMacros] = useState({
     query: "",
-    calories: [200, 500],
-    protein: [10, 50],
-    carbs: [20, 100],
-    fat: [5, 35],
+    calories: [500, 1200],
+    protein: [10, 30],
+    carbs: [10, 45],
+    fat: [5, 18],
   });
   const [showSliders, setShowSliders] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -106,7 +106,7 @@ function AttributeSliders() {
 
   const cardBg = useColorModeValue("gray.50", "gray.700");
 
-  const borderColor = useColorModeValue("gray.200", "gray.600")
+  const borderColor = useColorModeValue("gray.200", "gray.600");
 
   return (
     <Box
@@ -118,132 +118,136 @@ function AttributeSliders() {
     >
       {isLoading && <Text>Loading...</Text>}
       {error && <Text color="red.500">Error: {error.message}</Text>}
-      {
-        showSliders ?
-          <VStack spacing={5} p={0} align="stretch" px={[8, 8, 0]}>
-            <Box>
-              <Text fontSize={"xl"} mb={"3"}>
-                Macronutrient Filter
-              </Text>
-              <Text
-                fontFamily={"navbar"}
-                fontSize={["md", "md", "lg", "lg"]}
-              >
-                Set your desired macronutrient ranges and click 'Submit' to search for matching foods.
-              </Text>
-            </Box>
-            {macroSettings.map(({ name, label, min, max }) => (
-              <Card
-                key={name}
-                width="100%"
-                borderWidth="1px"
-                borderColor={borderColor}
-                borderRadius="15"
-                overflow="hidden"
-                bg={cardBg}
-                fontFamily={"navbar"}
-              >
-                <CardBody>
-                  <Text
-                    fontSize={["md", "md", "lg", "xl"]}
-                    fontFamily={"navbar"}
-                    mb={2}
-                  >
-                    {label}
-                  </Text>
-                  <RangeSlider
-                    aria-label={[`min-${name}`, `max-${name}`]}
-                    onChange={(val) => handleSliderChange(name, val)}
-                    value={macros[name]}
-                    min={min}
-                    max={max}
-                    colorScheme={"green"}
-                    minStepsBetweenThumbs={20}
-                  >
-                    <RangeSliderTrack bg={sliderBg}>
-                      <RangeSliderFilledTrack />
-                    </RangeSliderTrack>
-                    <RangeSliderThumb
-                      index={0}
-                      border={`1px solid #A0AEC0`}
-                      boxSize="18px"
-                    />
-                    <RangeSliderThumb
-                      index={1}
-                      boxSize="18px"
-                      border={`1px solid #A0AEC0`}
-                    />
-                  </RangeSlider>
-                  <HStack justify="center" mt={2}>
-                    <Text fontFamily={"navbar"} fontWeight={"500"}>
-                      Min
-                    </Text>
-                    <NumberInput
-                      value={macros[name][0]}
-                      min={min}
-                      max={macros[name][1]}
-                      onChange={(valueString) =>
-                        handleSliderChange(name, [
-                          Number(valueString),
-                          macros[name][1],
-                        ])
-                      }
-                      keepWithinRange={false}
-                      clampValueOnBlur={false}
-                      width={"100px"}
-                    >
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                    <Text fontFamily={"navbar"} fontWeight={"500"}>
-                      Max
-                    </Text>
-                    <NumberInput
-                      value={macros[name][1]}
-                      min={macros[name][0]}
-                      max={max}
-                      onChange={(valueString) =>
-                        handleSliderChange(name, [
-                          macros[name][0],
-                          Number(valueString),
-                        ])
-                      }
-                      keepWithinRange={false}
-                      clampValueOnBlur={false}
-                      width={"100px"}
-                    >
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </HStack>
-                </CardBody>
-              </Card>
-            ))}
-          </VStack>
-          :
-          <VStack spacing={5} p={0} width="100%" align="stretch" px={[8, 8, 0]}>
-            {!meals ? <Text>No Meals Found</Text> :
-              <>
-                <Text fontSize={"xl"}>
-                  Filtered Food Results
+      {showSliders ? (
+        <VStack spacing={5} p={0} align="stretch" px={[8, 8, 0]}>
+          <Box>
+            <Text fontSize={"xl"} mb={"3"}>
+              Macronutrient Filter
+            </Text>
+            <Text fontFamily={"navbar"} fontSize={["md", "md", "lg", "lg"]}>
+              Set your desired macronutrient ranges and click 'Submit' to search
+              for matching foods.
+            </Text>
+          </Box>
+          {macroSettings.map(({ name, label, min, max }) => (
+            <Card
+              key={name}
+              width="100%"
+              borderWidth="1px"
+              borderColor={borderColor}
+              borderRadius="15"
+              overflow="hidden"
+              bg={cardBg}
+              fontFamily={"navbar"}
+            >
+              <CardBody>
+                <Text
+                  fontSize={["md", "md", "lg", "xl"]}
+                  fontFamily={"navbar"}
+                  mb={2}
+                >
+                  {label}
                 </Text>
+                <RangeSlider
+                  aria-label={[`min-${name}`, `max-${name}`]}
+                  onChange={(val) => handleSliderChange(name, val)}
+                  value={macros[name]}
+                  min={min}
+                  max={max}
+                  colorScheme={"green"}
+                  minStepsBetweenThumbs={20}
+                >
+                  <RangeSliderTrack bg={sliderBg}>
+                    <RangeSliderFilledTrack />
+                  </RangeSliderTrack>
+                  <RangeSliderThumb
+                    index={0}
+                    border={`1px solid #A0AEC0`}
+                    boxSize="18px"
+                  />
+                  <RangeSliderThumb
+                    index={1}
+                    boxSize="18px"
+                    border={`1px solid #A0AEC0`}
+                  />
+                </RangeSlider>
+                <HStack justify="center" mt={2}>
+                  <Text fontFamily={"navbar"} fontWeight={"500"}>
+                    Min
+                  </Text>
+                  <NumberInput
+                    value={macros[name][0]}
+                    min={min}
+                    max={macros[name][1]}
+                    onChange={(valueString) =>
+                      handleSliderChange(name, [
+                        Number(valueString),
+                        macros[name][1],
+                      ])
+                    }
+                    keepWithinRange={false}
+                    clampValueOnBlur={false}
+                    width={"100px"}
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                  <Text fontFamily={"navbar"} fontWeight={"500"}>
+                    Max
+                  </Text>
+                  <NumberInput
+                    value={macros[name][1]}
+                    min={macros[name][0]}
+                    max={max}
+                    onChange={(valueString) =>
+                      handleSliderChange(name, [
+                        macros[name][0],
+                        Number(valueString),
+                      ])
+                    }
+                    keepWithinRange={false}
+                    clampValueOnBlur={false}
+                    width={"100px"}
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                </HStack>
+              </CardBody>
+            </Card>
+          ))}
+        </VStack>
+      ) : (
+        <VStack spacing={5} p={0} width="100%" align="stretch" px={[8, 8, 0]}>
+          {!meals ? (
+            <Text>No Meals Found</Text>
+          ) : (
+            <>
+              <Text fontSize={"xl"}>Filtered Food Results</Text>
 
-                <FoodCardList meals={meals} />
-              </>
-            }
-
-          </VStack>
-      }
-      <HStack w="full" justify={showSliders ? "flex-end" : "flex-start"} p={0} mt={6} px={[8, 8, 0]}>
+              <FoodCardList meals={meals} />
+            </>
+          )}
+        </VStack>
+      )}
+      <HStack
+        w="full"
+        justify={showSliders ? "flex-end" : "flex-start"}
+        p={0}
+        mt={6}
+        px={[8, 8, 0]}
+      >
         <Button
           bg={buttonBg}
-          onClick={showSliders ? handleSubmit : () => setShowSliders(!showSliders)}
+          onClick={
+            showSliders ? handleSubmit : () => setShowSliders(!showSliders)
+          }
           p={6}
           borderRadius={15}
           fontWeight="normal"
@@ -252,7 +256,7 @@ function AttributeSliders() {
           {showSliders ? "Show Meals >" : "< Edit Ranges"}
         </Button>
       </HStack>
-    </Box >
+    </Box>
   );
 }
 
