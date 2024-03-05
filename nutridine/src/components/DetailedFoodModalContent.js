@@ -17,7 +17,7 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
   const { detailedMeal, loading, error } = useMealById({ nix_item_id });
   const buttonBg = useColorModeValue("light.primary.500", "dark.primary.500");
   const buttonHover = useColorModeValue(
-    "light.primary.400",
+    "light.primary.200",
     "dark.primary.400"
   );
   const buttonTextColor = useColorModeValue("black", "white");
