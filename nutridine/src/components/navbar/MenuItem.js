@@ -21,7 +21,7 @@ export const MenuItem = ({ children, onClick, to, isActive, ...rest }) => {
         onClick={onClick}
         px={6}
         py={2}
-        borderRadius="full"
+        borderRadius="17"
         bg={isActive ? activeBg : "transparent"}
         display="inline-flex"
         alignItems="center"
