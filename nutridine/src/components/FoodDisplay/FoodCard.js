@@ -35,10 +35,13 @@ function FoodCard({ foodItem }) {
       borderRadius="15"
       overflow="hidden"
       bg={colorMode === "dark" ? "gray.700" : "gray.50"}
+      _hover={{
+        shadow: colorMode === "dark" ? "md-light" : "md",
+        cursor: "pointer",
+      }}
+      fontFamily={"navbar"}
       onClick={() => openModal(foodItem)}
       cursor="pointer"
-      _hover={{ shadow: "md" }}
-      fontFamily={"navbar"}
     >
       <VStack align="start" justify="space-between" p={4} spacing={4} w="full">
         <Box>
