@@ -78,7 +78,6 @@ function AttributeSliders() {
 
     try {
       const response = await fetchMealsByMacros(params);
-      console.log(response.data);
       if (response.error) {
         setError(response.error);
         console.error("Failed to fetch meals:", response.error);
