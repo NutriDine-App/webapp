@@ -4,12 +4,10 @@ import nutritionIxIds from "../../constants/nutritionIxIds";
 
 function FoodCard({ foodItem }) {
     const { colorMode } = useColorMode();
-    const boxShadowColor = colorMode === 'dark' ? 'whiteAlpha.400' : 'gray.500';
 
     return (
         <Box
             width="100%"
-            maxW="600px"
             borderWidth="1px"
             borderRadius="15"
             overflow="hidden"
@@ -19,7 +17,7 @@ function FoodCard({ foodItem }) {
         >
             <VStack align="start" justify="space-between" p={4} spacing={4} w="full">
                 <Box>
-                    <Text fontSize='sm' color={colorMode === 'dark' ? 'grey.200' : 'gray.500'}> {foodItem.brand_name}</Text>
+                    <Text fontSize='sm' color={colorMode === 'dark' ? 'gray.300' : 'gray.500'}> {foodItem.brand_name}</Text>
                     <Heading size='md' noOfLines={2} fontFamily="navbar" fontWeight="500">{foodItem.food_name}</Heading>
                 </Box>
             </VStack >

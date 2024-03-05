@@ -54,6 +54,7 @@ const NavBarContainer = ({ children, ...props }) => {
       top={0}
       zIndex={2}
       bg={"transparent"}
+      opacity={0.97}
       {...props}
     >
       <Flex
@@ -63,7 +64,6 @@ const NavBarContainer = ({ children, ...props }) => {
         wrap="wrap"
         width="100%"
         mb={8}
-        borderRadius={25}
         color={color}
         fontFamily={"navbar"}
         fontSize={["sm", "md", "lg"]}

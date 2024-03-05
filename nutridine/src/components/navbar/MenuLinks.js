@@ -23,35 +23,35 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [hasScrolled]); 
+  }, [hasScrolled]);
 
   const { colorMode, toggleColorMode } = useColorMode();
-  
 
 
-  const bgColorDefault = useColorModeValue("white", "gray.800");
-  const bgColorScrolled = useColorModeValue("#bbbbbb", "#252E3E");
+
+  const bgColorDefault = useColorModeValue("transparent", "transparent");
+  const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
 
   const bgColor = hasScrolled ? bgColorScrolled : bgColorDefault;
-  
+
   return (
     <Box
-    display={{ base: isOpen ? "block" : "none", md: "flex" }}
-    flexBasis={{ base: "100%", md: "auto" }}
-    position={{ base: "fixed", md: "relative" }}
-    width={{ base: "100vw", md: "auto" }}
-    height={{ base: "100vh", md: "auto" }}
-    bg={bgColor}
-    zIndex={20}
-    top={0}
-    left={0}
-    right={0}
-    transition="0.3s ease"
-    pt={{ base: "15rem", md: "0" }}
-    borderRadius={25}
+      display={{ base: isOpen ? "block" : "none", md: "flex" }}
+      flexBasis={{ base: "100%", md: "auto" }}
+      position={{ base: "fixed", md: "relative" }}
+      width={{ base: "100vw", md: "550px" }}
+      height={{ base: "100vh", md: "auto" }}
+      bg={isOpen ? bgColorScrolled : bgColor}
+      zIndex={20}
+      top={0}
+      left={0}
+      right={0}
+      transition="0.4s ease"
+      pt={{ base: "15rem", md: "0" }}
+      borderRadius={25}
     >
       <Stack
-        spacing={[12, 20]}
+        spacing={12}
         align="center"
         justify={{ base: "flex-start", md: "center" }}
         direction={{ base: "column", md: "row" }}
