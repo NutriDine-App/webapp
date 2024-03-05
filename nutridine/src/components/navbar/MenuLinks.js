@@ -46,7 +46,7 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
       right={0}
       transition="0.4s ease"
       pt={{ base: "15rem", md: "0" }}
-      borderRadius={isOpen ? 0 : 25}
+      borderRadius={[0,0,25,25]}
     >
       <Stack
         spacing={12}
