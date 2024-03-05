@@ -102,10 +102,12 @@ function AttributeSliders() {
 
   const sliderBg = useColorModeValue("gray.300", "dark.primary.800");
   const buttonBg = useColorModeValue("light.primary.500", "dark.primary.600");
-
   const cardBg = useColorModeValue("gray.50", "gray.700");
-
   const borderColor = useColorModeValue("gray.200", "gray.600");
+  const buttonHover = useColorModeValue(
+    "light.primary.400",
+    "dark.primary.400"
+  );
 
   return (
     <Box
@@ -148,13 +150,13 @@ function AttributeSliders() {
                   {label}
                 </Text>
                 <RangeSlider
-                  aria-label={[`min-${name}`, `max-${name}`].toString()}
+                  aria-label={[`min-${name}`, `max-${name}`]}
                   onChange={(val) => handleSliderChange(name, val)}
                   value={macros[name]}
                   min={min}
                   max={max}
                   colorScheme={"green"}
-                  minStepsBetweenThumbs={20}
+                  minStepsBetweenThumbs={10}
                 >
                   <RangeSliderTrack bg={sliderBg}>
                     <RangeSliderFilledTrack />
@@ -186,7 +188,7 @@ function AttributeSliders() {
                     }
                     keepWithinRange={true}
                     clampValueOnBlur={false}
-                    width={"100px"}
+                    width={"90px"}
                   >
                     <NumberInputField />
                     <NumberInputStepper>
@@ -209,7 +211,7 @@ function AttributeSliders() {
                     }
                     keepWithinRange={true}
                     clampValueOnBlur={false}
-                    width={"100px"}
+                    width={"90px"}
                   >
                     <NumberInputField />
                     <NumberInputStepper>
@@ -251,6 +253,7 @@ function AttributeSliders() {
           borderRadius={15}
           fontWeight="normal"
           width="150px"
+          _hover={{ bg: buttonHover }}
         >
           {showSliders ? "Show Meals >" : "< Edit Ranges"}
         </Button>

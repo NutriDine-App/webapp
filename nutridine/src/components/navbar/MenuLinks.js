@@ -31,22 +31,26 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
 
   const bgColor = hasScrolled ? bgColorScrolled : bgColorDefault;
+  const buttonBgHover = useColorModeValue(
+    "light.primary.200",
+    "dark.primary.400"
+  );
 
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "flex" }}
       flexBasis={{ base: "100%", md: "auto" }}
       position={{ base: "fixed", md: "relative" }}
-      width={{ base: "100vw", md: "auto" }}
+      width={{ base: "100vw", md: "550px" }}
       height={{ base: "100vh", md: "auto" }}
-      bg={bgColor}
+      bg={isOpen ? bgColorScrolled : bgColor}
       zIndex={20}
       top={0}
       left={0}
       right={0}
-      transition="0.3s ease"
+      transition="0.4s ease"
       pt={{ base: "15rem", md: "0" }}
-      borderRadius={["none", "none", "full", "full"]}
+      borderRadius={[0, 0, 25, 25]}
     >
       <Stack
         spacing={12}
@@ -84,8 +88,9 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
           <Button
             onClick={toggleColorMode}
             variant="ghost"
+            borderRadius={"30"}
             _hover={{
-              bg: "transparent",
+              bg: buttonBgHover,
             }}
           >
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}

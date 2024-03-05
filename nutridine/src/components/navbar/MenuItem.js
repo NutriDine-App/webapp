@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 export const MenuItem = ({ children, onClick, to, isActive, ...rest }) => {
   const activeBg = useColorModeValue("light.primary.500", "dark.primary.600");
+  const buttonBgHover = useColorModeValue("light.primary.200", "dark.primary.400");
   const transitionDuration = "0.3s";
 
   return (
@@ -21,8 +22,11 @@ export const MenuItem = ({ children, onClick, to, isActive, ...rest }) => {
         onClick={onClick}
         px={6}
         py={2}
-        borderRadius="full"
+        borderRadius="17"
         bg={isActive ? activeBg : "transparent"}
+        _hover={{
+          background: isActive ? activeBg : buttonBgHover,
+        }}
         display="inline-flex"
         alignItems="center"
         justifyContent="center"
