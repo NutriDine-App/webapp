@@ -31,6 +31,7 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
 
   const bgColor = hasScrolled ? bgColorScrolled : bgColorDefault;
+  const buttonBgHover = useColorModeValue("light.primary.200", "dark.primary.400");
 
   return (
     <Box
@@ -84,8 +85,9 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
           <Button
             onClick={toggleColorMode}
             variant="ghost"
+            borderRadius={"30"}
             _hover={{
-              bg: "transparent",
+              bg: buttonBgHover,
             }}
           >
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
