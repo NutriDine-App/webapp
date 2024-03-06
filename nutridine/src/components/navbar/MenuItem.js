@@ -40,5 +40,3 @@ export const MenuItem = ({ children, onClick, to, isActive, ...rest }) => {
     </NavLink>
   );
 };
-
-

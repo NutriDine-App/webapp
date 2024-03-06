@@ -17,6 +17,7 @@ export const fetchMealsByMacros = async ({
   const appId = process.env.REACT_APP_NUTRITIONIX_APP_ID;
 
   try {
+    console.log("useMealsByMacros is fetching...");
     let response = await axios.post(
       "https://trackapi.nutritionix.com/v2/search/instant",
       {
@@ -61,14 +62,34 @@ export const fetchMealsByMacros = async ({
 };
 
 // Hook using the fetch function
-const useMealsByMacros = (params) => {
+const useMealsByMacros = ({
+  query,
+  minCalories,
+  maxCalories,
+  minProtein,
+  maxProtein,
+  minCarbs,
+  maxCarbs,
+  minFat,
+  maxFat,
+}) => {
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await fetchMealsByMacros(params);
+      const { data, error } = await fetchMealsByMacros({
+        query,
+        minCalories,
+        maxCalories,
+        minProtein,
+        maxProtein,
+        minCarbs,
+        maxCarbs,
+        minFat,
+        maxFat,
+      });
       if (data) {
         setMeals(data);
         setError(null);
@@ -79,7 +100,17 @@ const useMealsByMacros = (params) => {
     };
 
     fetchData();
-  }, [params]);
+  }, [
+    query,
+    minCalories,
+    maxCalories,
+    minProtein,
+    maxProtein,
+    minCarbs,
+    maxCarbs,
+    minFat,
+    maxFat,
+  ]);
 
   return { meals, loading, error };
 };

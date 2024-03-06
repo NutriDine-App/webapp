@@ -31,7 +31,10 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
 
   const bgColor = hasScrolled ? bgColorScrolled : bgColorDefault;
-  const buttonBgHover = useColorModeValue("light.primary.200", "dark.primary.400");
+  const buttonBgHover = useColorModeValue(
+    "light.primary.200",
+    "dark.primary.400"
+  );
 
   return (
     <Box
@@ -47,7 +50,7 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
       right={0}
       transition="0.4s ease"
       pt={{ base: "15rem", md: "0" }}
-      borderRadius={[0,0,25,25]}
+      borderRadius={[0, 0, 25, 25]}
     >
       <Stack
         spacing={12}
