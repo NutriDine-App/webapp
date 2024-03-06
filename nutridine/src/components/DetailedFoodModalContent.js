@@ -34,7 +34,7 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
     >
       <ModalHeader>
         <VStack alignItems={"flex-start"}>
-          <Text fontSize={"2xl"}>
+          <Text fontSize={"2xl"} mr="2rem">
             <b>{detailedMeal ? detailedMeal.food_name : ""}</b>
           </Text>
           <Text fontSize={"xl"}>
