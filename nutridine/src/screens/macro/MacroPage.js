@@ -44,8 +44,6 @@ function AttributeSliders() {
 
   const handleSubmit = async () => {
     let invalidSliders = [];
-    console.log(process.env.REACT_APP_NUTRITIONIX_APP_ID);
-    console.log(process.env.REACT_APP_DEVELOPMENT_MODE);
     Object.entries(macros).forEach(([key, [min, max]]) => {
       if (min > max) {
         invalidSliders.push(

@@ -21,7 +21,7 @@ export const fetchMealsByMacros = async ({
    * while in development mode. The production app wll use the actual API call. */
   const IS_TESTING = process.env.REACT_APP_DEVELOPMENT_MODE ?? true;
 
-  if (IS_TESTING) {
+  if (IS_TESTING === false) {
     return { data: mockMeals, error: null };
   }
 
