@@ -42,6 +42,17 @@ function NutritionFacts({ detailedMeal }) {
   };
   const borderColors = useColorModeValue("black", "white");
 
+  // formats numbers to least decimal points possible, but allows up to 2 decimal points
+  function formatNumber(number) {
+    if (Number.isInteger(number)) {
+      return number.toString();
+    } else {
+      let formattedNumber = number.toFixed(2);
+      formattedNumber = formattedNumber.replace(/\.?0*$/, "");
+      return formattedNumber;
+    }
+  }
+
   return (
     <Box
       borderWidth="5px"
@@ -56,20 +67,36 @@ function NutritionFacts({ detailedMeal }) {
       <Heading as="h2" size="2xl" fontFamily={"navbar"}>
         Nutrition Facts
       </Heading>
-      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
 
       {/* TOTAL SERVINGS */}
-      <VStack alignItems={"flex-start"}>
-        <Text mb="-10px">{`${serving_qty} servings per ${serving_unit}`}</Text>
-        <HStack justifyContent={"space-between"} w="100%">
-          <Text>
-            <b>Serving Size</b>
-          </Text>
-          <Text>
-            <b>{`${serving_weight_grams}g`}</b>
-          </Text>
-        </HStack>
-      </VStack>
+      {serving_unit !== null &&
+        serving_qty !== null &&
+        serving_weight_grams !== null && (
+          <>
+            <Divider
+              borderBottomWidth="1px"
+              borderColor={borderColors}
+              my="1"
+            />
+            <VStack alignItems={"flex-start"}>
+              {serving_qty === 1 || serving_qty / serving_weight_grams === 1 ? (
+                <Text mb="-10px">Per Serving</Text>
+              ) : (
+                <Text mb="-10px">{`${formatNumber(
+                  serving_qty
+                )} servings per ${serving_unit}`}</Text>
+              )}
+              <HStack justifyContent={"space-between"} w="100%">
+                <Text>
+                  <b>Serving Size</b>
+                </Text>
+                <Text>
+                  <b>{`${serving_weight_grams}g`}</b>
+                </Text>
+              </HStack>
+            </VStack>
+          </>
+        )}
 
       {/* AMOUNT PER SERVING */}
       <Divider borderBottomWidth="10px" borderColor={borderColors} my="2px" />
@@ -115,7 +142,12 @@ function NutritionFacts({ detailedMeal }) {
           <Text>{nf_saturated_fat ?? 0}g</Text>
         </HStack>
         <Text>
-          <b>{Math.round((nf_saturated_fat / dailyMax.saturatedFat) * 100)}%</b>
+          <b>
+            {Math.round(
+              ((nf_saturated_fat ?? 0) / dailyMax.saturatedFat) * 100
+            )}
+            %
+          </b>
         </Text>
       </HStack>
       <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
@@ -134,7 +166,9 @@ function NutritionFacts({ detailedMeal }) {
           <Text>{nf_cholesterol ?? 0}mg</Text>
         </HStack>
         <Text>
-          <b>{Math.round((nf_cholesterol / dailyMax.cholesterol) * 100)}%</b>
+          <b>
+            {Math.round(((nf_cholesterol ?? 0) / dailyMax.cholesterol) * 100)}%
+          </b>
         </Text>
       </HStack>
       <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
@@ -148,7 +182,7 @@ function NutritionFacts({ detailedMeal }) {
           <Text>{nf_sodium ?? 0}mg</Text>
         </HStack>
         <Text>
-          <b>{Math.round((nf_sodium / dailyMax.sodium) * 100)}%</b>
+          <b>{Math.round(((nf_sodium ?? 0) / dailyMax.sodium) * 100)}%</b>
         </Text>
       </HStack>
       <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
@@ -164,7 +198,7 @@ function NutritionFacts({ detailedMeal }) {
         <Text>
           <b>
             {Math.round(
-              (nf_total_carbohydrate / dailyMax.totalCarbohydrate) * 100
+              ((nf_total_carbohydrate ?? 0) / dailyMax.totalCarbohydrate) * 100
             )}
             %
           </b>
@@ -177,7 +211,12 @@ function NutritionFacts({ detailedMeal }) {
           <Text>{nf_dietary_fiber ?? 0}g</Text>
         </HStack>
         <Text>
-          <b>{Math.round((nf_dietary_fiber / dailyMax.dietaryFiber) * 100)}%</b>
+          <b>
+            {Math.round(
+              ((nf_dietary_fiber ?? 0) / dailyMax.dietaryFiber) * 100
+            )}
+            %
+          </b>
         </Text>
       </HStack>
       <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
@@ -196,7 +235,7 @@ function NutritionFacts({ detailedMeal }) {
           <Text>{nf_protein ?? 0}g</Text>
         </HStack>
         <Text>
-          <b>{Math.round((nf_protein / dailyMax.protein) * 100)}%</b>
+          <b>{Math.round(((nf_protein ?? 0) / dailyMax.protein) * 100)}%</b>
         </Text>
       </HStack>
       <Divider borderBottomWidth="8px" borderColor={borderColors} my="2px" />
