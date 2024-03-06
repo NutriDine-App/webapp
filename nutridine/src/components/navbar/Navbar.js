@@ -47,7 +47,7 @@ const NavBarContainer = ({ children, ...props }) => {
   const color = useColorModeValue("black", "white");
   return (
     <Center
-      marginTop={"1rem"}
+      marginTop={"1.5rem"}
       width="100%"
       height={"auto"}
       position="fixed"
