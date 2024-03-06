@@ -39,8 +39,10 @@ const useMealById = ({ nix_item_id }) => {
         setLoading(false);
       }
     };
+    console.log("useMealById: IS_TESTING", IS_TESTING);
 
     if (IS_TESTING) {
+      console.log("useMealById: mocking detailed meal...");
       setDetailedMeal(mockDetailedMeal);
       setLoading(false);
       setError(false);
