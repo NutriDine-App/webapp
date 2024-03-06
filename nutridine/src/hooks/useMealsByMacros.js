@@ -20,13 +20,10 @@ export const fetchMealsByMacros = async ({
   /** Due to limited NutritionIX API calls, this will make our app consumer fake data
    * while in development mode. The production app wll use the actual API call. */
   const IS_TESTING = process.env.REACT_APP_DEVELOPMENT_MODE ?? true;
-  console.log("useMealsByMacros: IS_TESTING", IS_TESTING);
 
-  if (IS_TESTING) {
-    console.log("useMealsByMacros: mocking meals...");
+  if (IS_TESTING === true) {
     return { data: mockMeals, error: null };
   }
-  console.log("about to fetch meals");
 
   try {
     console.log("useMealsByMacros is fetching...");
