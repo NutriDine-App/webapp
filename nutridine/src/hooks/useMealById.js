@@ -13,14 +13,13 @@ const useMealById = ({ nix_item_id }) => {
 
   /** Due to limited NutritionIX API calls, this will make our app consumer fake data
    * while in development mode. The production app wll use the actual API call. */
-  const IS_TESTING = process.env.REACT_APP_DEVELOPMENT_MODE ?? true;
+  const IS_TESTING = process.env.REACT_APP_DEVELOPMENT_MODE !== "false";
 
   useEffect(() => {
     const apiKey = process.env.REACT_APP_NUTRITIONIX_API_KEY;
     const appId = process.env.REACT_APP_NUTRITIONIX_APP_ID;
 
     const fetchData = async () => {
-      console.log("useMealById is fetching...");
       try {
         const response = await axios.get(
           `https://trackapi.nutritionix.com/v2/search/item?nix_item_id=${nix_item_id}`,
@@ -39,10 +38,8 @@ const useMealById = ({ nix_item_id }) => {
         setLoading(false);
       }
     };
-    console.log("useMealById: IS_TESTING", IS_TESTING);
 
     if (IS_TESTING) {
-      console.log("useMealById: mocking detailed meal...");
       setDetailedMeal(mockDetailedMeal);
       setLoading(false);
       setError(false);
