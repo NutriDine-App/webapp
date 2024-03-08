@@ -22,7 +22,7 @@ import {
 import { fetchMealsByMacros } from "../../hooks/useMealsByMacros";
 import { useMeals } from "../../contexts/MealsContext";
 import FoodCardList from "../../components/FoodDisplay/FoodCardList";
-
+import SearchBar from "../../components/SearchBar/SearchBar";
 function AttributeSliders() {
   const { meals, setMeals } = useMeals();
   const [macros, setMacros] = useState({
