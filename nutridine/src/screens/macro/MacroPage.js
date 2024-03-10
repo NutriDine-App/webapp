@@ -58,7 +58,7 @@ function AttributeSliders() {
         title: "Invalid range values detected.",
         description: `The following have invalid ranges where the minimum value exceeds the maximum value: ${invalidSliderNames}. Please adjust these ranges and try again.`,
         status: "error",
-        duration: 9000,
+        duration: 5000,
         isClosable: true,
       });
       return;
