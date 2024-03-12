@@ -6,7 +6,6 @@ import { MenuLinks } from "./MenuLinks";
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState("/");
-
   const toggle = () => setIsOpen(!isOpen);
 
   const handleItemClick = (item) => () => {
@@ -23,7 +22,7 @@ const NavBar = (props) => {
   }, [isOpen]);
 
   return (
-    <>
+    <Flex>
       <NavBarContainer {...props}>
         <Flex
           align="center"
@@ -39,7 +38,7 @@ const NavBar = (props) => {
           />
         </Flex>
       </NavBarContainer>
-    </>
+    </Flex>
   );
 };
 

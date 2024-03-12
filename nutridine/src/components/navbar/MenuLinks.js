@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   Stack,
-  useColorModeValue,
   useColorMode,
   Button,
+  Icon,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+
 import { MenuItem } from "./MenuItem";
+import { FaUser } from "react-icons/fa6";
+import { NavLink } from "react-router-dom";
 
 export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -41,7 +45,8 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
       display={{ base: isOpen ? "block" : "none", md: "flex" }}
       flexBasis={{ base: "100%", md: "auto" }}
       position={{ base: "fixed", md: "relative" }}
-      width={{ base: "100vw", md: "550px" }}
+      width="auto" // Automatically adjusts to content width
+      maxWidth="100vw" // Prevents overflow
       height={{ base: "100vh", md: "auto" }}
       bg={isOpen ? bgColorScrolled : bgColor}
       zIndex={20}
@@ -84,18 +89,31 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
         >
           Macro
         </MenuItem>
-        <Box>
+
+        <NavLink to="/login">
           <Button
-            onClick={toggleColorMode}
+            px={6}
+            py={2}
             variant="ghost"
             borderRadius={"30"}
             _hover={{
               bg: buttonBgHover,
             }}
+            onClick={onItemSelect("/login")}
           >
-            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+            <Icon as={FaUser} />
           </Button>
-        </Box>
+        </NavLink>
+        <Button
+          onClick={toggleColorMode}
+          variant="ghost"
+          borderRadius={"30"}
+          _hover={{
+            bg: buttonBgHover,
+          }}
+        >
+          {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+        </Button>
       </Stack>
     </Box>
   );
