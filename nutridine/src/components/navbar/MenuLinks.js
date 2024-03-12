@@ -104,6 +104,24 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
             <Icon as={FaUser} />
           </Button>
         </NavLink>
+
+        {/* TODO: SETUP REDIRECTION BASED ON LOGGED-IN STATE THENE DELETE THIS BUTTON*/}
+        <NavLink to="/user-preferences">
+          <Button
+            px={6}
+            py={2}
+            variant="ghost"
+            color="goldenrod"
+            borderRadius={"30"}
+            _hover={{
+              bg: buttonBgHover,
+            }}
+            onClick={onItemSelect("/login")}
+          >
+            <Icon as={FaUser} />
+          </Button>
+        </NavLink>
+
         <Button
           onClick={toggleColorMode}
           variant="ghost"

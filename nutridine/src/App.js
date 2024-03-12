@@ -6,6 +6,7 @@ import Layout from "./Layout";
 import { Routes, Route } from "react-router-dom";
 import Signup from "./screens/authentication/Signup";
 import Signin from "./screens/authentication/Signin";
+import UserPreferences from "./screens/userPreferences/UserPreferences";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/restaurants" element={<div>Restaurants Page</div>} />
         <Route path="/macro" element={<MacroPage />} />
+        <Route path="/user-preferences" element={<UserPreferences />} />
       </Routes>
     </Layout>
   );
