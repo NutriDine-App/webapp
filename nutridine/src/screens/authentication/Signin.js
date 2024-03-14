@@ -121,7 +121,13 @@ const Signin = () => {
                 >
                   Remember me
                 </Checkbox>
-                <Button variant="link" size="sm">
+                <Button
+                  onClick={() => {
+                    navigate("/reset-password");
+                  }}
+                  variant="link"
+                  size="sm"
+                >
                   Forgot password?
                 </Button>
               </HStack>
