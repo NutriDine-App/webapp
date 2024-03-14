@@ -71,7 +71,7 @@ const Signup = () => {
 
     register(email, password)
       .then((userCredential) => {
-        navigate("/");
+        navigate("/register-form");
         console.log(userCredential.user);
       })
       .catch((error) => {

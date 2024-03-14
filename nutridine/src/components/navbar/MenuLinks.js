@@ -140,16 +140,30 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
         </Button>
 
         {currentUser && (
-          <Button
-            onClick={handleSignOut}
-            variant="ghost"
-            borderRadius={"30"}
-            _hover={{
-              bg: buttonBgHover,
-            }}
-          >
-            Sign Out
-          </Button>
+          <>
+            <Button
+              onClick={handleSignOut}
+              variant="ghost"
+              borderRadius={"30"}
+              _hover={{
+                bg: buttonBgHover,
+              }}
+            >
+              Sign Out
+            </Button>
+            <Button
+              onClick={() => {
+                console.log(currentUser.displayName);
+              }}
+              variant="ghost"
+              borderRadius={"30"}
+              _hover={{
+                bg: buttonBgHover,
+              }}
+            >
+              current user
+            </Button>
+          </>
         )}
       </Stack>
     </Box>
