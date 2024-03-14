@@ -80,7 +80,7 @@ const Signup = () => {
           title: "Sign up Failed",
           description: `Failed to create account: ${error.message}`,
           status: "error",
-          duration: 5000,
+          duration: 8000,
           isClosable: true,
         });
       });

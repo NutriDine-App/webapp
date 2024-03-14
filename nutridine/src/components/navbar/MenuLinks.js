@@ -16,9 +16,11 @@ import {
   getCurrentUser,
   signOutUser,
 } from "../../hooks/AuthService/authService";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   const [hasScrolled, setHasScrolled] = useState(false);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -145,27 +147,18 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
           {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
         </Button>
 
-        <Button
-          onClick={handleSignOut}
-          variant="ghost"
-          borderRadius={"30"}
-          _hover={{
-            bg: buttonBgHover,
-          }}
-        >
-          Sign Out
-        </Button>
-
-        <Button
-          onClick={handleCurrentUser}
-          variant="ghost"
-          borderRadius={"30"}
-          _hover={{
-            bg: buttonBgHover,
-          }}
-        >
-          Current User
-        </Button>
+        {currentUser && (
+          <Button
+            onClick={handleSignOut}
+            variant="ghost"
+            borderRadius={"30"}
+            _hover={{
+              bg: buttonBgHover,
+            }}
+          >
+            Sign Out
+          </Button>
+        )}
       </Stack>
     </Box>
   );
