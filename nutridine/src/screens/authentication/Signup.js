@@ -17,11 +17,10 @@ import {
   FormHelperText,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { auth } from "../../firebaseConfig";
 import PasswordField from "./PasswordField";
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { OAuthButtonGroup } from "./OuathButtonGroup";
+import { register } from "../../hooks/AuthService/authService";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -70,24 +69,21 @@ const Signup = () => {
       return;
     }
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(userCredential.user);
-      navigate("/");
-    } catch (error) {
-      console.log(error.code, error.message);
-      toast({
-        title: "Sign up Failed",
-        description: `Failed to create account: ${error.message}`,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
+    register(email, password)
+      .then((userCredential) => {
+        navigate("/");
+        console.log(userCredential.user);
+      })
+      .catch((error) => {
+        console.log(error.code, error.message);
+        toast({
+          title: "Sign up Failed",
+          description: `Failed to create account: ${error.message}`,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
-    }
   };
 
   return (
@@ -95,7 +91,6 @@ const Signup = () => {
       maxW={{ base: "90%", sm: "lg" }}
       py={{ base: "12", md: "24" }}
       px={{ base: "4", sm: "8" }}
-     
     >
       <FormControl onSubmit={onSubmit}>
         <Stack spacing="8">

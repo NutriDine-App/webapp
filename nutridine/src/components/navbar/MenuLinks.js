@@ -6,12 +6,16 @@ import {
   Button,
   Icon,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-
 import { MenuItem } from "./MenuItem";
 import { FaUser } from "react-icons/fa6";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  getCurrentUser,
+  signOutUser,
+} from "../../hooks/AuthService/authService";
 
 export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -28,6 +32,32 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [hasScrolled]);
+
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        navigate("/login");
+        console.log("sign out successfully");
+      })
+      .catch((error) => {
+        console.error("Sign out error", error);
+        toast({
+          title: "Sign Out Failed",
+          description: "An error occurred while signing out. Please try again.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  };
+
+  const handleCurrentUser = () => {
+    const user = getCurrentUser();
+    console.log(user);
+  };
 
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -113,6 +143,28 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
           }}
         >
           {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+        </Button>
+
+        <Button
+          onClick={handleSignOut}
+          variant="ghost"
+          borderRadius={"30"}
+          _hover={{
+            bg: buttonBgHover,
+          }}
+        >
+          Sign Out
+        </Button>
+
+        <Button
+          onClick={handleCurrentUser}
+          variant="ghost"
+          borderRadius={"30"}
+          _hover={{
+            bg: buttonBgHover,
+          }}
+        >
+          Current User
         </Button>
       </Stack>
     </Box>

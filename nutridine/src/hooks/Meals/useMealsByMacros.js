@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import brandIds from "../constants/brandIds";
-import mockMeals from "../constants/mockData/meals";
+import brandIds from "../../constants/brandIds";
+import mockMeals from "../../constants/mockData/meals";
 
 export const fetchMealsByMacros = async ({
   query,

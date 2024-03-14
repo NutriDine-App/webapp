@@ -19,11 +19,10 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
 import PasswordField from "./PasswordField";
 import { useNavigate } from "react-router-dom";
 import { OAuthButtonGroup } from "./OuathButtonGroup";
+import { signIn } from "../../hooks/AuthService/authService";
 
 const Signin = () => {
   const cardBg = useColorModeValue("gray.50", "gray.700");
@@ -34,7 +33,6 @@ const Signin = () => {
   const [isInvalid, setIsInvalid] = useState([false, false]);
 
   const toast = useToast();
-
   const navigate = useNavigate();
 
   const onLogin = (e) => {
@@ -48,7 +46,7 @@ const Signin = () => {
       return;
     }
 
-    signInWithEmailAndPassword(auth, email, password)
+    signIn(email, password)
       .then((userCredential) => {
         navigate("/");
         console.log(userCredential);
