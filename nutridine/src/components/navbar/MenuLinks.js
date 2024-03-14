@@ -139,7 +139,7 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
             </MenuList>
           </Menu>
         ) : (
-          <NavLink to="/login">
+          <NavLink to="/login" onClick={onItemSelect("/login")}>
             <Button
               px={6}
               py={2}
