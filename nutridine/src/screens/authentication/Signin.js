@@ -87,7 +87,7 @@ const Signin = () => {
             p={{ base: "4", sm: "8" }}
             bg={cardBg}
             boxShadow={{ base: "none", sm: "md" }}
-            borderRadius={{ base: "none", sm: "xl" }}
+            borderRadius={{ base: 15, sm: 20 }}
           >
             <Stack spacing="6">
               <Stack spacing="5">
