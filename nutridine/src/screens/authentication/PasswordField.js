@@ -35,6 +35,7 @@ const PasswordField = forwardRef((props, ref) => {
             onClick={onClickReveal}
             icon={isOpen ? <HiEyeOff /> : <HiEye />}
             bg={"transparent"}
+            tabIndex={-1}
           />
         </InputRightElement>
         <Input

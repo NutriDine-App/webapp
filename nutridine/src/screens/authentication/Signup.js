@@ -147,6 +147,7 @@ const Signup = () => {
                     onClick={() => navigate("/login")}
                     color="teal.500"
                     href="#"
+                    tabIndex={-1}
                   >
                     Login
                   </Link>

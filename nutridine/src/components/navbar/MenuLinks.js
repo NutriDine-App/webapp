@@ -27,7 +27,7 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const bgColorDefault = useColorModeValue("transparent", "transparent");
   const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
-  const bgColor = isOpen ? bgColorScrolled : bgColorDefault;
+  const bgColor = hasScrolled ? bgColorScrolled : bgColorDefault;
   const buttonBgHover = useColorModeValue(
     "light.primary.200",
     "dark.primary.400"

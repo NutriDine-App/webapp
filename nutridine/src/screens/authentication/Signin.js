@@ -118,6 +118,7 @@ const Signin = () => {
                   isChecked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
                   defaultChecked
+                  tabIndex={-1}
                 >
                   Remember me
                 </Checkbox>
@@ -127,6 +128,7 @@ const Signin = () => {
                   }}
                   variant="link"
                   size="sm"
+                  tabIndex={-1}
                 >
                   Forgot password?
                 </Button>
@@ -141,6 +143,7 @@ const Signin = () => {
                     onClick={() => navigate("/signup")}
                     color="teal.500"
                     href="#"
+                    tabIndex={-1}
                   >
                     Sign up
                   </Link>
