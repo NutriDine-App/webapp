@@ -5,6 +5,7 @@ import {
   signOut,
   setPersistence,
   browserLocalPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
 import app from "../../firebaseConfig";
 
@@ -54,9 +55,12 @@ function validatePassword(password) {
 }
 
 // SignIn Function
-export const signIn = async (email, password) => {
+export const signIn = async (email, password, rememberMe = true) => {
   try {
-    setPersistence(auth, browserLocalPersistence);
+    const persistenceType = rememberMe
+      ? browserLocalPersistence
+      : browserSessionPersistence;
+    await setPersistence(auth, persistenceType);
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email,

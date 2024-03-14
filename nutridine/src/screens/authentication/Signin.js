@@ -31,6 +31,7 @@ const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isInvalid, setIsInvalid] = useState([false, false]);
+  const [rememberMe, setRememberMe] = useState(true);
 
   const toast = useToast();
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const Signin = () => {
       return;
     }
 
-    signIn(email, password)
+    signIn(email, password, rememberMe)
       .then((userCredential) => {
         navigate("/");
         console.log(userCredential);
@@ -113,7 +114,13 @@ const Signin = () => {
                 />
               </Stack>
               <HStack justify="space-between">
-                <Checkbox defaultChecked>Remember me</Checkbox>
+                <Checkbox
+                  isChecked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  defaultChecked
+                >
+                  Remember me
+                </Checkbox>
                 <Button variant="link" size="sm">
                   Forgot password?
                 </Button>

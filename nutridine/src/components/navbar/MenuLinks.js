@@ -12,10 +12,7 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { MenuItem } from "./MenuItem";
 import { FaUser } from "react-icons/fa6";
 import { NavLink, useNavigate } from "react-router-dom";
-import {
-  getCurrentUser,
-  signOutUser,
-} from "../../hooks/AuthService/authService";
+import { signOutUser } from "../../hooks/AuthService/authService";
 import { useAuth } from "../../contexts/AuthContext";
 
 export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
@@ -54,11 +51,6 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
           isClosable: true,
         });
       });
-  };
-
-  const handleCurrentUser = () => {
-    const user = getCurrentUser();
-    console.log(user);
   };
 
   const { colorMode, toggleColorMode } = useColorMode();
