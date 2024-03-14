@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import Signup from "./screens/authentication/Signup";
 import Signin from "./screens/authentication/Signin";
 import RegisterForm from "./screens/authentication/RegisterForm";
+import ProfilePage from "./screens/authentication/ProfilePage";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/login" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/register-form" element={<RegisterForm />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/restaurants" element={<div>Restaurants Page</div>} />
         <Route path="/macro" element={<MacroPage />} />
       </Routes>

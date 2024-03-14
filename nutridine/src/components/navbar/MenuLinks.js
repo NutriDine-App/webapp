@@ -7,6 +7,9 @@ import {
   Icon,
   useColorModeValue,
   useToast,
+  Menu,
+  MenuButton,
+  MenuList,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { MenuItem } from "./MenuItem";
@@ -18,6 +21,17 @@ import { useAuth } from "../../contexts/AuthContext";
 export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const { currentUser } = useAuth();
+
+  const navigate = useNavigate();
+  const toast = useToast();
+  const { colorMode, toggleColorMode } = useColorMode();
+  const bgColorDefault = useColorModeValue("transparent", "transparent");
+  const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
+  const bgColor = isOpen ? bgColorScrolled : bgColorDefault;
+  const buttonBgHover = useColorModeValue(
+    "light.primary.200",
+    "dark.primary.400"
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,17 +46,19 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
     };
   }, [hasScrolled]);
 
-  const navigate = useNavigate();
-  const toast = useToast();
-
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
+        toast({
+          title: "Signed Out",
+          description: "You have been signed out successfully.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
         navigate("/login");
-        console.log("sign out successfully");
       })
       .catch((error) => {
-        console.error("Sign out error", error);
         toast({
           title: "Sign Out Failed",
           description: "An error occurred while signing out. Please try again.",
@@ -53,26 +69,15 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
       });
   };
 
-  const { colorMode, toggleColorMode } = useColorMode();
-
-  const bgColorDefault = useColorModeValue("transparent", "transparent");
-  const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
-
-  const bgColor = hasScrolled ? bgColorScrolled : bgColorDefault;
-  const buttonBgHover = useColorModeValue(
-    "light.primary.200",
-    "dark.primary.400"
-  );
-
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "flex" }}
       flexBasis={{ base: "100%", md: "auto" }}
       position={{ base: "fixed", md: "relative" }}
-      width="auto" // Automatically adjusts to content width
-      maxWidth="100vw" // Prevents overflow
+      width="auto"
+      maxWidth="100vw"
       height={{ base: "100vh", md: "auto" }}
-      bg={isOpen ? bgColorScrolled : bgColor}
+      bg={bgColor}
       zIndex={20}
       top={0}
       left={0}
@@ -114,20 +119,41 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
           Macro
         </MenuItem>
 
-        <NavLink to="/login">
-          <Button
-            px={6}
-            py={2}
-            variant="ghost"
-            borderRadius={"30"}
-            _hover={{
-              bg: buttonBgHover,
-            }}
-            onClick={onItemSelect("/login")}
-          >
-            <Icon as={FaUser} />
-          </Button>
-        </NavLink>
+        {currentUser ? (
+          <Menu>
+            <MenuButton
+              as={Button}
+              variant="ghost"
+              borderRadius="30"
+              _hover={{ bg: buttonBgHover }}
+              _focus={{ boxShadow: "none" }}
+              minWidth="auto"
+            >
+              <Icon as={FaUser} />
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={onItemSelect("/proflie")} to={"/profile"}>
+                Profile
+              </MenuItem>
+              <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+            </MenuList>
+          </Menu>
+        ) : (
+          <NavLink to="/login">
+            <Button
+              px={6}
+              py={2}
+              variant="ghost"
+              borderRadius={"30"}
+              _hover={{
+                bg: buttonBgHover,
+              }}
+            >
+              <Icon as={FaUser} />
+            </Button>
+          </NavLink>
+        )}
+
         <Button
           onClick={toggleColorMode}
           variant="ghost"
@@ -138,33 +164,6 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
         >
           {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
         </Button>
-
-        {currentUser && (
-          <>
-            <Button
-              onClick={handleSignOut}
-              variant="ghost"
-              borderRadius={"30"}
-              _hover={{
-                bg: buttonBgHover,
-              }}
-            >
-              Sign Out
-            </Button>
-            <Button
-              onClick={() => {
-                console.log(currentUser.displayName);
-              }}
-              variant="ghost"
-              borderRadius={"30"}
-              _hover={{
-                bg: buttonBgHover,
-              }}
-            >
-              current user
-            </Button>
-          </>
-        )}
       </Stack>
     </Box>
   );
