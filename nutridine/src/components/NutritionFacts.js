@@ -9,6 +9,9 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import dailyMax from "../constants/dailyMaximums";
+import nutrientWatchListIDs, {
+  nutrientUnits,
+} from "../constants/nutrientWatchList";
 
 function NutritionFacts({ detailedMeal, nutrientPreferences }) {
   const {
@@ -36,6 +39,9 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
     selectedNutrients,
   } = nutrientPreferences;
 
+  const selectedNutrientKeys = Object.keys(nutrientWatchListIDs).filter((key) =>
+    selectedNutrients.includes(nutrientWatchListIDs[key])
+  );
   const trans_fat =
     full_nutrients.find((nutrient) => nutrient.attr_id === 605)?.value ?? 0;
 
@@ -65,22 +71,21 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
   };
 
   if (nutrientPreferences !== null) {
-    userDailyMaximums.calories = calories ?? dailyMax.calories;
-    userDailyMaximums.totalFat = totalFat ?? dailyMax.totalFat;
-    userDailyMaximums.saturatedFat = totalFat
-      ? Math.round(totalFat * 0.3077)
-      : dailyMax.saturatedFat;
-    userDailyMaximums.cholesterol = cholesterol ?? dailyMax.cholesterol;
-    userDailyMaximums.sodium = sodium ?? dailyMax.sodium;
-    userDailyMaximums.totalCarbohydrate = carbs ?? dailyMax.totalCarbohydrate;
-    userDailyMaximums.dietaryFiber = carbs
-      ? Math.round(carbs * 0.09333)
-      : dailyMax.dietaryFiber;
-    userDailyMaximums.protein = protein ?? dailyMax.protein;
+    userDailyMaximums.calories = calories !== 0 ? calories : dailyMax.calories;
+    userDailyMaximums.totalFat = totalFat !== 0 ? totalFat : dailyMax.totalFat;
+    userDailyMaximums.saturatedFat =
+      totalFat !== 0 ? Math.round(totalFat * 0.3077) : dailyMax.saturatedFat;
+    userDailyMaximums.cholesterol =
+      cholesterol !== 0 ? cholesterol : dailyMax.cholesterol;
+    userDailyMaximums.sodium = sodium !== 0 ? sodium : dailyMax.sodium;
+    userDailyMaximums.totalCarbohydrate =
+      carbs !== 0 ? carbs : dailyMax.totalCarbohydrate;
+    userDailyMaximums.dietaryFiber =
+      carbs !== 0 ? Math.round(carbs * 0.09333) : dailyMax.dietaryFiber;
+    userDailyMaximums.protein = protein !== 0 ? protein : dailyMax.protein;
     // Sugars are not currently collected/stored in the DB, but would be a great addition
     userDailyMaximums.sugars = dailyMax.sugars;
   }
-
   return (
     <Box
       borderWidth="5px"
@@ -146,7 +151,9 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
           </Text>
         </HStack>
         <Text as="h3" fontSize={"3xl"}>
-          <b>{Math.round((nf_calories / userDailyMaximums.calories) * 100)}%</b>
+          <b>
+            {Math.round((nf_calories / userDailyMaximums.calories) * 100) || 0}%
+          </b>
         </Text>
       </HStack>
       <Divider
@@ -166,7 +173,8 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
         </HStack>
         <Text>
           <b>
-            {Math.round((nf_total_fat / userDailyMaximums.totalFat) * 100)}%
+            {Math.round((nf_total_fat / userDailyMaximums.totalFat) * 100) || 0}
+            %
           </b>
         </Text>
       </HStack>
@@ -180,7 +188,7 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
           <b>
             {Math.round(
               ((nf_saturated_fat ?? 0) / userDailyMaximums.saturatedFat) * 100
-            )}
+            ) || 0}
             %
           </b>
         </Text>
@@ -203,7 +211,7 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
           <b>
             {Math.round(
               ((nf_cholesterol ?? 0) / userDailyMaximums.cholesterol) * 100
-            )}
+            ) || 0}
             %
           </b>
         </Text>
@@ -219,7 +227,9 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
         </HStack>
         <Text>
           <b>
-            {Math.round(((nf_sodium ?? 0) / userDailyMaximums.sodium) * 100)}%
+            {Math.round(((nf_sodium ?? 0) / userDailyMaximums.sodium) * 100) ||
+              0}
+            %
           </b>
         </Text>
       </HStack>
@@ -238,7 +248,7 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
               ((nf_total_carbohydrate ?? 0) /
                 userDailyMaximums.totalCarbohydrate) *
                 100
-            )}
+            ) || 0}
             %
           </b>
         </Text>
@@ -253,7 +263,7 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
           <b>
             {Math.round(
               ((nf_dietary_fiber ?? 0) / userDailyMaximums.dietaryFiber) * 100
-            )}
+            ) || 0}
             %
           </b>
         </Text>
@@ -274,11 +284,53 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
         </HStack>
         <Text>
           <b>
-            {Math.round(((nf_protein ?? 0) / userDailyMaximums.protein) * 100)}%
+            {Math.round(
+              ((nf_protein ?? 0) / userDailyMaximums.protein) * 100
+            ) || 0}
+            %
           </b>
         </Text>
       </HStack>
-      <Divider borderBottomWidth="8px" borderColor={borderColors} my="2px" />
+      <Divider
+        borderBottomWidth="8px"
+        borderColor={borderColors}
+        my="2px"
+        mb="4px"
+      />
+
+      {/* WATCH LIST NUTRIENTS */}
+      {selectedNutrients.map((nutrient) => {
+        const nutrientName = selectedNutrientKeys.find(
+          (key) => nutrientWatchListIDs[key] === nutrient
+        );
+        const nutrientValue =
+          full_nutrients.find((nut) => nut.attr_id === nutrient)?.value ?? 0;
+        return (
+          <>
+            <HStack justifyContent={"space-between"} key={nutrient}>
+              <HStack>
+                <Text>{nutrientName}</Text>
+                <Text>
+                  {nutrientValue} {nutrientUnits[nutrient]}
+                </Text>
+              </HStack>
+              {/* TODO: Get values for daily max/ update form to accept these custom values. */}
+              {/* <Text>
+                {Math.round(
+                  (nutrientValue / userDailyMaximums[nutrientName]) * 100
+                ) || 0}
+                %
+              </Text> */}
+            </HStack>
+            <Divider
+              borderBottomWidth="1px"
+              borderColor={borderColors}
+              my="1"
+            />
+          </>
+        );
+      })}
+
       <HStack alignItems={"flex-start"}>
         <Text>*</Text>
         {nutrientPreferences ? (
