@@ -1,23 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
-import theme from './theme'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import reportWebVitals from "./reportWebVitals";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import theme from "./theme";
 import { MealsProvider } from "./contexts/MealsContext";
 import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ChakraProvider theme={theme}>
-    <MealsProvider>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </MealsProvider>
+    <AuthProvider>
+      <MealsProvider>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </MealsProvider>
+    </AuthProvider>
   </ChakraProvider>
 );
 
