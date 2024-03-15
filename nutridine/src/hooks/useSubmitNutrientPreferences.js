@@ -75,14 +75,16 @@ const useSubmitNutrientPreferences = (userUid) => {
       // Throws an error if the nutrientPreferences are invalid
       validateNutrients(nutrientPreferences);
 
+      console.log("useSubmitNutrientPreferences firing..");
+
       const backendFormat = {
         userUid: userUid,
-        calories: nutrientPreferences.calories,
-        totalFat: nutrientPreferences.totalFat,
-        cholesterol: nutrientPreferences.cholesterol,
-        sodium: nutrientPreferences.sodium,
-        carbs: nutrientPreferences.carbs,
-        protein: nutrientPreferences.protein,
+        calories: Number(nutrientPreferences.calories),
+        totalFat: Number(nutrientPreferences.totalFat),
+        cholesterol: Number(nutrientPreferences.cholesterol),
+        sodium: Number(nutrientPreferences.sodium),
+        carbs: Number(nutrientPreferences.carbs),
+        protein: Number(nutrientPreferences.protein),
         // Save the nutritionix nutrient IDs to firebase, not the frontend names
         selectedNutrients: nutrientPreferences.selectedNutrients
           .filter((nutrient) => nutrient in nutrientWatchListIDs)

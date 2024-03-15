@@ -8,8 +8,9 @@ import {
   Divider,
   useColorModeValue,
 } from "@chakra-ui/react";
+import dailyMax from "../constants/dailyMaximums";
 
-function NutritionFacts({ detailedMeal }) {
+function NutritionFacts({ detailedMeal, nutrientPreferences }) {
   const {
     nf_calories,
     nf_total_fat,
@@ -25,21 +26,19 @@ function NutritionFacts({ detailedMeal }) {
     serving_unit,
     serving_weight_grams,
   } = detailedMeal;
+  const {
+    calories,
+    totalFat,
+    cholesterol,
+    sodium,
+    carbs,
+    protein,
+    selectedNutrients,
+  } = nutrientPreferences;
+
   const trans_fat =
     full_nutrients.find((nutrient) => nutrient.attr_id === 605)?.value ?? 0;
 
-  // Based on Health Candada's Dietary Reference Intakes
-  const dailyMax = {
-    calories: 2000, // calories
-    totalFat: 65, // g
-    saturatedFat: 20, // g
-    cholesterol: 300, // mg
-    sodium: 2300, // mg
-    totalCarbohydrate: 300, // g
-    dietaryFiber: 28, // g
-    sugars: 50, // g
-    protein: 50, // g
-  };
   const borderColors = useColorModeValue("black", "white");
 
   // formats numbers to least decimal points possible, but allows up to 2 decimal points
@@ -51,6 +50,35 @@ function NutritionFacts({ detailedMeal }) {
       formattedNumber = formattedNumber.replace(/\.?0*$/, "");
       return formattedNumber;
     }
+  }
+
+  let userDailyMaximums = {
+    calories: 0,
+    totalFat: 0,
+    saturatedFat: 0,
+    cholesterol: 0,
+    sodium: 0,
+    totalCarbohydrate: 0,
+    dietaryFiber: 0,
+    sugars: 0,
+    protein: 0,
+  };
+
+  if (nutrientPreferences !== null) {
+    userDailyMaximums.calories = calories ?? dailyMax.calories;
+    userDailyMaximums.totalFat = totalFat ?? dailyMax.totalFat;
+    userDailyMaximums.saturatedFat = totalFat
+      ? Math.round(totalFat * 0.3077)
+      : dailyMax.saturatedFat;
+    userDailyMaximums.cholesterol = cholesterol ?? dailyMax.cholesterol;
+    userDailyMaximums.sodium = sodium ?? dailyMax.sodium;
+    userDailyMaximums.totalCarbohydrate = carbs ?? dailyMax.totalCarbohydrate;
+    userDailyMaximums.dietaryFiber = carbs
+      ? Math.round(carbs * 0.09333)
+      : dailyMax.dietaryFiber;
+    userDailyMaximums.protein = protein ?? dailyMax.protein;
+    // Sugars are not currently collected/stored in the DB, but would be a great addition
+    userDailyMaximums.sugars = dailyMax.sugars;
   }
 
   return (
@@ -67,7 +95,6 @@ function NutritionFacts({ detailedMeal }) {
       <Heading as="h2" size="2xl" fontFamily={"navbar"}>
         Nutrition Facts
       </Heading>
-
       {/* TOTAL SERVINGS */}
       {serving_unit !== null &&
         serving_qty !== null &&
@@ -97,31 +124,37 @@ function NutritionFacts({ detailedMeal }) {
             </VStack>
           </>
         )}
-
       {/* AMOUNT PER SERVING */}
       <Divider borderBottomWidth="10px" borderColor={borderColors} my="2px" />
-      <Heading size="sm" fontFamily={"navbar"}>
-        Amount Per Serving
-      </Heading>
-
-      {/* CALORIES */}
-      <HStack justify={"space-between"} alignItems={"flex-end"}>
-        <Heading as="h3" fontFamily={"navbar"}>
-          Calories
+      <HStack justify={"space-between"} alignItems={"flex-end"} mb="0.5rem">
+        <Heading size="sm" fontFamily={"navbar"}>
+          Amount Per Serving
         </Heading>
-        <Heading as="h3" fontSize={"3xl"} fontFamily={"navbar"}>
-          {nf_calories ?? 0}
-        </Heading>
-      </HStack>
-      <Divider borderBottomWidth="8px" borderColor={borderColors} my="2px" />
-
-      {/* DAILY VALUE */}
-      <HStack justifyContent={"flex-end"}>
         <Text>
           <b>% Daily Value*</b>
         </Text>
       </HStack>
-      <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
+
+      {/* CALORIES */}
+      <HStack justify={"space-between"} alignItems={"flex-end"}>
+        <HStack alignContent={"flex-end"}>
+          <Heading as="h3" fontFamily={"navbar"}>
+            <b>Calories </b>
+          </Heading>
+          <Text fontSize="3xl" ml="0.75rem" mb="-5px">
+            {nf_calories ?? 0}
+          </Text>
+        </HStack>
+        <Text as="h3" fontSize={"3xl"}>
+          <b>{Math.round((nf_calories / userDailyMaximums.calories) * 100)}%</b>
+        </Text>
+      </HStack>
+      <Divider
+        borderBottomWidth="8px"
+        borderColor={borderColors}
+        my="2px"
+        mb="5px"
+      />
 
       {/* FAT */}
       <HStack justifyContent={"space-between"}>
@@ -132,7 +165,9 @@ function NutritionFacts({ detailedMeal }) {
           <Text>{nf_total_fat ?? 0}g</Text>
         </HStack>
         <Text>
-          <b>{Math.round((nf_total_fat / dailyMax.totalFat) * 100)}%</b>
+          <b>
+            {Math.round((nf_total_fat / userDailyMaximums.totalFat) * 100)}%
+          </b>
         </Text>
       </HStack>
       <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
@@ -144,7 +179,7 @@ function NutritionFacts({ detailedMeal }) {
         <Text>
           <b>
             {Math.round(
-              ((nf_saturated_fat ?? 0) / dailyMax.saturatedFat) * 100
+              ((nf_saturated_fat ?? 0) / userDailyMaximums.saturatedFat) * 100
             )}
             %
           </b>
@@ -156,7 +191,6 @@ function NutritionFacts({ detailedMeal }) {
         <Text>{trans_fat ?? 0}g</Text>
       </HStack>
       <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
-
       {/* CHOLESTREROL */}
       <HStack justifyContent={"space-between"}>
         <HStack>
@@ -167,12 +201,14 @@ function NutritionFacts({ detailedMeal }) {
         </HStack>
         <Text>
           <b>
-            {Math.round(((nf_cholesterol ?? 0) / dailyMax.cholesterol) * 100)}%
+            {Math.round(
+              ((nf_cholesterol ?? 0) / userDailyMaximums.cholesterol) * 100
+            )}
+            %
           </b>
         </Text>
       </HStack>
       <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
-
       {/* SODIUM */}
       <HStack justifyContent={"space-between"}>
         <HStack>
@@ -182,11 +218,12 @@ function NutritionFacts({ detailedMeal }) {
           <Text>{nf_sodium ?? 0}mg</Text>
         </HStack>
         <Text>
-          <b>{Math.round(((nf_sodium ?? 0) / dailyMax.sodium) * 100)}%</b>
+          <b>
+            {Math.round(((nf_sodium ?? 0) / userDailyMaximums.sodium) * 100)}%
+          </b>
         </Text>
       </HStack>
       <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
-
       {/* TOTAL CARBOHYDRATES */}
       <HStack justifyContent={"space-between"}>
         <HStack>
@@ -198,7 +235,9 @@ function NutritionFacts({ detailedMeal }) {
         <Text>
           <b>
             {Math.round(
-              ((nf_total_carbohydrate ?? 0) / dailyMax.totalCarbohydrate) * 100
+              ((nf_total_carbohydrate ?? 0) /
+                userDailyMaximums.totalCarbohydrate) *
+                100
             )}
             %
           </b>
@@ -213,7 +252,7 @@ function NutritionFacts({ detailedMeal }) {
         <Text>
           <b>
             {Math.round(
-              ((nf_dietary_fiber ?? 0) / dailyMax.dietaryFiber) * 100
+              ((nf_dietary_fiber ?? 0) / userDailyMaximums.dietaryFiber) * 100
             )}
             %
           </b>
@@ -225,7 +264,6 @@ function NutritionFacts({ detailedMeal }) {
         <Text>{nf_sugars ?? 0}g</Text>
       </HStack>
       <Divider borderBottomWidth="1px" borderColor={borderColors} my="1" />
-
       {/* PROTEIN */}
       <HStack justifyContent={"space-between"}>
         <HStack>
@@ -235,18 +273,28 @@ function NutritionFacts({ detailedMeal }) {
           <Text>{nf_protein ?? 0}g</Text>
         </HStack>
         <Text>
-          <b>{Math.round(((nf_protein ?? 0) / dailyMax.protein) * 100)}%</b>
+          <b>
+            {Math.round(((nf_protein ?? 0) / userDailyMaximums.protein) * 100)}%
+          </b>
         </Text>
       </HStack>
       <Divider borderBottomWidth="8px" borderColor={borderColors} my="2px" />
-
       <HStack alignItems={"flex-start"}>
         <Text>*</Text>
-        <Text fontSize="xs">
-          The % Daily Value (DV) tells you how much a nutrient in a serving of
-          food contributes to a daily diet. 2,000 calories a day is used for
-          general nutrition advice.
-        </Text>
+        {nutrientPreferences ? (
+          <Text fontSize="xs">
+            The % Daily Value (DV) tells you how much a nutrient in a serving of
+            food contributes to a daily diet. These values are being determined
+            based on your Nutrient Preferences, which you can update through
+            your profile at any time.
+          </Text>
+        ) : (
+          <Text fontSize="xs">
+            The % Daily Value (DV) tells you how much a nutrient in a serving of
+            food contributes to a daily diet. 2,000 calories a day is used for
+            general nutrition advice.
+          </Text>
+        )}
       </HStack>
       {/* TOP 4 VITAMINS/MINERALS/CAFFEINE if time permits */}
     </Box>

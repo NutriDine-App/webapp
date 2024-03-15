@@ -11,6 +11,7 @@ import {
 import useMealById from "../hooks/useMealById";
 import LoadingSpinner from "./LoadingSpinner";
 import NutritionFacts from "./NutritionFacts";
+import useNutrientPreferences from "../hooks/useNutrientPreferences";
 
 export default function DetailedFoodModalContent({ meal, onClose }) {
   const { nix_item_id } = meal;
@@ -21,6 +22,7 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
     "dark.primary.400"
   );
   const buttonTextColor = useColorModeValue("black", "white");
+  const { isLoading, nutrientPreferences } = useNutrientPreferences(12345); // TODO: Update with userUid from Auth
 
   return (
     <Box
@@ -54,7 +56,7 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
       />
 
       <ModalBody mb="1.5rem">
-        {loading ? (
+        {loading || isLoading ? (
           <Box
             w="100%"
             h="80%"
@@ -68,7 +70,10 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
           <p>Error: {error.message}</p>
         ) : (
           <VStack alignItems={"center"} justifyContent={"center"}>
-            <NutritionFacts detailedMeal={detailedMeal} />
+            <NutritionFacts
+              detailedMeal={detailedMeal}
+              nutrientPreferences={nutrientPreferences}
+            />
             <Image
               src={detailedMeal.photo?.thumb}
               alt={detailedMeal.food_name}
