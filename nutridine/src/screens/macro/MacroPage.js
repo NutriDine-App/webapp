@@ -19,7 +19,7 @@ import {
   NumberDecrementStepper,
   useToast,
 } from "@chakra-ui/react";
-import { fetchMealsByMacros } from "../../hooks/useMealsByMacros";
+import { fetchMealsByMacros } from "../../hooks/Meals/useMealsByMacros";
 import { useMeals } from "../../contexts/MealsContext";
 import FoodCardList from "../../components/FoodDisplay/FoodCardList";
 

@@ -8,7 +8,7 @@ import {
   Box,
   useColorModeValue,
 } from "@chakra-ui/react";
-import useMealById from "../hooks/useMealById";
+import useMealById from "../hooks/Meals/useMealById";
 import LoadingSpinner from "./LoadingSpinner";
 import NutritionFacts from "./NutritionFacts";
 import useNutrientPreferences from "../hooks/useNutrientPreferences";

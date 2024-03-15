@@ -19,11 +19,10 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
 import PasswordField from "./PasswordField";
 import { useNavigate } from "react-router-dom";
 import { OAuthButtonGroup } from "./OuathButtonGroup";
+import { signIn } from "../../hooks/AuthService/authService";
 
 const Signin = () => {
   const cardBg = useColorModeValue("gray.50", "gray.700");
@@ -32,9 +31,9 @@ const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isInvalid, setIsInvalid] = useState([false, false]);
+  const [rememberMe, setRememberMe] = useState(true);
 
   const toast = useToast();
-
   const navigate = useNavigate();
 
   const onLogin = (e) => {
@@ -48,7 +47,7 @@ const Signin = () => {
       return;
     }
 
-    signInWithEmailAndPassword(auth, email, password)
+    signIn(email, password, rememberMe)
       .then((userCredential) => {
         navigate("/");
         console.log(userCredential);
@@ -88,7 +87,7 @@ const Signin = () => {
             p={{ base: "4", sm: "8" }}
             bg={cardBg}
             boxShadow={{ base: "none", sm: "md" }}
-            borderRadius={{ base: "none", sm: "xl" }}
+            borderRadius={{ base: 15, sm: 20 }}
           >
             <Stack spacing="6">
               <Stack spacing="5">
@@ -115,8 +114,22 @@ const Signin = () => {
                 />
               </Stack>
               <HStack justify="space-between">
-                <Checkbox defaultChecked>Remember me</Checkbox>
-                <Button variant="link" size="sm">
+                <Checkbox
+                  isChecked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  defaultChecked
+                  tabIndex={-1}
+                >
+                  Remember me
+                </Checkbox>
+                <Button
+                  onClick={() => {
+                    navigate("/reset-password");
+                  }}
+                  variant="link"
+                  size="sm"
+                  tabIndex={-1}
+                >
                   Forgot password?
                 </Button>
               </HStack>
@@ -130,6 +143,7 @@ const Signin = () => {
                     onClick={() => navigate("/signup")}
                     color="teal.500"
                     href="#"
+                    tabIndex={-1}
                   >
                     Sign up
                   </Link>

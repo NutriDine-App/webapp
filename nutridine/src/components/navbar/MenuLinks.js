@@ -6,15 +6,32 @@ import {
   Button,
   Icon,
   useColorModeValue,
+  useToast,
+  Menu,
+  MenuButton,
+  MenuList,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-
 import { MenuItem } from "./MenuItem";
 import { FaUser } from "react-icons/fa6";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { signOutUser } from "../../hooks/AuthService/authService";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   const [hasScrolled, setHasScrolled] = useState(false);
+  const { currentUser } = useAuth();
+
+  const navigate = useNavigate();
+  const toast = useToast();
+  const { colorMode, toggleColorMode } = useColorMode();
+  const bgColorDefault = useColorModeValue("transparent", "transparent");
+  const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
+  const bgColor = hasScrolled ? bgColorScrolled : bgColorDefault;
+  const buttonBgHover = useColorModeValue(
+    "light.primary.200",
+    "dark.primary.400"
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,26 +46,38 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
     };
   }, [hasScrolled]);
 
-  const { colorMode, toggleColorMode } = useColorMode();
-
-  const bgColorDefault = useColorModeValue("transparent", "transparent");
-  const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
-
-  const bgColor = hasScrolled ? bgColorScrolled : bgColorDefault;
-  const buttonBgHover = useColorModeValue(
-    "light.primary.200",
-    "dark.primary.400"
-  );
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        toast({
+          title: "Signed Out",
+          description: "You have been signed out successfully.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate("/login");
+      })
+      .catch((error) => {
+        toast({
+          title: "Sign Out Failed",
+          description: "An error occurred while signing out. Please try again.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  };
 
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "flex" }}
       flexBasis={{ base: "100%", md: "auto" }}
       position={{ base: "fixed", md: "relative" }}
-      width="auto" // Automatically adjusts to content width
-      maxWidth="100vw" // Prevents overflow
+      width="auto"
+      maxWidth="100vw"
       height={{ base: "100vh", md: "auto" }}
-      bg={isOpen ? bgColorScrolled : bgColor}
+      bg={bgColor}
       zIndex={20}
       top={0}
       left={0}
@@ -121,6 +150,40 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
             <Icon as={FaUser} />
           </Button>
         </NavLink>
+        {currentUser ? (
+          <Menu>
+            <MenuButton
+              as={Button}
+              variant="ghost"
+              borderRadius="30"
+              _hover={{ bg: buttonBgHover }}
+              _focus={{ boxShadow: "none" }}
+              minWidth="auto"
+            >
+              <Icon as={FaUser} />
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={onItemSelect("/proflie")} to={"/profile"}>
+                Profile
+              </MenuItem>
+              <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+            </MenuList>
+          </Menu>
+        ) : (
+          <NavLink to="/login" onClick={onItemSelect("/login")}>
+            <Button
+              px={6}
+              py={2}
+              variant="ghost"
+              borderRadius={"30"}
+              _hover={{
+                bg: buttonBgHover,
+              }}
+            >
+              <Icon as={FaUser} />
+            </Button>
+          </NavLink>
+        )}
 
         <Button
           onClick={toggleColorMode}

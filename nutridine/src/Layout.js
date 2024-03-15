@@ -1,5 +1,12 @@
 import React from "react";
-import { Flex, Image, VStack, Box, useColorModeValue } from "@chakra-ui/react";
+import {
+  Flex,
+  Image,
+  VStack,
+  Box,
+  useColorModeValue,
+  Link,
+} from "@chakra-ui/react";
 import NavBar from "./components/navbar/Navbar";
 import nutritionIx_credit from "./assets/images/nutritionIx_credit.png";
 
@@ -37,7 +44,9 @@ const Layout = ({ children }) => {
           m="0.5rem"
           boxShadow={"0px 4px 6px rgba(0, 0, 0, 0.1)"}
         >
-          <Image maxH="20px" src={nutritionIx_credit} />
+          <Link href="https://www.nutritionix.com/" isExternal>
+            <Image maxH="20px" src={nutritionIx_credit} alt="NutritionX" />
+          </Link>
         </Box>
       </VStack>
     </>

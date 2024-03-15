@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import mockDetailedMeal from "../constants/mockData/detailedMeal";
+import mockDetailedMeal from "../../constants/mockData/detailedMeal";
 
 const useMealById = ({ nix_item_id }) => {
   const [detailedMeal, setDetailedMeal] = useState(null);
