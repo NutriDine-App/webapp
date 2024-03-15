@@ -91,7 +91,11 @@ export default function NutrientPreferences() {
 
   const handleSubmit = async () => {
     try {
-      await submitNutrientPreferences({ ...dailyMaximums, selectedNutrients });
+      await submitNutrientPreferences({
+        ...dailyMaximums,
+        selectedNutrients,
+        selectedNutrientMaximums,
+      });
 
       toast({
         title: "Nutritional Preferences Successfully Updated",
@@ -394,7 +398,7 @@ export default function NutrientPreferences() {
                     </InputGroup>
                   </HStack>
                   <FormErrorMessage>
-                    {nutrient} must be positive number containing only digits
+                    {nutrient} must be a positive number containing only digits
                     and decimals.
                   </FormErrorMessage>
                 </FormControl>

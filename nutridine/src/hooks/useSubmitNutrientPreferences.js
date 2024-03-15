@@ -16,7 +16,7 @@ const useSubmitNutrientPreferences = (userUid) => {
 
   function validateMicronutrientInput(value) {
     // uninitialized values are okay
-    if (value === null || value === "") {
+    if (value === null || value === "" || value === undefined) {
       return true;
     }
     // decimals + integers okay
@@ -46,6 +46,7 @@ const useSubmitNutrientPreferences = (userUid) => {
       carbs,
       protein,
       selectedNutrients,
+      selectedNutrientMaximums,
     } = nutrientPreferences;
     const errors = [];
 
@@ -69,6 +70,16 @@ const useSubmitNutrientPreferences = (userUid) => {
       errors.push("Protein must be a positive integer");
     }
 
+    for (const selectedNutrientMax in selectedNutrientMaximums) {
+      const selectedNutrientMaxValue =
+        nutrientPreferences.selectedNutrientMaximums[selectedNutrientMax];
+      if (!validNumericalInput(selectedNutrientMaxValue)) {
+        errors.push(
+          "Selected Nutrient Maximum must be a positive number containing only digits and decimals"
+        );
+      }
+    }
+
     // Check if selectedNutrients contain valid keys from nutrientWatchListIDs
     if (
       !selectedNutrients.every((nutrient) => nutrient in nutrientWatchListIDs)
@@ -87,7 +98,26 @@ const useSubmitNutrientPreferences = (userUid) => {
       // Throws an error if the nutrientPreferences are invalid
       validateNutrients(nutrientPreferences);
 
-      console.log("useSubmitNutrientPreferences firing..");
+      // Save the nutritionix nutrient IDs to firebase, not the frontend names
+      const selectedNutrientIDs = nutrientPreferences.selectedNutrients
+        .filter((nutrient) => nutrient in nutrientWatchListIDs)
+        .map((nutrient) => nutrientWatchListIDs[nutrient]);
+
+      // A list of {nutrientID, amount} objects to be sent to the backend.
+      const transformedNutrientMaximums = [];
+      for (const nutrientName in nutrientPreferences.selectedNutrientMaximums) {
+        if (
+          nutrientPreferences.selectedNutrientMaximums.hasOwnProperty(
+            nutrientName
+          )
+        ) {
+          const nutrientId = nutrientWatchListIDs[nutrientName];
+          const amount =
+            nutrientPreferences.selectedNutrientMaximums[nutrientName];
+          const transformedNutrient = { [nutrientId]: amount };
+          transformedNutrientMaximums.push(transformedNutrient);
+        }
+      }
 
       const backendFormat = {
         userUid: userUid,
@@ -97,10 +127,8 @@ const useSubmitNutrientPreferences = (userUid) => {
         sodium: Number(nutrientPreferences.sodium),
         carbs: Number(nutrientPreferences.carbs),
         protein: Number(nutrientPreferences.protein),
-        // Save the nutritionix nutrient IDs to firebase, not the frontend names
-        selectedNutrients: nutrientPreferences.selectedNutrients
-          .filter((nutrient) => nutrient in nutrientWatchListIDs)
-          .map((nutrient) => nutrientWatchListIDs[nutrient]),
+        selectedNutrients: selectedNutrientIDs,
+        selectedNutrientMaximums: transformedNutrientMaximums,
       };
 
       const db = getFirestore();
