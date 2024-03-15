@@ -31,14 +31,16 @@ import { useNavigate } from "react-router-dom";
 import useSubmitNutrientPreferences from "../../hooks/useSubmitNutrientPreferences";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { micronutrientDailyMax } from "../../constants/dailyMaximums";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function NutrientPreferences() {
+  const { currentUser } = useAuth();
   const {
     isSaving,
     validNumericalInput,
     validateMicronutrientInput,
     submitNutrientPreferences,
-  } = useSubmitNutrientPreferences(12345);
+  } = useSubmitNutrientPreferences(currentUser.uid);
   const navigate = useNavigate();
   const { colorMode } = useColorMode();
   const activeBg = useColorModeValue("light.primary.500", "dark.primary.600");
@@ -120,7 +122,7 @@ export default function NutrientPreferences() {
   };
 
   return (
-    <Container maxW={["95%", "90%", "80%", "65%"]}>
+    <Container>
       <VStack>
         {/* DAILY MAXIMUMS */}
         <Flex
@@ -369,6 +371,7 @@ export default function NutrientPreferences() {
               {selectedNutrients.map((nutrient) => {
                 return (
                   <FormControl
+                    key={nutrient}
                     my="1.5rem"
                     display="flex"
                     flexDirection="column"

@@ -320,8 +320,8 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
         }
 
         return (
-          <>
-            <HStack justifyContent={"space-between"} key={nutrient}>
+          <Box key={nutrient}>
+            <HStack justifyContent={"space-between"}>
               <HStack>
                 <Text>{nutrientName}</Text>
                 <Text>
@@ -344,7 +344,7 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
               borderColor={borderColors}
               my="1"
             />
-          </>
+          </Box>
         );
       })}
 
@@ -365,7 +365,6 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
           </Text>
         )}
       </HStack>
-      {/* TOP 4 VITAMINS/MINERALS/CAFFEINE if time permits */}
     </Box>
   );
 }
