@@ -1,7 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 import "@fontsource-variable/league-spartan";
 import "@fontsource-variable/dancing-script";
-import { tagTheme } from "../src/screens/userPreferences/Tag";
+import { tagTheme } from "./screens/nutrientPreferences/Tag";
 
 const theme = extendTheme({
   config: {

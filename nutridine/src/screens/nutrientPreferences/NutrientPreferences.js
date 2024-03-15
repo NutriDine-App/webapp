@@ -13,17 +13,32 @@ import {
   FormControl,
   FormLabel,
   InputRightAddon,
+  useColorModeValue,
   Input,
   Flex,
   HStack,
+  Button,
   FormErrorMessage,
   Wrap,
   Text,
+  Center,
   InputGroup,
+  useToast,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import useSubmitNutrientPreferences from "../../hooks/useSubmitNutrientPreferences";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
-export default function UserPreferences() {
+export default function NutrientPreferences() {
+  const { isSaving, validNumericalInput, submitNutrientPreferences } =
+    useSubmitNutrientPreferences(12345);
+  const navigate = useNavigate();
   const { colorMode } = useColorMode();
+  const activeBg = useColorModeValue("light.primary.500", "dark.primary.600");
+  const buttonBgHover = useColorModeValue(
+    "light.primary.200",
+    "dark.primary.400"
+  );
   const [dailyMaximums, setDailyMaximums] = useState({
     calories: null,
     totalFat: null,
@@ -36,6 +51,7 @@ export default function UserPreferences() {
   const [filteredNutrients, setFilteredNutrients] = useState(
     Object.keys(nutrientWatchListIDs).sort()
   );
+  const toast = useToast();
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -46,33 +62,42 @@ export default function UserPreferences() {
   };
 
   const handleSelectChange = (value) => {
-    // Remove the selected nutrient from the dropdown menu
     setFilteredNutrients(
       filteredNutrients.filter((nutrient) => nutrient !== value)
     );
-    // Shows the card for the selected nutrient
     setSelectedNutrients([...selectedNutrients, value]);
   };
 
   const removeNutrient = (nutrient) => {
-    // Remove the card
     setSelectedNutrients(selectedNutrients.filter((n) => n !== nutrient));
-    // Add the nutrient back to the dropdown menu
     setFilteredNutrients([...filteredNutrients, nutrient].sort());
   };
 
-  function validNumericalInput(value) {
-    // uninitialized values are okay
-    if (value === null || value === "") {
-      return true;
-    }
+  const handleSubmit = async () => {
+    try {
+      await submitNutrientPreferences({ ...dailyMaximums, selectedNutrients });
 
-    // Values must be positive integers
-    if (value > 0 && /^[0-9]+$/.test(value)) {
-      return true;
+      toast({
+        title: "Nutritional Preferences Successfully Updated",
+        description: "Your Nutrition Facts label will reflect these changes.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      navigate("/");
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error(errorCode, errorMessage);
+      toast({
+        title: "Failed to update Nutritional Preferences",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
-    return false;
-  }
+  };
 
   return (
     <Container maxW={["95%", "90%", "80%", "65%"]}>
@@ -289,7 +314,7 @@ export default function UserPreferences() {
               placeholder="Select all Desired Nutrients"
               onChange={(e) => handleSelectChange(e.target.value)}
               my="0.5rem"
-              maxW="480px"
+              maxW="400px"
             >
               {filteredNutrients.map((nutrient) => (
                 <option key={nutrient} value={nutrient}>
@@ -319,6 +344,22 @@ export default function UserPreferences() {
             </Flex>
           </VStack>
         </Box>
+
+        {isSaving && (
+          <Center>
+            <LoadingSpinner />{" "}
+          </Center>
+        )}
+        <Button
+          w="100%"
+          mt="2rem"
+          mb="3rem"
+          bg={activeBg}
+          _hover={{ background: buttonBgHover }}
+          onClick={handleSubmit}
+        >
+          Update Nutritional Preferences
+        </Button>
       </VStack>
     </Container>
   );
