@@ -365,45 +365,49 @@ export default function NutrientPreferences() {
               </Wrap>
             </Flex>
 
-            {selectedNutrients.map((nutrient) => {
-              return (
-                <FormControl
-                  my="1.5rem"
-                  display="flex"
-                  flexDirection="column"
-                  isInvalid={
-                    !validateMicronutrientInput(
-                      selectedNutrientMaximums[nutrient]
-                    )
-                  }
-                >
-                  <HStack justifyContent={"space-between"} h="100%">
-                    <FormLabel m="0px" fontSize="lg" h="100%">
-                      {nutrient}
-                    </FormLabel>
-                    <InputGroup justifyContent={"flex-end"} maxW="150px">
-                      <Input
-                        id={nutrient}
-                        type="number"
-                        placeholder={
-                          micronutrientDailyMax[nutrientWatchListIDs[nutrient]]
-                        }
-                        w="90px"
-                        value={selectedNutrientMaximums[nutrient] || ""}
-                        onChange={handleMicroNutrientChange}
-                      />
-                      <InputRightAddon w="60px">
-                        {nutrientUnits[nutrientWatchListIDs[nutrient]]}
-                      </InputRightAddon>
-                    </InputGroup>
-                  </HStack>
-                  <FormErrorMessage>
-                    {nutrient} must be a positive number containing only digits
-                    and decimals.
-                  </FormErrorMessage>
-                </FormControl>
-              );
-            })}
+            <Container maxW="480px">
+              {selectedNutrients.map((nutrient) => {
+                return (
+                  <FormControl
+                    my="1.5rem"
+                    display="flex"
+                    flexDirection="column"
+                    isInvalid={
+                      !validateMicronutrientInput(
+                        selectedNutrientMaximums[nutrient]
+                      )
+                    }
+                  >
+                    <HStack justifyContent={"space-between"} h="100%">
+                      <FormLabel m="0px" fontSize="lg" h="100%">
+                        {nutrient}
+                      </FormLabel>
+                      <InputGroup justifyContent={"flex-end"} maxW="150px">
+                        <Input
+                          id={nutrient}
+                          type="number"
+                          placeholder={
+                            micronutrientDailyMax[
+                              nutrientWatchListIDs[nutrient]
+                            ]
+                          }
+                          w="90px"
+                          value={selectedNutrientMaximums[nutrient] || ""}
+                          onChange={handleMicroNutrientChange}
+                        />
+                        <InputRightAddon w="60px">
+                          {nutrientUnits[nutrientWatchListIDs[nutrient]]}
+                        </InputRightAddon>
+                      </InputGroup>
+                    </HStack>
+                    <FormErrorMessage>
+                      {nutrient} must be a positive number containing only
+                      digits and decimals.
+                    </FormErrorMessage>
+                  </FormControl>
+                );
+              })}
+            </Container>
           </VStack>
         </Box>
 

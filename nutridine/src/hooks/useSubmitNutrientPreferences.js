@@ -114,7 +114,7 @@ const useSubmitNutrientPreferences = (userUid) => {
           const nutrientId = nutrientWatchListIDs[nutrientName];
           const amount =
             nutrientPreferences.selectedNutrientMaximums[nutrientName];
-          const transformedNutrient = { [nutrientId]: amount };
+          const transformedNutrient = { [nutrientId]: Number(amount) };
           transformedNutrientMaximums.push(transformedNutrient);
         }
       }

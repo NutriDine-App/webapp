@@ -37,6 +37,7 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
     carbs,
     protein,
     selectedNutrients,
+    selectedNutrientMaximums,
   } = nutrientPreferences;
 
   const selectedNutrientKeys = Object.keys(nutrientWatchListIDs).filter((key) =>
@@ -86,6 +87,13 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
     // Sugars are not currently collected/stored in the DB, but would be a great addition
     userDailyMaximums.sugars = dailyMax.sugars;
   }
+
+  let userDailyMicronutrientMaximums = micronutrientDailyMax;
+  for (const pair of selectedNutrientMaximums) {
+    userDailyMicronutrientMaximums[Object.keys(pair)[0]] =
+      Object.values(pair)[0];
+  }
+
   return (
     <Box
       borderWidth="5px"
@@ -320,10 +328,13 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
                   {nutrientValue} {nutrientUnits[nutrient]}
                 </Text>
               </HStack>
-              {/* TODO: Update form to accept custom values. */}
               <Text>
                 {Math.round(
-                  (nutrientValue / micronutrientDailyMax[nutrientName]) * 100
+                  (nutrientValue /
+                    userDailyMicronutrientMaximums[
+                      nutrientWatchListIDs[nutrientName]
+                    ]) *
+                    100
                 ) || 0}
                 %
               </Text>
