@@ -8,7 +8,7 @@ import {
   Divider,
   useColorModeValue,
 } from "@chakra-ui/react";
-import dailyMax from "../constants/dailyMaximums";
+import dailyMax, { micronutrientDailyMax } from "../constants/dailyMaximums";
 import nutrientWatchListIDs, {
   nutrientUnits,
 } from "../constants/nutrientWatchList";
@@ -303,8 +303,14 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
         const nutrientName = selectedNutrientKeys.find(
           (key) => nutrientWatchListIDs[key] === nutrient
         );
+
         const nutrientValue =
           full_nutrients.find((nut) => nut.attr_id === nutrient)?.value ?? 0;
+
+        if (nutrientName === undefined) {
+          return <></>;
+        }
+
         return (
           <>
             <HStack justifyContent={"space-between"} key={nutrient}>
@@ -314,13 +320,13 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
                   {nutrientValue} {nutrientUnits[nutrient]}
                 </Text>
               </HStack>
-              {/* TODO: Get values for daily max/ update form to accept these custom values. */}
-              {/* <Text>
+              {/* TODO: Update form to accept custom values. */}
+              <Text>
                 {Math.round(
-                  (nutrientValue / userDailyMaximums[nutrientName]) * 100
+                  (nutrientValue / micronutrientDailyMax[nutrientName]) * 100
                 ) || 0}
                 %
-              </Text> */}
+              </Text>
             </HStack>
             <Divider
               borderBottomWidth="1px"
