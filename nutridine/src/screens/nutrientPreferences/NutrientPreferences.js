@@ -1,4 +1,6 @@
-import nutrientWatchListIDs from "../../constants/nutrientWatchList";
+import nutrientWatchListIDs, {
+  nutrientUnits,
+} from "../../constants/nutrientWatchList";
 import { useState } from "react";
 import {
   VStack,
@@ -28,10 +30,15 @@ import {
 import { useNavigate } from "react-router-dom";
 import useSubmitNutrientPreferences from "../../hooks/useSubmitNutrientPreferences";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { micronutrientDailyMax } from "../../constants/dailyMaximums";
 
 export default function NutrientPreferences() {
-  const { isSaving, validNumericalInput, submitNutrientPreferences } =
-    useSubmitNutrientPreferences(12345);
+  const {
+    isSaving,
+    validNumericalInput,
+    validateMicronutrientInput,
+    submitNutrientPreferences,
+  } = useSubmitNutrientPreferences(12345);
   const navigate = useNavigate();
   const { colorMode } = useColorMode();
   const activeBg = useColorModeValue("light.primary.500", "dark.primary.600");
@@ -48,10 +55,19 @@ export default function NutrientPreferences() {
     protein: null,
   });
   const [selectedNutrients, setSelectedNutrients] = useState([]);
+  const [selectedNutrientMaximums, setSelectedNutrientsMaximums] = useState([]);
   const [filteredNutrients, setFilteredNutrients] = useState(
     Object.keys(nutrientWatchListIDs).sort()
   );
   const toast = useToast();
+
+  const handleMicroNutrientChange = (e) => {
+    const { id, value } = e.target;
+    setSelectedNutrientsMaximums((prevMaximums) => ({
+      ...prevMaximums,
+      [id]: value,
+    }));
+  };
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -132,12 +148,12 @@ export default function NutrientPreferences() {
                 <FormLabel m="0px" fontSize="lg" h="100%">
                   Calories
                 </FormLabel>
-                <InputGroup justifyContent={"flex-end"}>
+                <InputGroup justifyContent={"flex-end"} maxW="150px">
                   <Input
                     id="calories"
                     type="number"
                     placeholder="2000"
-                    maxW="90px"
+                    w="90px"
                     value={dailyMaximums.calories || ""}
                     onChange={handleInputChange}
                   />
@@ -166,7 +182,7 @@ export default function NutrientPreferences() {
                     id="totalFat"
                     type="number"
                     placeholder="65"
-                    maxW="90px"
+                    w="90px"
                     value={dailyMaximums.totalFat || ""}
                     onChange={handleInputChange}
                   />
@@ -189,12 +205,12 @@ export default function NutrientPreferences() {
                 <FormLabel m="0px" fontSize="lg" h="100%">
                   Cholesterol
                 </FormLabel>
-                <InputGroup justifyContent={"flex-end"}>
+                <InputGroup justifyContent={"flex-end"} maxW="150px">
                   <Input
                     id="cholesterol"
                     type="number"
                     placeholder="300"
-                    maxW="90px"
+                    w="90px"
                     value={dailyMaximums.cholesterol || ""}
                     onChange={handleInputChange}
                   />
@@ -217,12 +233,12 @@ export default function NutrientPreferences() {
                 <FormLabel m="0px" fontSize="lg" h="100%">
                   Sodium
                 </FormLabel>
-                <InputGroup justifyContent={"flex-end"}>
+                <InputGroup justifyContent={"flex-end"} maxW="150px">
                   <Input
                     id="sodium"
                     type="number"
                     placeholder="2300"
-                    maxW="90px"
+                    w="90px"
                     value={dailyMaximums.sodium || ""}
                     onChange={handleInputChange}
                   />
@@ -245,12 +261,12 @@ export default function NutrientPreferences() {
                 <FormLabel m="0px" fontSize="lg" h="100%">
                   Carbohydrates
                 </FormLabel>
-                <InputGroup justifyContent={"flex-end"}>
+                <InputGroup justifyContent={"flex-end"} maxW="150px">
                   <Input
                     id="carbs"
                     type="number"
                     placeholder="300"
-                    maxW="90px"
+                    w="90px"
                     value={dailyMaximums.carbs || ""}
                     onChange={handleInputChange}
                   />
@@ -273,12 +289,12 @@ export default function NutrientPreferences() {
                 <FormLabel m="0px" fontSize="lg" h="100%">
                   Protein
                 </FormLabel>
-                <InputGroup justifyContent={"flex-end"}>
+                <InputGroup justifyContent={"flex-end"} maxW="150px">
                   <Input
                     id="protein"
                     type="number"
                     placeholder="50"
-                    maxW="90px"
+                    w="90px"
                     value={dailyMaximums.protein || ""}
                     onChange={handleInputChange}
                   />
@@ -305,7 +321,9 @@ export default function NutrientPreferences() {
             </Heading>
             <Text textAlign={"center"}>
               Please select all the nutrients you would always like to see in
-              your personalized nutrition facts label.
+              your personalized nutrition facts label. Once chosen, you can
+              enter personal maximum daily values, or leave them blank to
+              default to the FDA's recommendations.
             </Text>
           </Flex>
 
@@ -342,6 +360,46 @@ export default function NutrientPreferences() {
                 ))}
               </Wrap>
             </Flex>
+
+            {selectedNutrients.map((nutrient) => {
+              return (
+                <FormControl
+                  my="1.5rem"
+                  display="flex"
+                  flexDirection="column"
+                  isInvalid={
+                    !validateMicronutrientInput(
+                      selectedNutrientMaximums[nutrient]
+                    )
+                  }
+                >
+                  <HStack justifyContent={"space-between"} h="100%">
+                    <FormLabel m="0px" fontSize="lg" h="100%">
+                      {nutrient}
+                    </FormLabel>
+                    <InputGroup justifyContent={"flex-end"} maxW="150px">
+                      <Input
+                        id={nutrient}
+                        type="number"
+                        placeholder={
+                          micronutrientDailyMax[nutrientWatchListIDs[nutrient]]
+                        }
+                        w="90px"
+                        value={selectedNutrientMaximums[nutrient] || ""}
+                        onChange={handleMicroNutrientChange}
+                      />
+                      <InputRightAddon w="60px">
+                        {nutrientUnits[nutrientWatchListIDs[nutrient]]}
+                      </InputRightAddon>
+                    </InputGroup>
+                  </HStack>
+                  <FormErrorMessage>
+                    {nutrient} must be positive number containing only digits
+                    and decimals.
+                  </FormErrorMessage>
+                </FormControl>
+              );
+            })}
           </VStack>
         </Box>
 

@@ -14,6 +14,18 @@ import nutrientWatchListIDs from "../constants/nutrientWatchList";
 const useSubmitNutrientPreferences = (userUid) => {
   const [isSaving, setIsSaving] = useState(false);
 
+  function validateMicronutrientInput(value) {
+    // uninitialized values are okay
+    if (value === null || value === "") {
+      return true;
+    }
+    // decimals + integers okay
+    if (/^\d+(\.\d+)?$/.test(value)) {
+      return true;
+    }
+    return false;
+  }
+
   function validNumericalInput(value) {
     // uninitialized values are okay
     if (value === null || value === "") {
@@ -114,7 +126,12 @@ const useSubmitNutrientPreferences = (userUid) => {
     setIsSaving(false);
   };
 
-  return { isSaving, validNumericalInput, submitNutrientPreferences };
+  return {
+    isSaving,
+    validNumericalInput,
+    validateMicronutrientInput,
+    submitNutrientPreferences,
+  };
 };
 
 export default useSubmitNutrientPreferences;
