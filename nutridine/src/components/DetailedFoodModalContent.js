@@ -17,16 +17,19 @@ import { useAuth } from "../contexts/AuthContext";
 export default function DetailedFoodModalContent({ meal, onClose }) {
   const { nix_item_id } = meal;
   const { currentUser } = useAuth();
-  const { detailedMeal, loading, error } = useMealById({ nix_item_id });
+  const {
+    detailedMeal,
+    loading: detailedMealIsLoading,
+    error,
+  } = useMealById({ nix_item_id });
   const buttonBg = useColorModeValue("light.primary.500", "dark.primary.500");
   const buttonHover = useColorModeValue(
     "light.primary.200",
     "dark.primary.400"
   );
   const buttonTextColor = useColorModeValue("black", "white");
-  const { isLoading, nutrientPreferences } = useNutrientPreferences(
-    currentUser.uid
-  );
+  const { isLoading: nutrientPreferencesIsLoading, nutrientPreferences } =
+    useNutrientPreferences(currentUser.uid);
 
   return (
     <Box
@@ -60,7 +63,7 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
       />
 
       <ModalBody mb="1.5rem">
-        {loading || isLoading ? (
+        {detailedMealIsLoading || nutrientPreferencesIsLoading ? (
           <Box
             w="100%"
             h="80%"

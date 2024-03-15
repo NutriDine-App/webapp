@@ -59,17 +59,7 @@ function NutritionFacts({ detailedMeal, nutrientPreferences }) {
     }
   }
 
-  let userDailyMaximums = {
-    calories: 0,
-    totalFat: 0,
-    saturatedFat: 0,
-    cholesterol: 0,
-    sodium: 0,
-    totalCarbohydrate: 0,
-    dietaryFiber: 0,
-    sugars: 0,
-    protein: 0,
-  };
+  let userDailyMaximums = dailyMax;
 
   if (nutrientPreferences !== null) {
     userDailyMaximums.calories = calories !== 0 ? calories : dailyMax.calories;

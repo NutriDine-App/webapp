@@ -34,7 +34,6 @@ function App() {
         <Route path="/reset-password" element={<PasswordReset />} />
         <Route path="/restaurants" element={<div>Restaurants Page</div>} />
         <Route path="/macro" element={<MacroPage />} />
-        <Route path="/user-preferences" element={<NutrientPreferences />} />
       </Routes>
     </Layout>
   );
