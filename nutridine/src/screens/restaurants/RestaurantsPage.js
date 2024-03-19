@@ -8,6 +8,7 @@ import {
   Text,
   Center,
   SimpleGrid,
+  AspectRatio,
 } from "@chakra-ui/react";
 import brandIds from "../../constants/brandIds";
 
@@ -16,6 +17,7 @@ function RestaurantsPage() {
   const [filteredRestaurants, setFilteredRestaurants] = useState(
     Object.keys(brandIds)
   );
+  const [imageSrc, setImageSrc] = useState({});
   const borderColor = useColorModeValue("gray.200", "gray.600");
   const inputBg = useColorModeValue("white", "gray.700");
   const cardBg = useColorModeValue("gray.50", "gray.700");
@@ -25,18 +27,18 @@ function RestaurantsPage() {
       restaurant.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredRestaurants(result);
-  }, [searchTerm]);
 
-  const getLogoPath = (restaurant) => {
-    // try {
-    const formattedName = restaurant.replace(/[^a-zA-Z0-9]/g, "");
-    console.log(formattedName);
-    return `../../assets/RestaurantsLogos/${formattedName}.png`;
-    // } catch (e) {
-    //   console.warn(`Logo for ${restaurant} not found.`);
-    //   return null;
-    // }
-  };
+    result.forEach((restaurant) => {
+      import(`../../assets/RestaurantsLogos/${restaurant}.png`)
+        .then((image) => {
+          setImageSrc((prev) => ({ ...prev, [restaurant]: image.default }));
+        })
+        .catch((error) => {
+          console.error(`Could not load image for ${restaurant}:`, error);
+          setImageSrc((prev) => ({ ...prev, [restaurant]: undefined }));
+        });
+    });
+  }, [searchTerm]);
 
   return (
     <VStack spacing={5} align="stretch">
@@ -51,29 +53,31 @@ function RestaurantsPage() {
         {filteredRestaurants.map((restaurant) => (
           <Center key={brandIds[restaurant]} py={2}>
             <Box
-              maxW={"445px"}
-              w={"full"}
               bg={cardBg}
-              boxShadow={"2xl"}
-              rounded={"md"}
-              overflow={"hidden"}
+              boxShadow={"xl"}
+              _hover={{ boxShadow: "2xl" }}
+              rounded="md"
+              overflow="hidden"
               borderColor={borderColor}
               borderWidth="1px"
+              cursor={"pointer"}
             >
-              <Image
-                h={"150px"}
-                w={"full"}
-                src={require(`../../assets/RestaurantsLogos/${restaurant}.png`)}
-                objectFit={"cover"}
-                alt={`${restaurant} logo`}
-                bg={"white"}
-              />
-
-              <Box p={6}>
-                <Text fontWeight={600} fontSize={"lg"}>
+              {imageSrc[restaurant] ? (
+                <AspectRatio ratio={1} w="250px">
+                  <Image
+                    src={imageSrc[restaurant]}
+                    fit="contain"
+                    alt={`${restaurant} logo`}
+                    bg="white"
+                  />
+                </AspectRatio>
+              ) : (
+                <Box height="200px" w="full" bg="gray.200" />
+              )}
+              <Box p={6} height="100px">
+                <Text fontWeight={600} fontSize="lg" textAlign="center">
                   {restaurant}
                 </Text>
-                {/* Additional restaurant info if needed */}
               </Box>
             </Box>
           </Center>
