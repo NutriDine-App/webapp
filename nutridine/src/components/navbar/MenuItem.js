@@ -7,6 +7,7 @@ export const MenuItem = ({ children, onClick, to, isActive, ...rest }) => {
   const buttonBgHover = useColorModeValue("light.primary.200", "dark.primary.400");
   const transitionDuration = "0.3s";
 
+
   return (
     <NavLink
       to={to}
@@ -23,7 +24,7 @@ export const MenuItem = ({ children, onClick, to, isActive, ...rest }) => {
         px={6}
         py={2}
         borderRadius="17"
-        bg={isActive ? activeBg : "transparent"}
+        // bg={isActive ? activeBg : "transparent"}
         _hover={{
           background: isActive ? activeBg : buttonBgHover,
         }}
@@ -35,7 +36,7 @@ export const MenuItem = ({ children, onClick, to, isActive, ...rest }) => {
         minWidth="40px"
         {...rest}
       >
-        <Text>{children}</Text>
+        <Text fontSize={"1.1rem"}>{children}</Text>
       </Box>
     </NavLink>
   );

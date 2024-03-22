@@ -10,6 +10,7 @@ import {
   Menu,
   MenuButton,
   MenuList,
+  MenuItem as MI,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { MenuItem } from "./MenuItem";
@@ -25,7 +26,10 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   const navigate = useNavigate();
   const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();
-  const bgColorDefault = useColorModeValue("transparent", "transparent");
+  const bgColorDefault = {
+    base: useColorModeValue("gray.100", "gray.900"),
+    md: useColorModeValue("transparent", "transparent"),
+  };
   const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
   const bgColor = hasScrolled ? bgColorScrolled : bgColorDefault;
   const buttonBgHover = useColorModeValue(
@@ -131,11 +135,18 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
             >
               <Icon as={FaUser} />
             </MenuButton>
-            <MenuList>
-              <MenuItem onClick={onItemSelect("/proflie")} to={"/profile"}>
+            <MenuList minW={0} maxW={"fit-content"} p={0}>
+              <MI
+                onClick={() => {
+                  navigate("/profile");
+                }}
+                _hover={{ bg: buttonBgHover }}
+              >
                 Profile
-              </MenuItem>
-              <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+              </MI>
+              <MI _hover={{ bg: buttonBgHover }} onClick={handleSignOut}>
+                Sign Out
+              </MI>
             </MenuList>
           </Menu>
         ) : (
