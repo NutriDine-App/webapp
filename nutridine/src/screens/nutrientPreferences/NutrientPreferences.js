@@ -9,6 +9,7 @@ import {
   Box,
   Heading,
   Tag,
+  Divider,
   TagLabel,
   Container,
   TagCloseButton,
@@ -62,6 +63,7 @@ export default function NutrientPreferences() {
     Object.keys(nutrientWatchListIDs).sort()
   );
   const toast = useToast();
+  const borderColors = useColorModeValue("black", "white");
 
   const handleMicroNutrientChange = (e) => {
     const { id, value } = e.target;
@@ -135,14 +137,20 @@ export default function NutrientPreferences() {
           <Heading fontSize={"3xl"} mb="0.25rem">
             Daily Maximums
           </Heading>
-          <Text mb="0rem" textAlign={"center"}>
+          <Divider
+            borderBottomWidth="2px"
+            borderColor={borderColors}
+            mt="6px"
+          />
+
+          <Text maxW="480px" fontSize={"sm"} my="1rem" textAlign={"justify"}>
             Please enter your personal daily maximum values to create a
             personalized nutrition facts label. Any values you do not enter,
             will default to the FDA's recommended daily maximums, based on a
             2000 calorie per day diet.
           </Text>
 
-          <Container maxW="480px">
+          <Container maxW="480px" mx="0px" px="0px">
             {/* CALORIES */}
             <FormControl
               my="1.5rem"
@@ -316,16 +324,16 @@ export default function NutrientPreferences() {
 
         {/* WATCH LIST */}
         <Box mb="2rem">
-          <Flex
-            mb="1.5rem"
-            mx="0.25rem"
-            flexDirection="column"
-            alignItems={"center"}
-          >
+          <Flex mb="1.5rem" flexDirection="column" alignItems={"center"}>
             <Heading fontSize={"3xl"} mb="0.25rem">
               Create your Watch List
             </Heading>
-            <Text textAlign={"center"}>
+            <Divider
+              borderBottomWidth="2px"
+              borderColor={borderColors}
+              mt="6px"
+            />
+            <Text fontSize={"sm"} mt="1rem" textAlign={"justify"}>
               Please select all the nutrients you would always like to see in
               your personalized nutrition facts label. Once chosen, you can
               enter personal maximum daily values, or leave them blank to
@@ -421,7 +429,6 @@ export default function NutrientPreferences() {
         )}
         <Button
           w="100%"
-          mt="2rem"
           mb="3rem"
           bg={activeBg}
           _hover={{ background: buttonBgHover }}
