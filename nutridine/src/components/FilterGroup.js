@@ -12,10 +12,6 @@ const FilterGroup = ({ filters, onSelectItem, selectedItems }) => {
         <VStack
             align="start"
             borderRadius={15}
-        // borderWidth="1px"
-        // py={3}
-        // px={3}
-        // bg={colorMode === "dark" ? "gray.700" : "gray.50"}
         >
             <Text
                 fontSize="sm"
@@ -36,12 +32,13 @@ const FilterGroup = ({ filters, onSelectItem, selectedItems }) => {
                         bg={selectedItems.includes(item) ? activeBg : inactiveBg}
                         size="sm"
                         fontWeight="400"
+                        _hover={{ bg: activeBg }}
                     >
                         {item}
                     </Button>
                 ))}
             </Stack>
-        </VStack>
+        </VStack >
     );
 };
 
