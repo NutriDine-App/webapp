@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
-import { VStack, Box, Input, SimpleGrid, useBreakpointValue, useColorMode } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { Box, Input, useBreakpointValue, useColorMode, Text } from '@chakra-ui/react';
 
 import FilterGroup from '../components/FilterGroup';
 import FoodCardList from '../components/FoodDisplay/FoodCardList';
-
-import mockMeals from '../constants/mockData/meals';
+import useMealsByQuery from '../hooks/Meals/useMealsByQuery';
 
 function Homepage() {
     const { colorMode } = useColorMode();
-
-    const filters = ['Burgers', 'Salads', 'Sushi', 'Pasta'];
-
+    const filters = ['Burger', 'Sushi', 'Pizza', 'Chicken'];
     const [selectedItems, setSelectedItems] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const handleSelectItem = (item) => {
         setSelectedItems((prevItems) =>
@@ -19,12 +17,11 @@ function Homepage() {
         );
     };
 
-    // const filteredFoodItems = mockMeals.filter((item) => selectedItems.includes(item));
+    // Combine search term and selected filters into a single query
+    const query = (searchTerm + " " + selectedItems.join(" ")).trim().toLowerCase();
+    const { meals, loading, error } = useMealsByQuery(query);
 
     const isLargerScreen = useBreakpointValue({ base: false, md: false, lg: true });
-    const meals = mockMeals;
-
-    console.log(meals);
 
     return (
         <Box
@@ -34,7 +31,14 @@ function Homepage() {
             display="flex"
             flexDirection="column"
         >
-            <Input placeholder="Search for food..." mb={4} height="50px" borderRadius="15px" />
+            <Input
+                placeholder="Search for food..."
+                mb={4}
+                height="50px"
+                borderRadius="15px"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
 
             {isLargerScreen ? (
                 <Box
@@ -51,16 +55,35 @@ function Homepage() {
                         selectedItems={selectedItems}
                     />
                 </Box>
-            ) :
-                <Box mb={5}>
+            ) : (
+                <Box
+                    mb={5}
+                    overflowX="auto"
+                    sx={{
+                        paddingBottom: '8px',
+                        '&::-webkit-scrollbar': {
+                            height: '4px',
+                            backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            backgroundColor: `rgba(0, 0, 0, 0.2)`,
+                            borderRadius: '4px',
+                        },
+                        '&::-webkit-scrollbar-thumb:hover': {
+                            backgroundColor: `rgba(0, 0, 0, 0.5)`,
+                        },
+                    }}
+                >
                     <FilterGroup
                         filters={filters}
                         onSelectItem={handleSelectItem}
                         selectedItems={selectedItems}
                     />
                 </Box>
-            }
+            )}
 
+            {loading && <Text>Loading...</Text>}
+            {error && <Text>Failed to fetch meals.</Text>}
             <FoodCardList meals={meals} />
         </Box>
     );

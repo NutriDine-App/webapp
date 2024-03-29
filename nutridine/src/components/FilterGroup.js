@@ -1,4 +1,4 @@
-import { useBreakpointValue, Stack, Text, Button, Box, useColorMode, VStack, useColorModeValue } from "@chakra-ui/react";
+import { useBreakpointValue, Stack, Text, Button, useColorMode, VStack, useColorModeValue } from "@chakra-ui/react";
 
 
 const FilterGroup = ({ filters, onSelectItem, selectedItems }) => {
@@ -22,8 +22,6 @@ const FilterGroup = ({ filters, onSelectItem, selectedItems }) => {
             <Stack
                 direction={stackDirection}
                 spacing="3"
-                overflowX="scroll"
-            // width="100%"
             >
                 {filters.map((item) => (
                     <Button
