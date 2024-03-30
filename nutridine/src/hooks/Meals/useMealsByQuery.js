@@ -28,7 +28,7 @@ export const useMealsByQuery = (query) => {
                     const response = await axios.post(
                         "https://trackapi.nutritionix.com/v2/search/instant",
                         {
-                            query: Object.keys(brandIds).join(" ") + " " + query,
+                            query: !query ? Object.keys(brandIds).join(" ") : query,
                             brand_ids: Object.values(brandIds),
                             detailed: true,
                             common: false,
