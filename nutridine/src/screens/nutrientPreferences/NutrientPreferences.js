@@ -49,6 +49,7 @@ export default function NutrientPreferences() {
     "light.primary.200",
     "dark.primary.400"
   );
+
   const [dailyMaximums, setDailyMaximums] = useState({
     calories: null,
     totalFat: null,
@@ -429,8 +430,8 @@ export default function NutrientPreferences() {
         )}
         <Button
           w="100%"
-          mb="3rem"
           bg={activeBg}
+          mb={"1rem"}
           _hover={{ background: buttonBgHover }}
           onClick={handleSubmit}
         >
