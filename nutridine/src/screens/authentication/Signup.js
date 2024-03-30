@@ -158,7 +158,7 @@ const Signup = () => {
                     or sign up with
                   </AbsoluteCenter>
                 </Box>
-                <OAuthButtonGroup></OAuthButtonGroup>
+                <OAuthButtonGroup isSignUp={true} />
               </Stack>
             </Stack>
           </Box>

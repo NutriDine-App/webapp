@@ -1,28 +1,34 @@
 import React from "react";
 import { ButtonGroup, Button, useToast } from "@chakra-ui/react";
 import { FaGoogle, FaTwitter, FaGithub } from "react-icons/fa";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  TwitterAuthProvider,
+} from "firebase/auth";
 import { auth } from "../../hooks/AuthService/authService";
 import { useNavigate } from "react-router-dom";
 
-export const OAuthButtonGroup = () => {
+export const OAuthButtonGroup = ({ isSignUp }) => {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const handleGoogleSignIn = () => {
-    const provider = new GoogleAuthProvider();
+  const handleSignIn = (Provider) => {
+    const provider = new Provider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-        navigate("/");
+        const isNewUser = result._tokenResponse?.isNewUser;
+        if (isSignUp || isNewUser) {
+          navigate("/register-form");
+        } else {
+          navigate("/");
+        }
       })
       .catch((error) => {
-        const errorMessage = error.message;
         toast({
           title: "Error",
-          description: errorMessage,
+          description: error.message,
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -33,17 +39,27 @@ export const OAuthButtonGroup = () => {
   return (
     <ButtonGroup variant="outline" spacing="4">
       <Button
-        onClick={handleGoogleSignIn}
+        onClick={() => handleSignIn(GoogleAuthProvider)}
         tabIndex={-1}
         leftIcon={<FaGoogle />}
         flexGrow={1}
       >
         Google
       </Button>
-      <Button tabIndex={-1} leftIcon={<FaTwitter />} flexGrow={1}>
+      <Button
+        onClick={() => handleSignIn(TwitterAuthProvider)}
+        tabIndex={-1}
+        leftIcon={<FaTwitter />}
+        flexGrow={1}
+      >
         Twitter
       </Button>
-      <Button tabIndex={-1} leftIcon={<FaGithub />} flexGrow={1}>
+      <Button
+        onClick={() => handleSignIn(GithubAuthProvider)}
+        tabIndex={-1}
+        leftIcon={<FaGithub />}
+        flexGrow={1}
+      >
         GitHub
       </Button>
     </ButtonGroup>
