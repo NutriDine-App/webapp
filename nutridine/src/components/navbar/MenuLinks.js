@@ -7,7 +7,6 @@ import {
   Icon,
   useColorModeValue,
   useToast,
-  useDisclosure,
 } from "@chakra-ui/react";
 import CustomMenu from "./CustomMenu";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
@@ -18,8 +17,6 @@ import { signOutUser } from "../../hooks/AuthService/authService";
 import { useAuth } from "../../contexts/AuthContext";
 
 export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
-  const { onClose } = useDisclosure();
-  const menuDisclosure = useDisclosure();
   const [hasScrolled, setHasScrolled] = useState(false);
   const { currentUser } = useAuth();
 
