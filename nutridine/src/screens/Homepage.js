@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Input, useBreakpointValue, useColorMode, Text } from '@chakra-ui/react';
+import { debounce } from 'lodash';
 
 import FilterGroup from '../components/FilterGroup';
 import FoodCardList from '../components/FoodDisplay/FoodCardList';
@@ -9,7 +10,9 @@ function Homepage() {
     const { colorMode } = useColorMode();
     const filters = ['Burger', 'Sushi', 'Pizza', 'Chicken'];
     const [selectedItems, setSelectedItems] = useState([]);
+
     const [searchTerm, setSearchTerm] = useState('');
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
     const handleSelectItem = (item) => {
         setSelectedItems((prevItems) =>
@@ -17,8 +20,24 @@ function Homepage() {
         );
     };
 
-    // Combine search term and selected filters into a single query
-    const query = (searchTerm + " " + selectedItems.join(" ")).trim().toLowerCase();
+    useEffect(() => {
+        const handler = debounce(() => {
+            if (searchTerm.length >= 3) {
+                setDebouncedSearchTerm(searchTerm);
+            } else {
+                setDebouncedSearchTerm("");
+            }
+        }, 300);
+
+        handler();
+
+        return () => {
+            handler.cancel();
+        };
+    }, [searchTerm]);
+
+    // Combine debounced search term and selected filters into a single query
+    const query = (debouncedSearchTerm + " " + selectedItems.join(" ")).trim().toLowerCase();
     const { meals, loading, error } = useMealsByQuery(query);
 
     const isLargerScreen = useBreakpointValue({ base: false, md: false, lg: true });
