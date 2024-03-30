@@ -7,10 +7,8 @@ import {
   Icon,
   useColorModeValue,
   useToast,
-  Menu,
-  MenuButton,
-  MenuList,
 } from "@chakra-ui/react";
+import CustomMenu from "./CustomMenu";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { MenuItem } from "./MenuItem";
 import { FaUser } from "react-icons/fa6";
@@ -25,7 +23,10 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
   const navigate = useNavigate();
   const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();
-  const bgColorDefault = useColorModeValue("transparent", "transparent");
+  const bgColorDefault = {
+    base: useColorModeValue("gray.100", "gray.900"),
+    md: useColorModeValue("transparent", "transparent"),
+  };
   const bgColorScrolled = useColorModeValue("gray.100", "gray.900");
   const bgColor = hasScrolled ? bgColorScrolled : bgColorDefault;
   const buttonBgHover = useColorModeValue(
@@ -120,24 +121,16 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
         </MenuItem>
 
         {currentUser ? (
-          <Menu>
-            <MenuButton
-              as={Button}
-              variant="ghost"
-              borderRadius="30"
-              _hover={{ bg: buttonBgHover }}
-              _focus={{ boxShadow: "none" }}
-              minWidth="auto"
+          <CustomMenu buttonBgHover={buttonBgHover}>
+            <MenuItem
+              onClick={onItemSelect("/profile")}
+              to={"/profile"}
+              isActive={activeItem === "/profile"}
             >
-              <Icon as={FaUser} />
-            </MenuButton>
-            <MenuList>
-              <MenuItem onClick={onItemSelect("/proflie")} to={"/profile"}>
-                Profile
-              </MenuItem>
-              <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
-            </MenuList>
-          </Menu>
+              Profile
+            </MenuItem>
+            <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+          </CustomMenu>
         ) : (
           <NavLink to="/login" onClick={onItemSelect("/login")}>
             <Button
