@@ -7,11 +7,9 @@ import {
   Icon,
   useColorModeValue,
   useToast,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem as MI,
+  useDisclosure,
 } from "@chakra-ui/react";
+import CustomMenu from "./CustomMenu";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { MenuItem } from "./MenuItem";
 import { FaUser } from "react-icons/fa6";
@@ -20,6 +18,8 @@ import { signOutUser } from "../../hooks/AuthService/authService";
 import { useAuth } from "../../contexts/AuthContext";
 
 export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
+  const { onClose } = useDisclosure();
+  const menuDisclosure = useDisclosure();
   const [hasScrolled, setHasScrolled] = useState(false);
   const { currentUser } = useAuth();
 
@@ -124,31 +124,16 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
         </MenuItem>
 
         {currentUser ? (
-          <Menu>
-            <MenuButton
-              as={Button}
-              variant="ghost"
-              borderRadius="30"
-              _hover={{ bg: buttonBgHover }}
-              _focus={{ boxShadow: "none" }}
-              minWidth="auto"
+          <CustomMenu buttonBgHover={buttonBgHover}>
+            <MenuItem
+              onClick={onItemSelect("/profile")}
+              to={"/profile"}
+              isActive={activeItem === "/profile"}
             >
-              <Icon as={FaUser} />
-            </MenuButton>
-            <MenuList minW={0} maxW={"fit-content"} p={0}>
-              <MI
-                onClick={() => {
-                  navigate("/profile");
-                }}
-                _hover={{ bg: buttonBgHover }}
-              >
-                Profile
-              </MI>
-              <MI _hover={{ bg: buttonBgHover }} onClick={handleSignOut}>
-                Sign Out
-              </MI>
-            </MenuList>
-          </Menu>
+              Profile
+            </MenuItem>
+            <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+          </CustomMenu>
         ) : (
           <NavLink to="/login" onClick={onItemSelect("/login")}>
             <Button
