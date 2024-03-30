@@ -8,7 +8,7 @@ import useMealsByQuery from '../hooks/Meals/useMealsByQuery';
 
 function Homepage() {
     const { colorMode } = useColorMode();
-    const filters = ['Burger', 'Sushi', 'Pizza', 'Chicken'];
+    const filters = ['Burger', 'Sushi', 'Salad', 'Pizza', 'Pasta'];
     const [selectedItems, setSelectedItems] = useState([]);
 
     const [searchTerm, setSearchTerm] = useState('');
