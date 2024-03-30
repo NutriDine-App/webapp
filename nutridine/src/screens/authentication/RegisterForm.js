@@ -14,7 +14,9 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
+import { getCurrentUser } from "../../hooks/AuthService/authService";
 import { auth } from "../../hooks/AuthService/authService";
+
 
 const RegisterForm = () => {
   const [displayName, setDisplayName] = useState("");
@@ -24,11 +26,13 @@ const RegisterForm = () => {
   const toast = useToast();
   const navigate = useNavigate();
 
+  const currentUser = getCurrentUser();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await updateProfile(auth.currentUser, {
+      await updateProfile(currentUser, {
         displayName,
         photoURL,
       });
