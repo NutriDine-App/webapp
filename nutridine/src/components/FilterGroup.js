@@ -25,7 +25,6 @@ const FilterGroup = ({ title, filters, onSelectItem, action, selectedItems, isLa
             <Stack
                 direction={isLargerScreen ? 'column' : 'row'}
                 spacing="3"
-                // mb={5}
                 overflowX="auto"
                 maxWidth="100%"
             >
