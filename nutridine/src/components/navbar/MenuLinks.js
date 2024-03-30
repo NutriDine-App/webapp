@@ -77,7 +77,7 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
       width="auto"
       maxWidth="100vw"
       height={{ base: "100vh", md: "auto" }}
-      bg={bgColor}
+      bg={isOpen ? bgColorScrolled : bgColor}
       zIndex={20}
       top={0}
       left={0}
