@@ -29,7 +29,7 @@ const ProfilePage = () => {
   };
   return (
     <Container width={["100vw", "550px"]} borderColor={borderColor}>
-      <Box bg={cardBg} borderRadius="lg" boxShadow="base" p="4">
+      <Box mt={"1rem"} bg={cardBg} borderRadius="lg" boxShadow="base" p="4">
         {showPreferences ? (
           <>
             <NutrientPreferences />
