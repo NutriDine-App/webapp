@@ -10,6 +10,7 @@ import NutrientPreferences from "./screens/nutrientPreferences/NutrientPreferenc
 import RegisterForm from "./screens/authentication/RegisterForm";
 import ProfilePage from "./screens/authentication/ProfilePage";
 import PasswordReset from "./screens/authentication/PasswordReset";
+import Homepage from "./screens/Homepage";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +27,7 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<div>HOME</div>} />
+        <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/register-form" element={<RegisterForm />} />
