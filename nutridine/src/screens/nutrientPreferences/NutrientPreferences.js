@@ -135,7 +135,7 @@ export default function NutrientPreferences() {
           alignItems={"center"}
           w="100%"
         >
-          <Heading fontSize={"3xl"} mb="0.25rem">
+          <Heading fontSize={["2xl", "3xl"]} mb="0.25rem">
             Daily Maximums
           </Heading>
           <Divider
@@ -144,7 +144,7 @@ export default function NutrientPreferences() {
             mt="6px"
           />
 
-          <Text maxW="480px" fontSize={"sm"} my="1rem" textAlign={"justify"}>
+          <Text maxW="480px" fontSize={"1rem"} my="1rem" textAlign={"justify"}>
             Please enter your personal daily maximum values to create a
             personalized nutrition facts label. Any values you do not enter,
             will default to the FDA's recommended daily maximums, based on a
@@ -326,7 +326,7 @@ export default function NutrientPreferences() {
         {/* WATCH LIST */}
         <Box mb="2rem">
           <Flex mb="1.5rem" flexDirection="column" alignItems={"center"}>
-            <Heading fontSize={"3xl"} mb="0.25rem">
+            <Heading fontSize={["2xl", "3xl"]} mb="0.25rem">
               Create your Watch List
             </Heading>
             <Divider
@@ -348,6 +348,8 @@ export default function NutrientPreferences() {
               onChange={(e) => handleSelectChange(e.target.value)}
               my="0.5rem"
               maxW="400px"
+              fontFamily={"theme.global.body.fontFamily"}
+              fontSize="1rem"
             >
               {filteredNutrients.map((nutrient) => (
                 <option key={nutrient} value={nutrient}>
