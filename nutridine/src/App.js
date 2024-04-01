@@ -10,6 +10,7 @@ import RegisterForm from "./screens/authentication/RegisterForm";
 import ProfilePage from "./screens/authentication/ProfilePage";
 import PasswordReset from "./screens/authentication/PasswordReset";
 import RestaurantsPage from "./screens/restaurants/RestaurantsPage";
+import MealsPage from "./screens/restaurants/MealsPage";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,6 +34,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/reset-password" element={<PasswordReset />} />
         <Route path="/restaurants" element={<RestaurantsPage />} />
+        <Route path="/restaurants/:brandId" element={<MealsPage />} />
         <Route path="/macro" element={<MacroPage />} />
       </Routes>
     </Layout>
