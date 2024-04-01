@@ -13,7 +13,10 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, updateProfile } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
+import { getCurrentUser } from "../../hooks/AuthService/authService";
+import { auth } from "../../hooks/AuthService/authService";
+
 
 const RegisterForm = () => {
   const [displayName, setDisplayName] = useState("");
@@ -22,24 +25,18 @@ const RegisterForm = () => {
   const buttonBg = useColorModeValue("light.primary.500", "dark.primary.600");
   const toast = useToast();
   const navigate = useNavigate();
-  const auth = getAuth();
+
+  const currentUser = getCurrentUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await updateProfile(auth.currentUser, {
+      await updateProfile(currentUser, {
         displayName,
         photoURL,
       });
-      toast({
-        title: "Profile Updated",
-        description: "Your profile has been updated successfully.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-      navigate("/");
+      navigate("/profile");
     } catch (error) {
       toast({
         title: "Error updating profile",

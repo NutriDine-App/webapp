@@ -154,7 +154,7 @@ const Signin = () => {
                     or continue with
                   </AbsoluteCenter>
                 </Box>
-                <OAuthButtonGroup />
+                <OAuthButtonGroup isSignUp={false} />
               </Stack>
             </Stack>
           </Box>

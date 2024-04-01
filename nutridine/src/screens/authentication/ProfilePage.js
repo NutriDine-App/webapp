@@ -1,33 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Container,
-  Heading,
-  Text,
+  Button,
   useColorModeValue,
+  Flex,
 } from "@chakra-ui/react";
-import { useAuth } from "../../contexts/AuthContext";
+import NutrientPreferences from "../nutrientPreferences/NutrientPreferences";
+import { getCurrentUser } from "../../hooks/AuthService/authService";
+
 const ProfilePage = () => {
-  const [displayName, setDisplayName] = useState("");
   const cardBg = useColorModeValue("gray.50", "gray.700");
-  const { currentUser } = useAuth();
+  const [showPreferences, setShowPreferences] = useState(false);
 
-  useEffect(() => {
-    if (currentUser !== null) {
-      setDisplayName(currentUser.displayName);
-    }
-  }, [currentUser]);
+  const currentUser = getCurrentUser();
+  const buttonBgHover = useColorModeValue(
+    "light.primary.200",
+    "dark.primary.400"
+  );
+  const buttonBg = useColorModeValue("light.primary.500", "dark.primary.600");
+  const borderColor = useColorModeValue("gray.200", "gray.600");
 
+  const handleTogglePreferences = () => {
+    setShowPreferences((prev) => !prev);
+  };
+  const handleCancel = () => {
+    setShowPreferences(false);
+  };
   return (
-    <Container maxW="lg" py={12}>
-      <Box bg={cardBg} p={8} borderRadius="lg" boxShadow="base">
-        <Heading as="h2" size="xl" mb={4}>
-          Profile Page
-        </Heading>
-        {displayName ? (
-          <Text fontSize="lg">Welcome, {displayName}!</Text>
+    <Container width={["100vw", "550px"]} borderColor={borderColor}>
+      <Box mt={"1rem"} bg={cardBg} borderRadius="lg" boxShadow="base" p="4">
+        {showPreferences ? (
+          <>
+            <NutrientPreferences />
+            <Flex justify="center">
+              <Button
+                w="50%"
+                bg={"light.error.500"}
+                _hover={{ background: "light.error.300" }}
+                onClick={handleCancel}
+                color={"white"}
+              >
+                Cancel
+              </Button>
+            </Flex>
+          </>
         ) : (
-          <Text fontSize="lg">Welcome, user!</Text>
+          <Box>
+            <Box mb="4">
+              <span style={{ fontWeight: "bold" }}>Name:</span>{" "}
+              {currentUser.displayName}
+            </Box>
+            <Box mb="4">
+              <span style={{ fontWeight: "bold" }}>Email:</span>{" "}
+              {currentUser.email}
+            </Box>
+            <Button
+              bg={buttonBg}
+              _hover={{ bg: buttonBgHover }}
+              onClick={handleTogglePreferences}
+            >
+              Change Preferences
+            </Button>
+          </Box>
         )}
       </Box>
     </Container>
