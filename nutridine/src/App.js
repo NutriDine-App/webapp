@@ -32,6 +32,7 @@ function App() {
         <Route path="/login" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/register-form" element={<RegisterForm />} />
+        <Route path="/preferences-page" element={<NutrientPreferences />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/reset-password" element={<PasswordReset />} />
         <Route path="/restaurants" element={<RestaurantsPage />} />

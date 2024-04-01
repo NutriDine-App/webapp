@@ -12,11 +12,11 @@ import useMealById from "../hooks/Meals/useMealById";
 import LoadingSpinner from "./LoadingSpinner";
 import NutritionFacts from "./NutritionFacts";
 import useNutrientPreferences from "../hooks/useNutrientPreferences";
-import { useAuth } from "../contexts/AuthContext";
+import { getCurrentUser } from "../hooks/AuthService/authService";
 
 export default function DetailedFoodModalContent({ meal, onClose }) {
   const { nix_item_id } = meal;
-  const { currentUser } = useAuth();
+  const currentUser = getCurrentUser();
   const {
     detailedMeal,
     loading: detailedMealIsLoading,

@@ -17,7 +17,6 @@ import { updateProfile } from "firebase/auth";
 import { getCurrentUser } from "../../hooks/AuthService/authService";
 import { auth } from "../../hooks/AuthService/authService";
 
-
 const RegisterForm = () => {
   const [displayName, setDisplayName] = useState("");
   const [photoURL, setPhotoURL] = useState("");
@@ -36,7 +35,7 @@ const RegisterForm = () => {
         displayName,
         photoURL,
       });
-      navigate("/profile");
+      navigate("/preferences-page");
     } catch (error) {
       toast({
         title: "Error updating profile",
