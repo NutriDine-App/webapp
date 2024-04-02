@@ -124,6 +124,9 @@ export default function NutrientPreferences() {
     }
   };
 
+  const preventSpecialNumericalCharacters = (event) =>
+    ["e", "E", "+", "-"].includes(event.key) && event.preventDefault();
+
   return (
     <Container>
       <VStack>
@@ -171,6 +174,7 @@ export default function NutrientPreferences() {
                     w="90px"
                     value={dailyMaximums.calories || ""}
                     onChange={handleInputChange}
+                    onKeyDown={preventSpecialNumericalCharacters}
                   />
                   <InputRightAddon w="60px">kcal</InputRightAddon>
                 </InputGroup>
@@ -200,6 +204,7 @@ export default function NutrientPreferences() {
                     w="90px"
                     value={dailyMaximums.totalFat || ""}
                     onChange={handleInputChange}
+                    onKeyDown={preventSpecialNumericalCharacters}
                   />
                   <InputRightAddon w="60px">g</InputRightAddon>
                 </InputGroup>
@@ -228,6 +233,7 @@ export default function NutrientPreferences() {
                     w="90px"
                     value={dailyMaximums.cholesterol || ""}
                     onChange={handleInputChange}
+                    onKeyDown={preventSpecialNumericalCharacters}
                   />
                   <InputRightAddon w="60px">mg</InputRightAddon>
                 </InputGroup>
@@ -256,6 +262,7 @@ export default function NutrientPreferences() {
                     w="90px"
                     value={dailyMaximums.sodium || ""}
                     onChange={handleInputChange}
+                    onKeyDown={preventSpecialNumericalCharacters}
                   />
                   <InputRightAddon w="60px">mg</InputRightAddon>
                 </InputGroup>
@@ -284,6 +291,7 @@ export default function NutrientPreferences() {
                     w="90px"
                     value={dailyMaximums.carbs || ""}
                     onChange={handleInputChange}
+                    onKeyDown={preventSpecialNumericalCharacters}
                   />
                   <InputRightAddon w="60px">g</InputRightAddon>
                 </InputGroup>
@@ -312,6 +320,7 @@ export default function NutrientPreferences() {
                     w="90px"
                     value={dailyMaximums.protein || ""}
                     onChange={handleInputChange}
+                    onKeyDown={preventSpecialNumericalCharacters}
                   />
                   <InputRightAddon w="60px">g</InputRightAddon>
                 </InputGroup>
@@ -408,6 +417,7 @@ export default function NutrientPreferences() {
                           w="90px"
                           value={selectedNutrientMaximums[nutrient] || ""}
                           onChange={handleMicroNutrientChange}
+                          onKeyDown={preventSpecialNumericalCharacters}
                         />
                         <InputRightAddon w="60px">
                           {nutrientUnits[nutrientWatchListIDs[nutrient]]}
