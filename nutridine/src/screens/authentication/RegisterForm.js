@@ -73,7 +73,7 @@ const RegisterForm = () => {
                 Enter the name you'd like displayed on your profile.
               </FormHelperText>
             </FormControl>
-            <FormControl id="photoURL">
+            {/* <FormControl id="photoURL">
               <FormLabel>Photo URL</FormLabel>
               <Input
                 type="url"
@@ -84,7 +84,7 @@ const RegisterForm = () => {
               <FormHelperText>
                 Enter the URL of your profile photo.
               </FormHelperText>
-            </FormControl>
+            </FormControl> */}
             <Button
               type="submit"
               bg={buttonBg}
