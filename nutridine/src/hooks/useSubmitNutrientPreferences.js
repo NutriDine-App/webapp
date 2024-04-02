@@ -15,26 +15,23 @@ const useSubmitNutrientPreferences = (userUid) => {
   const [isSaving, setIsSaving] = useState(false);
 
   function validateMicronutrientInput(value) {
-    // uninitialized values are okay
-    if (value === null || value === "" || value === undefined) {
+    // Value is allowed to be null, undefined, or an empty string
+    if (!value) {
       return true;
     }
-    // decimals + integers okay
-    if (/^\d+(\.\d+)?$/.test(value)) {
-      return true;
-    }
-    return false;
+    // Check if the value contains only digits and (at most) one decimal
+    const regex = /^\d*\.?\d*$/;
+    return regex.test(value);
   }
 
   function validNumericalInput(value) {
-    // uninitialized values are okay
-    if (value === null || value === "") {
+    // Value is allowed to be null, undefined, or an empty string
+    if (!value) {
       return true;
     }
-    if (value > 0 && /^[0-9]+$/.test(value)) {
-      return true;
-    }
-    return false;
+    // Check the value is a positive integer
+    const regex = /^\d*$/;
+    return regex.test(value);
   }
 
   function validateNutrients(nutrientPreferences) {
