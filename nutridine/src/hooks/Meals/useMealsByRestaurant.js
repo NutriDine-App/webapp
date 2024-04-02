@@ -1,4 +1,4 @@
-import { useState, useEffect, } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import mockMeals from "../../constants/mockData/meals";
 
@@ -10,9 +10,13 @@ const useMealsByRestaurant = (selectedRestaurant) => {
   useEffect(() => {
     console.log("Fetching meals for:", selectedRestaurant);
     // Directly check if selectedRestaurant is null or if brandId/name are missing
-    if (!selectedRestaurant || !selectedRestaurant.brandId || !selectedRestaurant.name) {
+    if (
+      !selectedRestaurant ||
+      !selectedRestaurant.brandId ||
+      !selectedRestaurant.name
+    ) {
       setLoading(false);
-      setMeals([]); 
+      setMeals([]);
       return;
     }
 
