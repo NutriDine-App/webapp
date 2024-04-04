@@ -23,6 +23,11 @@ const RegisterForm = () => {
   const [photoURL, setPhotoURL] = useState("");
   const cardBg = useColorModeValue("gray.50", "gray.700");
   const buttonBg = useColorModeValue("light.primary.500", "dark.primary.600");
+  const buttonHover = useColorModeValue(
+    "light.primary.400",
+    "dark.primary.400"
+  );
+
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -89,7 +94,7 @@ const RegisterForm = () => {
               type="submit"
               bg={buttonBg}
               color="white"
-              _hover={{ bg: "blue.500" }}
+              _hover={{ bg: buttonHover }}
             >
               Update Profile
             </Button>
