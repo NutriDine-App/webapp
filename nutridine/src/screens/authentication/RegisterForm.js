@@ -23,6 +23,11 @@ const RegisterForm = () => {
   const [photoURL, setPhotoURL] = useState("");
   const cardBg = useColorModeValue("gray.50", "gray.700");
   const buttonBg = useColorModeValue("light.primary.500", "dark.primary.600");
+  const buttonHover = useColorModeValue(
+    "light.primary.400",
+    "dark.primary.400"
+  );
+
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -73,7 +78,7 @@ const RegisterForm = () => {
                 Enter the name you'd like displayed on your profile.
               </FormHelperText>
             </FormControl>
-            <FormControl id="photoURL">
+            {/* <FormControl id="photoURL">
               <FormLabel>Photo URL</FormLabel>
               <Input
                 type="url"
@@ -84,12 +89,12 @@ const RegisterForm = () => {
               <FormHelperText>
                 Enter the URL of your profile photo.
               </FormHelperText>
-            </FormControl>
+            </FormControl> */}
             <Button
               type="submit"
               bg={buttonBg}
               color="white"
-              _hover={{ bg: "blue.500" }}
+              _hover={{ bg: buttonHover }}
             >
               Update Profile
             </Button>
