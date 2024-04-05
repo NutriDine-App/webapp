@@ -16,6 +16,7 @@ import brandIds from "../../constants/brandIds";
 import useMealsByRestaurant from "../../hooks/Meals/useMealsByRestaurant";
 import FoodCardList from "../../components/FoodDisplay/FoodCardList";
 import { useNavigate } from "react-router-dom";
+import { useBreakpointValue } from "@chakra-ui/react";
 
 function RestaurantsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,6 +34,14 @@ function RestaurantsPage() {
   const { meals, loading, error } = useMealsByRestaurant(
     selectedRestaurantMemo
   );
+
+  const inputWidth = useBreakpointValue({
+    base: "90%",
+    md: "500px",
+    lg: "600px",
+    xl: "820px",
+  });
+  const errorMessageWidth = useBreakpointValue({ base: "90%", md: "80%" });
 
   const [imageSrc, setImageSrc] = useState({});
   const borderColor = useColorModeValue("gray.200", "gray.600");
@@ -83,7 +92,7 @@ function RestaurantsPage() {
 
   return (
     <VStack spacing={5} align="stretch">
-      <Flex justify="center" w="full" p={4}>
+      <Flex justify="center" w="full" px={{ base: 4, md: 0 }}>
         <Input
           placeholder="Search restaurants..."
           value={searchTerm}
@@ -93,13 +102,7 @@ function RestaurantsPage() {
           size="lg"
           rounded="md"
           shadow="base"
-          w={{
-            base: "400px",
-            sm: "80%",
-            md: "500px",
-            lg: "600px",
-            xl: "820px",
-          }}
+          w={inputWidth}
           height="56px"
           fontSize="lg"
           focusBorderColor="blue.500"
@@ -156,12 +159,11 @@ function RestaurantsPage() {
           ))
         ) : (
           <Flex
-            Flex
             width={"100vw"}
             alignContent={"center"}
             justifyContent={"center"}
           >
-            <Center w="full" py={10}>
+            <Center w={errorMessageWidth} py={10}>
               {" "}
               <Text fontSize="2xl" p={3} color="gray.500">
                 Sorry, the restaurant you're looking for is not available!!!

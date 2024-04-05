@@ -21,9 +21,7 @@ const useNutrientPreferences = (userUid) => {
           nutrientPreferencesRef,
           where("userUid", "==", userUid)
         );
-        console.log(queryByUser);
         const querySnapshot = await getDocs(queryByUser);
-        console.log(querySnapshot);
 
         if (!querySnapshot.empty) {
           // If document found, set the nutrientPreferences state
