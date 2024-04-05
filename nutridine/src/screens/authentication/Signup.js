@@ -30,6 +30,11 @@ const Signup = () => {
 
   const cardBg = useColorModeValue("gray.50", "gray.700");
   const buttonBg = useColorModeValue("light.primary.500", "dark.primary.600");
+  const buttonHover = useColorModeValue(
+    "light.primary.400",
+    "dark.primary.400"
+  );
+  
 
   const navigate = useNavigate();
   const toast = useToast();
@@ -138,7 +143,12 @@ const Signup = () => {
                 />
               </Stack>
               <Stack spacing="6">
-                <Button onClick={onSubmit} type="submit" bg={buttonBg}>
+                <Button
+                  onClick={onSubmit}
+                  type="submit"
+                  bg={buttonBg}
+                  _hover={{ bg: buttonHover }}
+                >
                   Sign up
                 </Button>
                 <Text color="fg.muted">

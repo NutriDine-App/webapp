@@ -27,6 +27,10 @@ import { signIn } from "../../hooks/AuthService/authService";
 const Signin = () => {
   const cardBg = useColorModeValue("gray.50", "gray.700");
   const buttonBg = useColorModeValue("light.primary.500", "dark.primary.600");
+  const buttonHover = useColorModeValue(
+    "light.primary.400",
+    "dark.primary.400"
+  );
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -134,7 +138,12 @@ const Signin = () => {
                 </Button>
               </HStack>
               <Stack spacing="6">
-                <Button onClick={onLogin} type="submit" bg={buttonBg}>
+                <Button
+                  onClick={onLogin}
+                  type="submit"
+                  bg={buttonBg}
+                  _hover={{ bg: buttonHover }}
+                >
                   Sign in
                 </Button>
                 <Text color="fg.muted">

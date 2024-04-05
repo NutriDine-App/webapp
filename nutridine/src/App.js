@@ -13,6 +13,9 @@ import PasswordReset from "./screens/authentication/PasswordReset";
 import Homepage from "./screens/Homepage";
 import RestaurantsPage from "./screens/restaurants/RestaurantsPage";
 import MealsPage from "./screens/restaurants/MealsPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,16 +31,41 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={
+          <ProtectedRoute>
+            <Homepage />
+          </ProtectedRoute>
+        } />
+
         <Route path="/login" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/register-form" element={<RegisterForm />} />
+
         <Route path="/preferences-page" element={<NutrientPreferences />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/reset-password" element={<PasswordReset />} />
         <Route path="/restaurants" element={<RestaurantsPage />} />
         <Route path="/restaurants/:brandId" element={<MealsPage />} />
         <Route path="/macro" element={<MacroPage />} />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/reset-password" element={<PasswordReset />} />
+
+        <Route path="/restaurants" element={
+          <ProtectedRoute>
+            <div>Restaurants Page</div>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/macro" element={
+          <ProtectedRoute>
+            <MacroPage />
+          </ProtectedRoute>
+        } />
       </Routes>
     </Layout>
   );
