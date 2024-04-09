@@ -20,6 +20,7 @@ const useMealById = ({ nix_item_id }) => {
     const appId = process.env.REACT_APP_NUTRITIONIX_APP_ID;
 
     const fetchData = async () => {
+      console.log("useMealById firing...");
       try {
         const response = await axios.get(
           `https://trackapi.nutritionix.com/v2/search/item?nix_item_id=${nix_item_id}`,

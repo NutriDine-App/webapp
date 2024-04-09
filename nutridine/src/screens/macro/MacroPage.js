@@ -255,7 +255,7 @@ function AttributeSliders() {
           width="150px"
           _hover={{ bg: buttonHover }}
         >
-          {showSliders ? "Show Meals >" : "< Edit Ranges"}
+          {showSliders ? "Search " : "Edit Ranges"}
         </Button>
       </HStack>
     </Box>
