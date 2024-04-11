@@ -4,6 +4,8 @@ NutriDine is mobile-first progressive web app that brings accurate, personalized
 
 ### Demo
 
+**TODO: Add demo video link here**
+
 **Test Account Credentials:**
 
 - Email: @TODO
