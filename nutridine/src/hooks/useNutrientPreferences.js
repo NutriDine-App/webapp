@@ -12,8 +12,8 @@ const useNutrientPreferences = (userUid) => {
   const [nutrientPreferences, setNutrientPreferences] = useState(null);
 
   useEffect(() => {
-    console.log("useNutrientPreferences firing..");
     const fetchNutrientPreferences = async () => {
+      console.log("useNutrientPreferences firing..");
       try {
         const db = getFirestore();
         const nutrientPreferencesRef = collection(db, "NutrientPreferences");

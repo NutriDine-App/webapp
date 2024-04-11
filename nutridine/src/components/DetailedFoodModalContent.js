@@ -17,7 +17,7 @@ import { getCurrentUser } from "../hooks/AuthService/authService";
 
 export default function DetailedFoodModalContent({ meal, onClose }) {
   const { nix_item_id } = meal;
-  const currentUser  = getCurrentUser()
+  const currentUser = getCurrentUser();
   const {
     detailedMeal,
     loading: detailedMealIsLoading,
@@ -81,10 +81,6 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
             <NutritionFacts
               detailedMeal={detailedMeal}
               nutrientPreferences={nutrientPreferences}
-            />
-            <Image
-              src={detailedMeal.photo?.thumb}
-              alt={detailedMeal.food_name}
             />
           </VStack>
         )}
