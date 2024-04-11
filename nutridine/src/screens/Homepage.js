@@ -5,6 +5,7 @@ import {
   useBreakpointValue,
   useColorMode,
   Text,
+  Center,
   VStack,
   Divider,
 } from "@chakra-ui/react";
@@ -13,12 +14,27 @@ import { debounce } from "lodash";
 import FilterGroup from "../components/FilterGroup";
 import FoodCardList from "../components/FoodDisplay/FoodCardList";
 import useMealsByQuery from "../hooks/Meals/useMealsByQuery";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function Homepage() {
   const { colorMode } = useColorMode();
 
   const filters = ["High Protein", "Low Calorie", "Low Fat"];
-  const foodTypes = ["Burger", "Sushi", "Salad", "Pizza", "Pasta"];
+  const foodTypes = [
+    "Salad",
+    "Soup",
+    "Smoothie",
+    "Sushi",
+    "Pasta",
+    "Hamburger",
+    "Pizza",
+    "Mexican",
+    "Indian",
+    "Vietnamese",
+    "Italian",
+    "Greek",
+    "Spanish",
+  ];
 
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -70,7 +86,7 @@ function Homepage() {
         const protein =
           meal.full_nutrients.find((nutrient) => nutrient.attr_id === 203)
             ?.value || 0;
-        return protein >= 50;
+        return protein >= 35;
       });
     }
 
@@ -146,11 +162,15 @@ function Homepage() {
         />
       </VStack>
 
-      {loading && <Text>Loading...</Text>}
+      {loading && (
+        <Center w="100%" h="4rem">
+          <LoadingSpinner />
+        </Center>
+      )}
 
       {error && <Text>Failed to fetch meals.</Text>}
 
-      <FoodCardList meals={filteredMeals} />
+      {!loading && !error && <FoodCardList meals={filteredMeals} />}
     </Box>
   );
 }
