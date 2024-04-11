@@ -73,20 +73,12 @@ const Signin = () => {
 
   return (
     <Container
-      maxW={{ base: "90%", sm: "lg" }}
-      py={{ base: "12", md: "24" }}
-      px={{ base: "4", sm: "8" }}
-      borderRadius={25}
+      // maxW={{ base: "90%", sm: "lg" }}
+      w="550px"
+      px="0"
     >
       <FormControl onSubmit={onLogin}>
         <Stack spacing="8">
-          <Stack spacing="6">
-            <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
-              <Heading size={{ base: "xs", md: "md" }}>
-                Log in to Your Account
-              </Heading>
-            </Stack>
-          </Stack>
           <Box
             p={{ base: "4", sm: "8" }}
             bg={cardBg}
@@ -94,9 +86,16 @@ const Signin = () => {
             borderRadius={{ base: 15, sm: 20 }}
           >
             <Stack spacing="6">
+              <Stack spacing={{ base: "2", md: "3" }} textAlign="center" mb="5">
+                <Text fontSize={{ base: "1.25rem", md: "1.5rem" }}>
+                  Log in
+                </Text>
+              </Stack>
+            </Stack>
+            <Stack spacing="6">
               <Stack spacing="5">
                 <FormControl isRequired isInvalid={isInvalid[0]}>
-                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <FormLabel htmlFor="email" fontWeight="normal">Email</FormLabel>
                   <Input
                     id="email"
                     type="email"
@@ -133,6 +132,8 @@ const Signin = () => {
                   variant="link"
                   size="sm"
                   tabIndex={-1}
+                  fontWeight="normal"
+                  color="teal.500"
                 >
                   Forgot password?
                 </Button>
@@ -143,6 +144,7 @@ const Signin = () => {
                   type="submit"
                   bg={buttonBg}
                   _hover={{ bg: buttonHover }}
+                  fontWeight="normal"
                 >
                   Sign in
                 </Button>
@@ -169,7 +171,7 @@ const Signin = () => {
           </Box>
         </Stack>
       </FormControl>
-    </Container>
+    </Container >
   );
 };
 

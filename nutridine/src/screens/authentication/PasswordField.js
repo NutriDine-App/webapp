@@ -27,7 +27,7 @@ const PasswordField = forwardRef((props, ref) => {
 
   return (
     <FormControl isRequired isInvalid={props.isInvalid}>
-      <FormLabel htmlFor="password">{props.label}</FormLabel>
+      <FormLabel htmlFor="password" fontWeight="normal">{props.label}</FormLabel>
       <InputGroup>
         <InputRightElement>
           <IconButton

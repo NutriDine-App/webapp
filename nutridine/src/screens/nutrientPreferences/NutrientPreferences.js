@@ -34,7 +34,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import { micronutrientDailyMax } from "../../constants/dailyMaximums";
 import { useAuth } from "../../contexts/AuthContext";
 
-export default function NutrientPreferences() {
+export default function NutrientPreferences({ handleCancel }) {
   const { currentUser } = useAuth();
   const {
     isSaving,
@@ -49,6 +49,7 @@ export default function NutrientPreferences() {
     "light.primary.200",
     "dark.primary.400"
   );
+  const cardBg = useColorModeValue("gray.50", "gray.700");
 
   const [dailyMaximums, setDailyMaximums] = useState({
     calories: null,
@@ -128,26 +129,21 @@ export default function NutrientPreferences() {
     ["e", "E", "+", "-"].includes(event.key) && event.preventDefault();
 
   return (
-    <Container>
-      <VStack>
+    <Box mt={"1rem"} bg={cardBg} borderRadius="25px" boxShadow="base" px="10" py="8" width={["100vw", "550px"]}>
+      <VStack px={0}>
         {/* DAILY MAXIMUMS */}
         <Flex
-          my="2rem"
+          my="0rem"
           mx="0.25rem"
           flexDirection="column"
-          alignItems={"center"}
+          alignItems={"left"}
           w="100%"
         >
-          <Heading fontSize={["2xl", "3xl"]} mb="0.25rem">
+          <Heading size="lg" fontFamily="navbar" fontWeight="500">
             Daily Maximums
-          </Heading>
-          <Divider
-            borderBottomWidth="2px"
-            borderColor={borderColors}
-            mt="6px"
-          />
+          </Heading >
 
-          <Text maxW="480px" fontSize={"1rem"} my="1rem" textAlign={"justify"}>
+          <Text fontSize={"1rem"} my="1rem" textAlign={"left"}>
             Please enter your personal daily maximum values to create a
             personalized nutrition facts label. Any values you do not enter,
             will default to the FDA's recommended daily maximums, based on a
@@ -333,123 +329,132 @@ export default function NutrientPreferences() {
         </Flex>
 
         {/* WATCH LIST */}
-        <Box mb="2rem">
-          <Flex mb="1.5rem" flexDirection="column" alignItems={"center"}>
-            <Heading fontSize={["2xl", "3xl"]} mb="0.25rem">
-              Create your Watch List
-            </Heading>
-            <Divider
-              borderBottomWidth="2px"
-              borderColor={borderColors}
-              mt="6px"
-            />
-            <Text fontSize={"sm"} mt="1rem" textAlign={"justify"}>
-              Please select all the nutrients you would always like to see in
-              your personalized nutrition facts label. Once chosen, you can
-              enter personal maximum daily values, or leave them blank to
-              default to the FDA's recommendations.
-            </Text>
+        <Flex my="1.5rem" flexDirection="column" alignItems={"start"}>
+          <Heading size="lg" fontFamily="navbar" fontWeight="500">
+            Create your Watchlist
+          </Heading >
+
+          <Text fontSize={"sm"} mt="1rem" textAlign={"left"}>
+            Please select all the nutrients you would always like to see in
+            your personalized nutrition facts label. Once chosen, you can
+            enter personal maximum daily values, or leave them blank to
+            default to the FDA's recommendations.
+          </Text>
+        </Flex>
+
+        <VStack alignItems={"left"} width="100%">
+          <Select
+            placeholder="Select all Desired Nutrients"
+            onChange={(e) => handleSelectChange(e.target.value)}
+            my="0.5rem"
+            // w="100%"
+            // maxW="400px"
+            fontFamily={"theme.global.body.fontFamily"}
+            fontSize="1rem"
+          >
+            {filteredNutrients.map((nutrient) => (
+              <option key={nutrient} value={nutrient}>
+                {nutrient}
+              </option>
+            ))}
+          </Select>
+
+          <Flex
+            direction="column"
+            maxW="100%"
+            my="0.5rem"
+            alignItems="center"
+          >
+            <Wrap spacing={4} w="100%" maxW="480px" justify="center">
+              {selectedNutrients.map((nutrient) => (
+                <Tag
+                  key={nutrient}
+                  size="lg"
+                  variant={colorMode === "light" ? "lightMode" : "darkMode"}
+                >
+                  <TagLabel>{nutrient}</TagLabel>
+                  <TagCloseButton onClick={() => removeNutrient(nutrient)} />
+                </Tag>
+              ))}
+            </Wrap>
           </Flex>
 
-          <VStack alignContent={"center"}>
-            <Select
-              placeholder="Select all Desired Nutrients"
-              onChange={(e) => handleSelectChange(e.target.value)}
-              my="0.5rem"
-              maxW="400px"
-              fontFamily={"theme.global.body.fontFamily"}
-              fontSize="1rem"
+          <Container maxW="480px">
+            {selectedNutrients.map((nutrient) => {
+              return (
+                <FormControl
+                  key={nutrient}
+                  my="1.5rem"
+                  display="flex"
+                  flexDirection="column"
+                  isInvalid={
+                    !validateMicronutrientInput(
+                      selectedNutrientMaximums[nutrient]
+                    )
+                  }
+                >
+                  <HStack justifyContent={"space-between"} h="100%">
+                    <FormLabel m="0px" fontSize="lg" h="100%">
+                      {nutrient}
+                    </FormLabel>
+                    <InputGroup justifyContent={"flex-end"} maxW="150px">
+                      <Input
+                        id={nutrient}
+                        type="number"
+                        placeholder={
+                          micronutrientDailyMax[
+                          nutrientWatchListIDs[nutrient]
+                          ]
+                        }
+                        w="90px"
+                        value={selectedNutrientMaximums[nutrient] || ""}
+                        onChange={handleMicroNutrientChange}
+                        onKeyDown={preventSpecialNumericalCharacters}
+                      />
+                      <InputRightAddon w="60px">
+                        {nutrientUnits[nutrientWatchListIDs[nutrient]]}
+                      </InputRightAddon>
+                    </InputGroup>
+                  </HStack>
+                  <FormErrorMessage>
+                    {nutrient} must be a positive number containing only
+                    digits and decimals.
+                  </FormErrorMessage>
+                </FormControl>
+              );
+            })}
+          </Container>
+        </VStack>
+
+        {
+          isSaving && (
+            <Center>
+              <LoadingSpinner />{" "}
+            </Center>
+          )
+        }
+        <HStack width="100%" justify="space-between">
+          {handleCancel &&
+            <Button
+              bg={"light.error.500"}
+              _hover={{ background: "light.error.300" }}
+              onClick={handleCancel}
+              color={"white"}
+              fontWeight="normal"
             >
-              {filteredNutrients.map((nutrient) => (
-                <option key={nutrient} value={nutrient}>
-                  {nutrient}
-                </option>
-              ))}
-            </Select>
-
-            <Flex
-              direction="column"
-              maxW="100%"
-              my="0.5rem"
-              alignItems="center"
-            >
-              <Wrap spacing={4} w="100%" maxW="480px" justify="center">
-                {selectedNutrients.map((nutrient) => (
-                  <Tag
-                    key={nutrient}
-                    size="lg"
-                    variant={colorMode === "light" ? "lightMode" : "darkMode"}
-                  >
-                    <TagLabel>{nutrient}</TagLabel>
-                    <TagCloseButton onClick={() => removeNutrient(nutrient)} />
-                  </Tag>
-                ))}
-              </Wrap>
-            </Flex>
-
-            <Container maxW="480px">
-              {selectedNutrients.map((nutrient) => {
-                return (
-                  <FormControl
-                    key={nutrient}
-                    my="1.5rem"
-                    display="flex"
-                    flexDirection="column"
-                    isInvalid={
-                      !validateMicronutrientInput(
-                        selectedNutrientMaximums[nutrient]
-                      )
-                    }
-                  >
-                    <HStack justifyContent={"space-between"} h="100%">
-                      <FormLabel m="0px" fontSize="lg" h="100%">
-                        {nutrient}
-                      </FormLabel>
-                      <InputGroup justifyContent={"flex-end"} maxW="150px">
-                        <Input
-                          id={nutrient}
-                          type="number"
-                          placeholder={
-                            micronutrientDailyMax[
-                              nutrientWatchListIDs[nutrient]
-                            ]
-                          }
-                          w="90px"
-                          value={selectedNutrientMaximums[nutrient] || ""}
-                          onChange={handleMicroNutrientChange}
-                          onKeyDown={preventSpecialNumericalCharacters}
-                        />
-                        <InputRightAddon w="60px">
-                          {nutrientUnits[nutrientWatchListIDs[nutrient]]}
-                        </InputRightAddon>
-                      </InputGroup>
-                    </HStack>
-                    <FormErrorMessage>
-                      {nutrient} must be a positive number containing only
-                      digits and decimals.
-                    </FormErrorMessage>
-                  </FormControl>
-                );
-              })}
-            </Container>
-          </VStack>
-        </Box>
-
-        {isSaving && (
-          <Center>
-            <LoadingSpinner />{" "}
-          </Center>
-        )}
-        <Button
-          w="100%"
-          bg={activeBg}
-          mb={"1rem"}
-          _hover={{ background: buttonBgHover }}
-          onClick={handleSubmit}
-        >
-          Update Nutritional Preferences
-        </Button>
-      </VStack>
-    </Container>
+              Cancel
+            </Button>
+          }
+          <Button
+            bg={activeBg}
+            _hover={{ background: buttonBgHover }}
+            onClick={handleSubmit}
+            fontWeight="normal"
+          >
+            Update Preferences
+          </Button>
+        </HStack>
+      </VStack >
+    </Box>
   );
 }

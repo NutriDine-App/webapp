@@ -27,25 +27,15 @@ const ProfilePage = () => {
   const handleCancel = () => {
     setShowPreferences(false);
   };
-  return (
-    <Container width={["100vw", "550px"]} borderColor={borderColor}>
-      <Box mt={"1rem"} bg={cardBg} borderRadius="lg" boxShadow="base" p="4">
-        {showPreferences ? (
-          <>
-            <NutrientPreferences />
-            <Flex justify="center">
-              <Button
-                w="50%"
-                bg={"light.error.500"}
-                _hover={{ background: "light.error.300" }}
-                onClick={handleCancel}
-                color={"white"}
-              >
-                Cancel
-              </Button>
-            </Flex>
-          </>
-        ) : (
+  return (<>
+
+    {showPreferences ? (
+      <>
+        <NutrientPreferences handleCancel={handleCancel} />
+      </>
+    ) : (
+      <Container width={["100vw", "550px"]} borderColor={borderColor}>
+        <Box mt={"1rem"} bg={cardBg} borderRadius="25px" boxShadow="base" px="10" py="8">
           <Box>
             <Box mb="4">
               <span style={{ fontWeight: "bold" }}>Name:</span>{" "}
@@ -63,9 +53,10 @@ const ProfilePage = () => {
               Change Preferences
             </Button>
           </Box>
-        )}
-      </Box>
-    </Container>
+        </Box>
+      </Container>
+    )}
+  </>
   );
 };
 

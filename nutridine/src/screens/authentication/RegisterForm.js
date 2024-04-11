@@ -11,6 +11,7 @@ import {
   useToast,
   FormHelperText,
   useColorModeValue,
+  Text
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
@@ -54,19 +55,22 @@ const RegisterForm = () => {
 
   return (
     <Container maxW="lg" py="12" px="4">
-      <Heading
+      {/* <Heading
         as="h1"
         size={{ base: "sm", md: "md" }}
         textAlign="center"
         mb="6"
       >
         Complete Your Profile
-      </Heading>
-      <Box bg={cardBg} p="8" borderRadius="lg" boxShadow="base">
+      </Heading> */}
+      <Box bg={cardBg} px="10" py="8" borderRadius="25px" boxShadow="base">
         <form onSubmit={handleSubmit}>
+          <Heading size="md" fontFamily="navbar" fontWeight="500" mb={5}>
+            Complete Your Profile
+          </Heading>
           <Stack spacing="4">
             <FormControl id="displayName" isRequired>
-              <FormLabel>Name</FormLabel>
+              <FormLabel fontWeight="normal">Name</FormLabel>
               <Input
                 type="text"
                 value={displayName}
