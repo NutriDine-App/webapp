@@ -110,9 +110,9 @@ const Signup = () => {
           >
             <Stack spacing="6">
               <Stack spacing={{ base: "2", md: "3" }} textAlign="center" mb="5">
-                <Text fontSize={{ base: "1.25rem", md: "1.5rem" }}>
-                  Create your account
-                </Text>
+                <Heading size="lg" fontFamily="navbar" fontWeight="500" mb={5}>
+                  Create an account
+                </Heading>
               </Stack>
             </Stack>
             <Stack spacing="6">
