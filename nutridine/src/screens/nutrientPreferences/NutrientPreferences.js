@@ -433,7 +433,7 @@ export default function NutrientPreferences({ handleCancel }) {
             </Center>
           )
         }
-        <HStack width="100%" justify="space-between">
+        <HStack width="100%" justify={handleCancel ? "space-between" : "center"}>
           {handleCancel &&
             <Button
               bg={"light.error.500"}
@@ -450,11 +450,12 @@ export default function NutrientPreferences({ handleCancel }) {
             _hover={{ background: buttonBgHover }}
             onClick={handleSubmit}
             fontWeight="normal"
+            width={!handleCancel ? "100%" : ""}
           >
             Update Preferences
           </Button>
         </HStack>
       </VStack >
-    </Box>
+    </Box >
   );
 }

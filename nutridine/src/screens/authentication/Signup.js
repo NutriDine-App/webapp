@@ -97,7 +97,7 @@ const Signup = () => {
       // py={{ base: "12", md: "24" }}
       // px={{ base: "4", sm: "8" }}
 
-      w="550px"
+      width={["100vw", "550px"]}
       px="0"
     >
       <FormControl onSubmit={onSubmit}>
@@ -118,7 +118,7 @@ const Signup = () => {
             <Stack spacing="6">
               <Stack spacing="5">
                 <FormControl isRequired isInvalid={isInvalid[0]}>
-                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <FormLabel htmlFor="email" fontWeight="normal">Email</FormLabel>
                   <Input
                     id="email"
                     type="email"

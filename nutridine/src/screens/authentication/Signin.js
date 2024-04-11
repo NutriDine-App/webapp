@@ -74,7 +74,7 @@ const Signin = () => {
   return (
     <Container
       // maxW={{ base: "90%", sm: "lg" }}
-      w="550px"
+      width={["100vw", "550px"]}
       px="0"
     >
       <FormControl onSubmit={onLogin}>

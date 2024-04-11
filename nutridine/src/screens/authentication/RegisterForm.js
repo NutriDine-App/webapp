@@ -54,7 +54,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <Container maxW="lg" py="12" px="4">
+    <Container width={["100vw", "550px"]} py="12" px="4">
       {/* <Heading
         as="h1"
         size={{ base: "sm", md: "md" }}
@@ -96,8 +96,8 @@ const RegisterForm = () => {
             <Button
               type="submit"
               bg={buttonBg}
-              color="white"
               _hover={{ bg: buttonHover }}
+              fontWeight="normal"
             >
               Update Profile
             </Button>
