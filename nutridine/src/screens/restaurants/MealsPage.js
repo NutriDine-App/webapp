@@ -39,6 +39,7 @@ function MealsPage() {
       pb={10}
     >
       <VStack spacing={5} p={0} width="100%" align="stretch" px={[8, 8, 0]}>
+        <FoodCardList meals={meals} />
         <Button
           bg={buttonBg}
           onClick={() => navigate("/restaurants")}
@@ -49,7 +50,6 @@ function MealsPage() {
         >
           Back to Restaurants
         </Button>
-        <FoodCardList meals={meals} />
       </VStack>
     </Box>
   );
