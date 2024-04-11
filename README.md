@@ -1,8 +1,15 @@
 # Welcome to NutriDine!
 
-NutriDine is a mobile-first progressive web app that centralizes nutritional information from hundreds of restaurants to your pocket, allowing you make informed dining decisions.
+NutriDine is mobile-first progressive web app that brings accurate, personalized meal information to a centalized location. By partnering with [NutritionIX](https://www.nutritionix.com/), our users have access to nutritional information on meals from 866 unique restuarants (and actively growing). Users can easily work towards their health goals by creating a profile with their dietary requirements, allowing people to make informed dining decisions with ease, at every step.
 
-Powered by NutritionIX, NutriDine pulls data from the largest verified nutritional database in North America. With over 1.14 million food items, 866 restaurants and actively growing, informed eating has never been easier.
+### Demo
+
+**Test Account Credentials:**
+
+- Email: @TODO
+- Password: @TODO
+
+**Deployed at:** https://nutridine.netlify.app/login
 
 ### License
 
