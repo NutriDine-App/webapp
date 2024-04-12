@@ -10,30 +10,45 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { debounce } from "lodash";
-
 import FilterGroup from "../components/FilterGroup";
 import FoodCardList from "../components/FoodDisplay/FoodCardList";
 import useMealsByQuery from "../hooks/Meals/useMealsByQuery";
 import LoadingSpinner from "../components/LoadingSpinner";
 
-function Homepage() {
-  const { colorMode } = useColorMode();
+import {
+  GiTacos,
+  GiPizzaSlice,
+  GiNoodles,
+  GiSandwich,
+  GiCookingPot,
+  GiHamburger,
+  GiSushis,
+  GiOlive,
+  GiFullPizza,
+} from "react-icons/gi";
+import { TbMilkshake, TbSoup, TbSalad } from "react-icons/tb";
 
-  const filters = ["High Protein", "Low Calorie", "Low Fat"];
+function Homepage() {
+  const filters = [
+    { name: "High Protein", icon: false },
+    { name: "Low Calorie", icon: false },
+    { name: "Low Fat", icon: false },
+  ];
+
   const foodTypes = [
-    "Salad",
-    "Soup",
-    "Smoothie",
-    "Sushi",
-    "Pasta",
-    "Hamburger",
-    "Pizza",
-    "Mexican",
-    "Indian",
-    "Vietnamese",
-    "Italian",
-    "Greek",
-    "Spanish",
+    { name: "Salad", icon: TbSalad },
+    { name: "Soup", icon: TbSoup },
+    { name: "Smoothie", icon: TbMilkshake },
+    { name: "Sushi", icon: GiSushis },
+    { name: "Pasta", icon: GiNoodles },
+    { name: "Hamburger", icon: GiHamburger },
+    { name: "Pizza", icon: GiPizzaSlice },
+    { name: "Mexican", icon: GiTacos },
+    { name: "Indian", icon: GiCookingPot },
+    { name: "Vietnamese", icon: GiSandwich },
+    { name: "Italian", icon: GiFullPizza },
+    { name: "Greek", icon: GiOlive },
+    { name: "Spanish", icon: GiCookingPot },
   ];
 
   const [selectedItems, setSelectedItems] = useState([]);
@@ -120,7 +135,7 @@ function Homepage() {
   const vStackStyles = {
     alignItems: isLargerScreen ? "end" : "left",
     position: isLargerScreen ? "absolute" : "relative",
-    left: isLargerScreen ? "-130px" : "0",
+    left: isLargerScreen ? "-155px" : "0",
     spacing: 3,
     mb: !isLargerScreen ? 5 : 0,
   };
