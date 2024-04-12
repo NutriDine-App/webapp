@@ -1,11 +1,13 @@
 import {
-  useBreakpointValue,
   Stack,
   Text,
   Button,
   useColorMode,
   VStack,
   useColorModeValue,
+  Flex,
+  Icon,
+  Box,
 } from "@chakra-ui/react";
 
 const FilterGroup = ({
@@ -23,15 +25,18 @@ const FilterGroup = ({
     "light.primary.200",
     "dark.primary.400"
   );
+  const paddingRight = isLargerScreen ? "20px" : "10px";
+
   return (
     <VStack
       bg={isLargerScreen && (colorMode === "dark" ? "gray.700" : "gray.50")}
-      p={isLargerScreen && 3}
-      borderWidth={isLargerScreen && 1}
-      borderRadius={isLargerScreen && 15}
-      marginLeft={isLargerScreen && -15}
+      p={isLargerScreen ? 3 : 1}
+      borderWidth={isLargerScreen ? 1 : 0}
+      borderRadius={isLargerScreen ? 15 : 0}
+      marginLeft={isLargerScreen ? -15 : 0}
+      marginRight={paddingRight}
       spacing={isLargerScreen ? 3 : 1}
-      alignItems={!isLargerScreen && "start"}
+      alignItems={!isLargerScreen ? "start" : "stretch"}
     >
       <Text
         fontSize="sm"
@@ -45,26 +50,31 @@ const FilterGroup = ({
         overflowX="auto"
         maxWidth="100%"
       >
-        {filters.map((item) => (
+        {filters.map((filter) => (
           <Button
-            key={item}
+            key={filter.name}
             onClick={() => {
-              onSelectItem(item);
+              onSelectItem(filter.name);
               action((prevItems) =>
-                prevItems.includes(item)
-                  ? prevItems.filter((prevItem) => prevItem !== item)
-                  : [...prevItems, item]
+                prevItems.includes(filter.name)
+                  ? prevItems.filter((prevItem) => prevItem !== filter.name)
+                  : [...prevItems, filter.name]
               );
             }}
-            bg={selectedItems.includes(item) ? activeBg : inactiveBg}
+            bg={selectedItems.includes(filter.name) ? activeBg : inactiveBg}
             size="sm"
             fontWeight="400"
             _hover={{
               bg: buttonBgHover,
             }}
-            minWidth="max-content"
+            minW="max-content"
           >
-            {item}
+            <Flex justifyContent="center" alignItems="center">
+              {filter.icon && <Icon as={filter.icon} mr={2} />}
+              <Box as="span" textAlign="left">
+                {filter.name}
+              </Box>
+            </Flex>
           </Button>
         ))}
       </Stack>
