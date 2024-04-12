@@ -29,63 +29,67 @@ const FilterGroup = ({
     const paddingRight = isLargerScreen ? "20px" : "10px";
 
     return (
-        <VStack
-            bg={isLargerScreen && (colorMode === "dark" ? "gray.700" : "gray.50")}
-            p={isLargerScreen ? 3 : 1}
-            borderWidth={isLargerScreen ? 1 : 0}
-            borderRadius={isLargerScreen ? 15 : 0}
-            marginLeft={isLargerScreen ? -15 : 0}
-            marginRight={paddingRight}
-            spacing={isLargerScreen ? 3 : 1}
-            alignItems={!isLargerScreen ? "start" : "stretch"}
-            width="100%"
+      <VStack
+        bg={isLargerScreen && (colorMode === "dark" ? "gray.700" : "gray.50")}
+        p={isLargerScreen ? 3 : 1}
+        borderWidth={isLargerScreen ? 1 : 0}
+        borderRadius={isLargerScreen ? 15 : 0}
+        marginLeft={isLargerScreen ? -15 : 0}
+        marginRight={paddingRight}
+        spacing={isLargerScreen ? 3 : 1}
+        alignItems={!isLargerScreen ? "start" : "stretch"}
+        width="100%"
+      >
+        <Text
+          fontSize="sm"
+          color={colorMode === "dark" ? "gray.300" : "gray.500"}
         >
-            <Text
-                fontSize="sm"
-                color={colorMode === "dark" ? "gray.300" : "gray.500"}
+          {title}
+        </Text>
+        <Stack
+          direction={isLargerScreen ? "column" : "row"}
+          spacing="3"
+          overflowX="auto"
+          maxWidth="100%"
+        >
+          {filters.map((filter) => (
+            <Button
+              key={filter.name}
+              onClick={() => {
+                onSelectItem(filter.name);
+                action((prevItems) =>
+                  prevItems.includes(filter.name)
+                    ? prevItems.filter((prevItem) => prevItem !== filter.name)
+                    : [...prevItems, filter.name]
+                );
+              }}
+              bg={selectedItems.includes(filter.name) ? activeBg : inactiveBg}
+              size="sm"
+              fontWeight="400"
+              _hover={{
+                bg: buttonBgHover,
+              }}
+              minW="max-content"
             >
-                {title}
-            </Text>
-            <Stack
-                direction={isLargerScreen ? "column" : "row"}
-                spacing="3"
-                overflowX="auto"
-                maxWidth="100%"
-            >
-                {filters.map((filter) => (
-                    <Button
-                        key={filter.name}
-                        onClick={() => {
-                            onSelectItem(filter.name);
-                            action((prevItems) =>
-                                prevItems.includes(filter.name)
-                                    ? prevItems.filter((prevItem) => prevItem !== filter.name)
-                                    : [...prevItems, filter.name]
-                            );
-                        }}
-                        bg={selectedItems.includes(filter.name) ? activeBg : inactiveBg}
-                        size="sm"
-                        fontWeight="400"
-                        _hover={{
-                            bg: buttonBgHover,
-                        }}
-                        minW="max-content"
-                    >
-                        {filter.icon ?
-                            <HStack justifyContent="space-between" alignItems="center" width="100%" spacing={0}>
-                                {filter.icon && <Icon as={filter.icon} mr={2} />}
-                                <Box as="span" textAlign="left">
-                                    {filter.name}
-                                </Box>
-                            </HStack>
-                            :
-                            filter.name
-                        }
-
-                    </Button>
-                ))}
-            </Stack>
-        </VStack>
+              {filter.icon ? (
+                <HStack
+                  justifyContent="start"
+                  alignItems="center"
+                  width="100%"
+                  spacing={0}
+                >
+                  {filter.icon && <Icon as={filter.icon} mr={2} />}
+                  <Box as="span" textAlign="left">
+                    {filter.name}
+                  </Box>
+                </HStack>
+              ) : (
+                filter.name
+              )}
+            </Button>
+          ))}
+        </Stack>
+      </VStack>
     );
 };
 
