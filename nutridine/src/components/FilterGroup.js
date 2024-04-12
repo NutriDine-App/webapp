@@ -72,7 +72,7 @@ const FilterGroup = ({
                         minW="max-content"
                     >
                         {filter.icon ?
-                            <HStack justifyContent="space-between" alignItems="center" width="100%">
+                            <HStack justifyContent="space-between" alignItems="center" width="100%" spacing={0}>
                                 {filter.icon && <Icon as={filter.icon} mr={2} />}
                                 <Box as="span" textAlign="left">
                                     {filter.name}
