@@ -8,8 +8,8 @@ NutriDine is mobile-first progressive web app that brings accurate, personalized
 
 **Test Account Credentials:**
 
-- Email: @TODO
-- Password: @TODO
+- Email: demo123@gmail.com
+- Password: Demo123!
 
 **Deployed at:** https://nutridine.netlify.app/login
 
