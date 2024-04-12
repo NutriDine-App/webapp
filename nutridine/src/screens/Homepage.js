@@ -135,7 +135,7 @@ function Homepage() {
   const vStackStyles = {
     alignItems: isLargerScreen ? "end" : "left",
     position: isLargerScreen ? "absolute" : "relative",
-    left: isLargerScreen ? "-130px" : "0",
+    left: isLargerScreen ? "-155px" : "0",
     spacing: 3,
     mb: !isLargerScreen ? 5 : 0,
   };
