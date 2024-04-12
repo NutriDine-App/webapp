@@ -73,7 +73,7 @@ const FilterGroup = ({
             >
               {filter.icon ? (
                 <HStack
-                  justifyContent="start"
+                  justifyContent="space-between"
                   alignItems="center"
                   width="100%"
                   spacing={0}
