@@ -43,6 +43,7 @@ export const OAuthButtonGroup = ({ isSignUp }) => {
         tabIndex={-1}
         leftIcon={<FaGoogle />}
         flexGrow={1}
+        fontWeight="normal"
       >
         Google
       </Button>
@@ -51,6 +52,7 @@ export const OAuthButtonGroup = ({ isSignUp }) => {
         tabIndex={-1}
         leftIcon={<FaTwitter />}
         flexGrow={1}
+        fontWeight="normal"
       >
         Twitter
       </Button>
@@ -59,6 +61,7 @@ export const OAuthButtonGroup = ({ isSignUp }) => {
         tabIndex={-1}
         leftIcon={<FaGithub />}
         flexGrow={1}
+        fontWeight="normal"
       >
         GitHub
       </Button>

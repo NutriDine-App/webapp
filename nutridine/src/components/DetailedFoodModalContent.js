@@ -7,6 +7,8 @@ import {
   Image,
   Box,
   useColorModeValue,
+  useColorMode,
+  Heading
 } from "@chakra-ui/react";
 import useMealById from "../hooks/Meals/useMealById";
 import LoadingSpinner from "./LoadingSpinner";
@@ -16,6 +18,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { getCurrentUser } from "../hooks/AuthService/authService";
 
 export default function DetailedFoodModalContent({ meal, onClose }) {
+  const { colorMode } = useColorMode();
   const { nix_item_id } = meal;
   const currentUser = getCurrentUser();
   const {
@@ -35,21 +38,29 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
   return (
     <Box
       fontFamily={"navbar"}
-      overflowY={"scroll"}
+      overflowY="auto"
       css={{
         "&::-webkit-scrollbar": {
           display: "none",
         },
       }}
     >
-      <ModalHeader>
+      <ModalHeader
+        sx={{
+          pb: 0,
+        }}
+      >
         <VStack alignItems={"flex-start"}>
-          <Text fontSize={"2xl"} mr="2rem">
-            <b>{detailedMeal ? detailedMeal.food_name : ""}</b>
-          </Text>
-          <Text fontSize={"xl"}>
+          <Text
+            fontSize="sm"
+            color={colorMode === "dark" ? "gray.300" : "gray.500"}
+            fontWeight="normal"
+          >
             {detailedMeal ? detailedMeal.brand_name : ""}
           </Text>
+          <Heading size="md" noOfLines={2} fontFamily="navbar" fontWeight="500">
+            {detailedMeal ? detailedMeal.food_name : ""}
+          </Heading>
         </VStack>
       </ModalHeader>
       <ModalCloseButton
@@ -63,7 +74,10 @@ export default function DetailedFoodModalContent({ meal, onClose }) {
         boxShadow={"0px 4px 6px rgba(0, 0, 0, 0.1)"}
       />
 
-      <ModalBody mb="1.5rem">
+      <ModalBody mb="1.5rem"
+        sx={{
+          pt: 0,
+        }}>
         {detailedMealIsLoading || nutrientPreferencesIsLoading ? (
           <Box
             w="100%"

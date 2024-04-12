@@ -34,7 +34,7 @@ const Signup = () => {
     "light.primary.400",
     "dark.primary.400"
   );
-  
+
 
   const navigate = useNavigate();
   const toast = useToast();
@@ -93,19 +93,15 @@ const Signup = () => {
 
   return (
     <Container
-      maxW={{ base: "90%", sm: "lg" }}
-      py={{ base: "12", md: "24" }}
-      px={{ base: "4", sm: "8" }}
+      // maxW={{ base: "90%", sm: "lg" }}
+      // py={{ base: "12", md: "24" }}
+      // px={{ base: "4", sm: "8" }}
+
+      width={["100vw", "550px"]}
+      px="0"
     >
       <FormControl onSubmit={onSubmit}>
         <Stack spacing="8">
-          <Stack spacing="6">
-            <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
-              <Heading size={{ base: "sm", md: "md" }}>
-                Create an Account
-              </Heading>
-            </Stack>
-          </Stack>
           <Box
             p={{ base: "4", sm: "8" }}
             bg={cardBg}
@@ -113,9 +109,16 @@ const Signup = () => {
             borderRadius={{ base: 15, sm: 20 }}
           >
             <Stack spacing="6">
+              <Stack spacing={{ base: "2", md: "3" }} textAlign="center" mb="5">
+                <Text fontSize={{ base: "1.25rem", md: "1.5rem" }}>
+                  Create an account
+                </Text>
+              </Stack>
+            </Stack>
+            <Stack spacing="6">
               <Stack spacing="5">
                 <FormControl isRequired isInvalid={isInvalid[0]}>
-                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <FormLabel htmlFor="email" fontWeight="normal">Email</FormLabel>
                   <Input
                     id="email"
                     type="email"
@@ -148,6 +151,7 @@ const Signup = () => {
                   type="submit"
                   bg={buttonBg}
                   _hover={{ bg: buttonHover }}
+                  fontWeight="normal"
                 >
                   Sign up
                 </Button>
