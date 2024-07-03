@@ -9,13 +9,15 @@ import {
 } from "@chakra-ui/react";
 import NavBar from "./components/navbar/Navbar";
 import nutritionIx_credit from "./assets/images/nutritionIx_credit.png";
+import { useAuth } from "../src/contexts/AuthContext"
 
 const Layout = ({ children }) => {
   const creditBg = useColorModeValue("white", "#1e7166");
+  const { currentUser } = useAuth();
 
   return (
     <>
-      <NavBar />
+      {currentUser && <NavBar />}
       <VStack
         justifyContent="space-between"
         minH="100vh"
