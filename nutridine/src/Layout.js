@@ -30,7 +30,7 @@ const Layout = ({ children }) => {
       >
         <Flex
           as="main"
-          pt={["4rem", "4rem", "8rem", "8rem"]}
+          pt={["2rem", "2rem", "6rem", "6rem"]}
           flexDirection="column"
           justifyContent={"center"}
           alignItems={"center"}

@@ -57,7 +57,6 @@ export const MenuLinks = ({ isOpen, onItemSelect, activeItem }) => {
           duration: 5000,
           isClosable: true,
         });
-        navigate("/login");
       })
       .catch((error) => {
         toast({
