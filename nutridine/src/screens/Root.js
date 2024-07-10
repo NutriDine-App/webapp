@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AuthForm } from '../components/AuthForm';
-import { useToast } from "@chakra-ui/react";
+import { useToast, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { signIn, register } from '../hooks/AuthService/authService';
 import { useAuth } from '../contexts/AuthContext';
@@ -107,7 +107,11 @@ export const Root = () => {
     }
 
     return (
-        <div>
+        <Flex
+            minHeight="70vh"
+            alignItems="center"
+            justifyContent="center"
+        >
             {isLogin
                 ?
                 // Render login form
@@ -126,6 +130,6 @@ export const Root = () => {
                     isInvalid={isInvalid}
                 />
             }
-        </div>
+        </Flex>
     );
 }
