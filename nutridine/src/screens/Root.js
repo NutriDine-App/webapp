@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { AuthForm } from '../components/AuthForm';
+import { UserInfoCollectionForm } from './authentication/UserInfoCollectionForm';
 import { useToast, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { signIn, register } from '../hooks/AuthService/authService';
+import { validatePassword, signIn, register } from '../hooks/AuthService/authService';
 import { useAuth } from '../contexts/AuthContext';
 
 export const Root = () => {
     const { currentUser } = useAuth();
 
+    const [regEmail, setRegEmail] = useState("");
+    const [regPassword, setRegPassword] = useState("");
+
     const [isLogin, setIsLogin] = useState(true);
     const [isInvalid, setIsInvalid] = useState([false, false]);
+    const [displayUserInfoCollectionForm, setDisplayUserInfoCollectionForm] = useState(false);
 
     const toast = useToast();
     const navigate = useNavigate();
@@ -90,10 +95,29 @@ export const Root = () => {
             return;
         }
 
+        const validationStatus = validatePassword(password);
+
+        if (!validationStatus.isValid)
+            toast({
+                title: "Sign up Failed",
+                description: `Failed to create account: ${validationStatus.message}`,
+                status: "error",
+                duration: 8000,
+                isClosable: true,
+            });
+        else {
+            await setRegEmail(email);
+            await setRegPassword(password);
+            setDisplayUserInfoCollectionForm(true);
+        }
+    }
+
+    const handleUserInfoCollectionFormSubmit = async () => {
+
         try {
-            const userCredential = await register(email, password);
-            navigate("/register-form");
+            const userCredential = await register(regEmail, regPassword);
             console.log(userCredential.user);
+
         } catch (error) {
             console.log(error.code, error.message);
             toast({
@@ -122,13 +146,19 @@ export const Root = () => {
                     isInvalid={isInvalid}
                 />
                 :
-                // Render register form
-                <AuthForm
-                    isLogin={false}
-                    onSwitchForm={handleLoginClick}
-                    onSubmit={handleRegisterFormSubmit}
-                    isInvalid={isInvalid}
-                />
+                // Render appropriate register form
+                displayUserInfoCollectionForm
+                    ?
+                    // User collection form (for collecting name and location)
+                    <UserInfoCollectionForm onSubmit={handleUserInfoCollectionFormSubmit} />
+                    :
+                    // Initial register form
+                    <AuthForm
+                        isLogin={false}
+                        onSwitchForm={handleLoginClick}
+                        onSubmit={handleRegisterFormSubmit}
+                        isInvalid={isInvalid}
+                    />
             }
         </Flex>
     );

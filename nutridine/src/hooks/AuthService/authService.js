@@ -19,7 +19,7 @@ const passwordPolicy = {
   meetsMaxPasswordLength: 20,
 };
 
-function validatePassword(password) {
+export function validatePassword(password) {
   let errorMessage = "Password does not meet the policy requirements: ";
   const requirements = [];
 
