@@ -6,11 +6,10 @@ const ProtectedRoute = ({ children }) => {
     const { currentUser } = useAuth();
     const location = useLocation();
 
-    // Temporarily disable
-    // if (!currentUser) {
-    //     // Redirect to the login page, but save the current location they were trying to go to
-    //     return <Navigate to="/" state={{ from: location }} replace />;
-    // }
+    if (!currentUser) {
+        // Redirect to the login page, but save the current location they were trying to go to
+        return <Navigate to="/" state={{ from: location }} replace />;
+    }
 
     return children;
 };
