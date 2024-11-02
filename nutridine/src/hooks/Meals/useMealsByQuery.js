@@ -43,6 +43,7 @@ export const useMealsByQuery = (query) => {
           );
 
           setMeals(response.data.branded);
+          console.log(response)
           setError(null);
         } catch (error) {
           console.error("Caught an error during fetch:", error);

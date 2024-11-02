@@ -14,6 +14,7 @@ import FilterGroup from "../components/FilterGroup";
 import FoodCardList from "../components/FoodDisplay/FoodCardList";
 import useMealsByQuery from "../hooks/Meals/useMealsByQuery";
 import LoadingSpinner from "../components/LoadingSpinner";
+import useRestaurants from "../hooks/Restaurants/useRestaurants";
 
 import {
   GiTacos,
@@ -27,6 +28,7 @@ import {
   GiFullPizza,
 } from "react-icons/gi";
 import { TbMilkshake, TbSoup, TbSalad } from "react-icons/tb";
+import { Button } from "react-scroll";
 
 function Homepage() {
   const filters = [
@@ -60,6 +62,12 @@ function Homepage() {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
   const [filteredMeals, setFilteredMeals] = useState([]);
+
+  
+  const { restaurants, loading: restaurantsLoading, error: restaurantsError } = useRestaurants(48.42509945, -123.37124810351565, 5000);
+
+    
+  
 
   const handleSelectItem = (item) => {
     setSelectedItems((prevItems) =>
@@ -175,6 +183,7 @@ function Homepage() {
           selectedItems={selectedItems}
           isLargerScreen={isLargerScreen}
         />
+        <Button onClick={()=> {console.log(restaurants)}} style={{height:'40px', width:'40px', backgroundColor:'red'}}></Button>
       </VStack>
 
       {loading && (
